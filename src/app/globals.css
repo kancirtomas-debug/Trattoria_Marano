@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --header-height: 5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-primary-500 rounded;
+  }
+
+  ::selection {
+    @apply bg-primary-100 text-primary-900;
+  }
+}
+
+@layer components {
+  .container-narrow  { @apply max-w-3xl  mx-auto px-4 sm:px-6; }
+  .container-default { @apply max-w-5xl  mx-auto px-4 sm:px-6 lg:px-8; }
+  .container-wide    { @apply max-w-7xl  mx-auto px-4 sm:px-6 lg:px-8; }
+  .section-padding   { @apply py-16 sm:py-20 lg:py-28; }
+
+  .heading-display {
+    @apply font-heading font-bold tracking-tight text-neutral-900;
+  }
+
+  .card {
+    @apply bg-white rounded-2xl border border-neutral-200 shadow-soft p-6
+           transition-all duration-300 hover:shadow-soft-lg hover:-translate-y-0.5;
+  }
+
+  .product-card {
+    @apply bg-white rounded-2xl border border-neutral-200 shadow-soft overflow-hidden
+           transition-all duration-300 hover:shadow-soft-lg hover:-translate-y-1;
+  }
+}
