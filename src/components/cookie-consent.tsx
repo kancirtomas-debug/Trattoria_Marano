@@ -1,57 +1,31 @@
 "use client"
-
-import { useState, useEffect } from "react"
-import { X, Cookie } from "lucide-react"
+import { useEffect, useState } from "react"
+import { useLanguage } from "@/context/LanguageContext"
+import { t } from "@/lib/translations"
 
 export default function CookieConsent() {
+  const { lang } = useLanguage()
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookie-consent")
-    if (!consent) {
-      const t = setTimeout(() => setVisible(true), 1000)
-      return () => clearTimeout(t)
-    }
+    if (!localStorage.getItem("cookie-consent")) setVisible(true)
   }, [])
 
-  const save = (analytics: boolean) => {
-    localStorage.setItem("cookie-consent", JSON.stringify({ essential: true, analytics }))
-    setVisible(false)
-  }
+  const accept = () => { localStorage.setItem("cookie-consent", "accepted"); setVisible(false) }
+  const decline = () => { localStorage.setItem("cookie-consent", "declined"); setVisible(false) }
 
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-sm z-50 animate-fade-in-up">
-      <div className="bg-neutral-900 text-white rounded-2xl shadow-soft-xl border border-neutral-700 p-5">
-        <div className="flex items-start gap-3 mb-4">
-          <Cookie size={18} className="text-primary-400 shrink-0 mt-0.5" />
-          <div className="flex-1">
-            <p className="font-semibold text-sm mb-1">Používame cookies</p>
-            <p className="text-neutral-400 text-xs leading-relaxed">
-              Používame cookies na zlepšenie vášho zážitku a analýzu návštevnosti.
-            </p>
-          </div>
-          <button
-            onClick={() => save(false)}
-            className="text-neutral-500 hover:text-neutral-300 transition-colors shrink-0"
-            aria-label="Odmietnuť"
-          >
-            <X size={16} />
+    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6">
+      <div className="max-w-xl mx-auto bg-charcoal text-cream rounded-2xl shadow-soft-lg p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4">
+        <p className="text-sm text-warmgray-300 flex-1">{t.cookie.text[lang]}</p>
+        <div className="flex gap-2 shrink-0">
+          <button onClick={decline} className="px-3 py-1.5 text-sm text-warmgray-400 hover:text-cream transition-colors">
+            {t.cookie.decline[lang]}
           </button>
-        </div>
-        <div className="flex gap-2">
-          <button
-            onClick={() => save(false)}
-            className="flex-1 px-3 py-2 text-xs font-medium text-neutral-300 hover:text-white border border-neutral-700 hover:border-neutral-500 rounded-lg transition-all"
-          >
-            Odmietnuť
-          </button>
-          <button
-            onClick={() => save(true)}
-            className="flex-1 px-3 py-2 text-xs font-semibold bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all"
-          >
-            Prijať všetky
+          <button onClick={accept} className="px-4 py-1.5 text-sm bg-terracotta text-white rounded-pill hover:bg-terracotta-dark transition-colors">
+            {t.cookie.accept[lang]}
           </button>
         </div>
       </div>
