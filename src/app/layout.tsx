@@ -1,51 +1,51 @@
 import type { Metadata } from "next"
-import { Nunito, Playfair_Display } from "next/font/google"
+import { Playfair_Display, Lato } from "next/font/google"
+import { LanguageProvider } from "@/context/LanguageContext"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import CookieConsent from "@/components/cookie-consent"
 import "./globals.css"
 
-const sans = Nunito({
+const lato = Lato({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["300", "400", "700"],
   display: "swap",
 })
 
-const heading = Playfair_Display({
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
 })
 
 export const metadata: Metadata = {
   title: {
-    default: "Olinka Kancirova – Ľúbiť ma je ľahké",
-    template: "%s | Olinka Kancirova",
+    default: "Trattoria Marano — Ohlmüllerstr. 22, München",
+    template: "%s | Trattoria Marano München",
   },
-  description: "Homeopatia, psychosomatika a komunikácia. Sprevádzam ľudí ich liečivým procesom s láskou a pokorou. Viac ako 4000 spokojných klientov.",
+  description: "Authentische italienische Küche im Herzen von München. Pizza, Pasta, Antipasti. Dienstag–Sonntag geöffnet.",
   openGraph: {
     type: "website",
-    locale: "sk_SK",
-    siteName: "Olinka Kancirova",
-    images: ["https://www.olinkakancirova.sk/wp-content/uploads/2024/04/Doma-82-scaled.webp"],
+    locale: "de_DE",
+    siteName: "Trattoria Marano",
   },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="sk" className={`${sans.variable} ${heading.variable}`}>
-      <body className="font-sans bg-white text-neutral-900 antialiased">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-primary-600 text-white rounded-lg font-medium text-sm"
-        >
-          Preskočiť na obsah
+    <html lang="de" className={`${lato.variable} ${playfair.variable}`}>
+      <body className="font-sans bg-cream text-ink antialiased">
+        <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-terracotta text-white rounded-lg font-medium text-sm">
+          Zum Inhalt springen
         </a>
-        <Header />
-        <main id="main-content">{children}</main>
-        <Footer />
-        <CookieConsent />
+        <LanguageProvider>
+          <Header />
+          <main id="main-content">{children}</main>
+          <Footer />
+          <CookieConsent />
+        </LanguageProvider>
       </body>
     </html>
   )
