@@ -1,0 +1,79 @@
+<h2>How should the dish cards look?</h2>
+<p class="subtitle">Pick the layout that feels right for the Trattoria Marano menu</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#c5b9a8;height:160px;display:flex;align-items:center;justify-content:center;border-radius:8px 8px 0 0;overflow:hidden;">
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);display:flex;align-items:center;justify-content:center;">
+          <span style="font-size:48px;">🍕</span>
+        </div>
+      </div>
+      <div style="padding:14px 16px 16px;">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+          <strong style="font-size:15px;color:#201515;">Pizza Margherita</strong>
+          <strong style="color:#6b1535;font-size:16px;white-space:nowrap;margin-left:12px;">10.90 €</strong>
+        </div>
+        <p style="font-size:13px;color:#666;line-height:1.5;margin:0;">Tomato sauce, mozzarella and fresh basil — the classic.</p>
+        <p style="font-size:11px;color:#aaa;margin-top:8px;">1a,7 / A,D,I · Click for more details →</p>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Image on top</h3>
+      <p>Big photo above, text below. Most visual impact. Works great in a 2-column grid.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="display:flex;gap:0;border-radius:8px 8px 0 0;overflow:hidden;min-height:140px;">
+        <div style="width:38%;min-height:140px;background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:40px;">🍝</span>
+        </div>
+        <div style="flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <strong style="font-size:14px;color:#201515;">Spaghetti Carbonara</strong>
+            <strong style="color:#6b1535;font-size:15px;white-space:nowrap;margin-left:8px;">14.90 €</strong>
+          </div>
+          <p style="font-size:12px;color:#666;line-height:1.5;margin:0;">Spaghetti with guanciale, egg-pecorino sauce and black pepper.</p>
+          <p style="font-size:11px;color:#aaa;margin-top:8px;">Click for more →</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Image on the left</h3>
+      <p>Photo left, text right. More compact. Shows more items per screen.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="padding:14px 16px;border-radius:8px 8px 0 0;background:#fffefb;border:1px solid #e5e0d5;">
+        <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start;">
+          <div style="flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <strong style="font-size:15px;color:#201515;">Insalata Nizza</strong>
+              <span style="font-size:12px;">🌿</span>
+            </div>
+            <p style="font-size:12px;color:#666;line-height:1.5;margin:0 0 4px;">Salad Niçoise with tuna, eggs, olives and anchovy dressing.</p>
+            <p style="font-size:11px;color:#aaa;">Click for full details, ingredients & photo →</p>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0;">
+            <strong style="color:#6b1535;font-size:16px;">16.50 €</strong>
+            <div style="width:80px;height:80px;background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+              <span style="font-size:28px;">🥗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Small thumbnail, full image in popup</h3>
+      <p>Keep current compact layout. Click card opens a big modal with full photo + detailed description.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:24px;">All 3 options open a modal when clicked — the difference is how much image shows in the card itself.</p>

@@ -6,79 +6,76 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50:  "#fdf3f0",
-          100: "#fae4de",
-          200: "#f5c9bc",
-          300: "#eda593",
-          400: "#e27a63",
-          500: "#c96b55",
-          600: "#b85a44",
-          700: "#994838",
-          800: "#7e3d31",
-          900: "#68352c",
-          950: "#3a1a15",
-        },
-        accent: {
-          50:  "#f4f1f9",
-          100: "#ebe5f5",
-          200: "#d8ceec",
-          300: "#baaede",
-          400: "#9785cb",
-          500: "#7b65b8",
-          600: "#6a52a3",
-          700: "#5a4389",
-          800: "#4c3972",
-          900: "#40325e",
-          950: "#281e3e",
-        },
-        neutral: {
-          50:  "#fafafa",
-          100: "#f5f5f5",
-          200: "#e5e5e5",
-          300: "#d4d4d4",
-          400: "#a3a3a3",
-          500: "#737373",
-          600: "#525252",
-          700: "#404040",
-          800: "#262626",
-          900: "#171717",
-          950: "#0a0a0a",
-        },
-        cream: {
-          50:  "#fdfaf6",
-          100: "#faf4ec",
-          200: "#f4e6d3",
+        // Zapier design system
+        cream:             "#fffefb",   // Canvas White — page background
+        "cream-light":     "#fffdf9",   // Off-White — secondary surface
+        ink:               "#201515",   // Zapier Black — primary text
+        "ink-light":       "#36342e",   // Dark Charcoal — secondary text
+        "ink-muted":       "#939084",   // Warm Gray — muted labels
+        terracotta:        "#6b1535",   // Zapier Orange — primary CTA accent
+        "terracotta-light":"#ff7a40",   // Lighter orange
+        "terracotta-dark": "#cc3e00",   // Darker orange
+        sand:              "#c5c0b1",   // Sand — border & structural color
+        "sand-light":      "#eceae3",   // Light Sand — ghost buttons, surfaces
+        charcoal:          "#201515",   // Dark footer/sections (same as ink)
+        "charcoal-light":  "#2d2d2e",   // Slightly lifted dark
+        warmgray: {
+          100: "#f5f4f1",
+          200: "#eceae3",   // Light Sand
+          300: "#dbd9d1",
+          400: "#c5c0b1",   // Sand
+          500: "#939084",   // Warm Gray
+          600: "#6b6660",
+          700: "#4d4843",
+          800: "#36342e",   // Dark Charcoal
+          900: "#201515",   // Ink / Zapier Black
         },
       },
       fontFamily: {
         sans:    ["var(--font-sans)", "system-ui", "sans-serif"],
-        heading: ["var(--font-heading)", "Georgia", "serif"],
+        heading: ["'PointPanther'", "var(--font-heading)", "system-ui", "sans-serif"],
+        display: ["'PointPanther'", "var(--font-heading)", "system-ui", "sans-serif"],
+        mono:    ["'JetBrains Mono'", "ui-monospace", "monospace"],
+      },
+      fontSize: {
+        "display-xl": ["clamp(3.5rem, 8vw, 7rem)", { lineHeight: "0.95", letterSpacing: "-0.03em" }],
+        "display-lg": ["clamp(2.5rem, 5.5vw, 4.5rem)", { lineHeight: "1.0", letterSpacing: "-0.02em" }],
+        "display-md": ["clamp(1.75rem, 3.5vw, 2.75rem)", { lineHeight: "1.1", letterSpacing: "-0.01em" }],
+        "label":      ["0.75rem", { lineHeight: "1.5", letterSpacing: "0.2em" }],
       },
       boxShadow: {
-        "soft":    "0 10px 15px -3px rgba(0,0,0,0.06), 0 4px 6px -4px rgba(0,0,0,0.06)",
-        "soft-lg": "0 20px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.06)",
-        "soft-xl": "0 25px 50px -12px rgba(0,0,0,0.14)",
-        "warm":    "0 10px 40px rgba(201,107,85,0.2)",
+        "soft":    "0 10px 15px -3px rgba(0,0,0,0.04), 0 4px 6px -4px rgba(0,0,0,0.03)",
+        "soft-lg": "0 20px 25px -5px rgba(0,0,0,0.06), 0 8px 10px -6px rgba(0,0,0,0.04)",
+        "warm":    "0 10px 40px rgba(201,107,85,0.15)",
+        "inner-warm": "inset 0 2px 20px rgba(201,107,85,0.08)",
+      },
+      borderRadius: {
+        "oval": "50%",
+        "pill": "9999px",
       },
       keyframes: {
-        "fade-in-up": {
-          "0%":   { opacity: "0", transform: "translateY(24px)" },
+        "reveal-up": {
+          "0%":   { opacity: "0", transform: "translateY(32px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
-        "scale-in": {
-          "0%":   { opacity: "0", transform: "scale(0.95)" },
-          "100%": { opacity: "1", transform: "scale(1)" },
+        "reveal-left": {
+          "0%":   { opacity: "0", transform: "translateX(32px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
         },
-        "shimmer": {
-          "0%":   { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
+        "grow-line": {
+          "0%":   { transform: "scaleX(0)" },
+          "100%": { transform: "scaleX(1)" },
+        },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "0.4" },
+          "50%":      { opacity: "0.8" },
         },
       },
       animation: {
-        "fade-in-up": "fade-in-up 0.6s ease-out",
-        "scale-in":   "scale-in 0.3s ease-out",
-        "shimmer":    "shimmer 2s linear infinite",
+        "reveal-up":   "reveal-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "reveal-left": "reveal-left 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "grow-line":   "grow-line 1s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "pulse-soft":  "pulse-soft 3s ease-in-out infinite",
       },
     },
   },

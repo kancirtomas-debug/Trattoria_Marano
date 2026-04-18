@@ -1,19 +1,16 @@
 import type { Metadata } from "next"
-import { Playfair_Display, Lato } from "next/font/google"
+import { Inter, Outfit } from "next/font/google"
 import { LanguageProvider } from "@/context/LanguageContext"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
-import CookieConsent from "@/components/cookie-consent"
+import ConditionalLayout from "@/components/ConditionalLayout"
 import "./globals.css"
 
-const lato = Lato({
+const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["300", "400", "700"],
   display: "swap",
 })
 
-const playfair = Playfair_Display({
+const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-heading",
   display: "swap",
@@ -35,16 +32,13 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={`${lato.variable} ${playfair.variable}`}>
+    <html lang="de" className={`${inter.variable} ${outfit.variable}`}>
       <body className="font-sans bg-cream text-ink antialiased">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-terracotta text-white rounded-lg font-medium text-sm">
           Zum Inhalt springen
         </a>
         <LanguageProvider>
-          <Header />
-          <main id="main-content">{children}</main>
-          <Footer />
-          <CookieConsent />
+          <ConditionalLayout>{children}</ConditionalLayout>
         </LanguageProvider>
       </body>
     </html>

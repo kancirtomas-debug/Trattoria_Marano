@@ -1,0 +1,111 @@
+<h2>B revised — photo on the right</h2>
+<p class="subtitle">Here's how it looks with the image on the right side. Click to select if this feels right.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="b-right" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="display:flex;gap:0;border-radius:8px 8px 0 0;overflow:hidden;min-height:130px;">
+        <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:center;background:#fffefb;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <strong style="font-size:15px;color:#201515;">Spaghetti Carbonara</strong>
+            <strong style="color:#6b1535;font-size:16px;white-space:nowrap;margin-left:12px;">14.90 €</strong>
+          </div>
+          <p style="font-size:13px;color:#666;line-height:1.5;margin:0 0 8px;">Spaghetti with guanciale, egg-pecorino sauce and black pepper.</p>
+          <p style="font-size:11px;color:#aaa;margin:0;">1a,3,7 / A,B · Click for full details →</p>
+        </div>
+        <div style="width:38%;min-height:130px;background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:48px;">🍝</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>✓ B right — text left, photo right</h3>
+      <p>Name and description on the left, photo on the right. Feels natural — you read left to right and land on the image.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="b-left" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="display:flex;gap:0;border-radius:8px 8px 0 0;overflow:hidden;min-height:130px;">
+        <div style="width:38%;min-height:130px;background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:48px;">🍕</span>
+        </div>
+        <div style="flex:1;padding:16px 18px;display:flex;flex-direction:column;justify-content:center;background:#fffefb;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px;">
+            <strong style="font-size:15px;color:#201515;">Pizza Margherita</strong>
+            <strong style="color:#6b1535;font-size:16px;white-space:nowrap;margin-left:12px;">10.90 €</strong>
+          </div>
+          <p style="font-size:13px;color:#666;line-height:1.5;margin:0 0 8px;">Tomato sauce, mozzarella and fresh basil — the classic.</p>
+          <p style="font-size:11px;color:#aaa;margin:0;">1a,7 / A,D · Click for full details →</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>Original B — photo left, text right</h3>
+      <p>The original version for comparison.</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="mockup" style="margin-top:32px;">
+  <div class="mockup-header">How the grid looks with 4 cards (B right)</div>
+  <div class="mockup-body" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:16px;background:#f5f2ec;">
+
+    <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);background:#fff;">
+      <div style="display:flex;min-height:110px;">
+        <div style="flex:1;padding:14px;display:flex;flex-direction:column;justify-content:center;">
+          <strong style="font-size:13px;color:#201515;display:block;margin-bottom:4px;">Pizza Margherita</strong>
+          <p style="font-size:11px;color:#777;margin:0 0 6px;line-height:1.4;">Tomato sauce, mozzarella, basil</p>
+          <strong style="color:#6b1535;font-size:13px;">10.90 €</strong>
+        </div>
+        <div style="width:36%;background:linear-gradient(135deg,#9b7b5b,#c5b9a8);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:28px;">🍕</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);background:#fff;">
+      <div style="display:flex;min-height:110px;">
+        <div style="flex:1;padding:14px;display:flex;flex-direction:column;justify-content:center;">
+          <strong style="font-size:13px;color:#201515;display:block;margin-bottom:4px;">Spaghetti Carbonara</strong>
+          <p style="font-size:11px;color:#777;margin:0 0 6px;line-height:1.4;">Guanciale, egg-pecorino sauce</p>
+          <strong style="color:#6b1535;font-size:13px;">14.90 €</strong>
+        </div>
+        <div style="width:36%;background:linear-gradient(135deg,#9b7b5b,#c5b9a8);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:28px;">🍝</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);background:#fff;">
+      <div style="display:flex;min-height:110px;">
+        <div style="flex:1;padding:14px;display:flex;flex-direction:column;justify-content:center;">
+          <strong style="font-size:13px;color:#201515;display:block;margin-bottom:4px;">Insalata Nizza</strong>
+          <p style="font-size:11px;color:#777;margin:0 0 6px;line-height:1.4;">Tuna, eggs, olives, capers</p>
+          <strong style="color:#6b1535;font-size:13px;">16.50 €</strong>
+        </div>
+        <div style="width:36%;background:linear-gradient(135deg,#9b7b5b,#c5b9a8);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:28px;">🥗</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.08);background:#fff;">
+      <div style="display:flex;min-height:110px;">
+        <div style="flex:1;padding:14px;display:flex;flex-direction:column;justify-content:center;">
+          <strong style="font-size:13px;color:#201515;display:block;margin-bottom:4px;">Pizza Tartufo</strong>
+          <p style="font-size:11px;color:#777;margin:0 0 6px;line-height:1.4;">Truffle cream, buffalo mozzarella</p>
+          <strong style="color:#6b1535;font-size:13px;">17.90 €</strong>
+        </div>
+        <div style="width:36%;background:linear-gradient(135deg,#9b7b5b,#c5b9a8);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:28px;">🍕</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<p class="subtitle" style="margin-top:20px;">Items without a Wolt photo will show text only (no image column). Click an option above to confirm your choice.</p>

@@ -1,0 +1,80 @@
+<h2>Final modal design — does this look right?</h2>
+<p class="subtitle">Option B with all 3 action buttons. Click to confirm.</p>
+
+<div class="cards">
+  <div class="card" data-choice="approved" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#1a1a1a44;padding:16px;border-radius:8px 8px 0 0;">
+        <div style="background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,0.22);max-width:460px;margin:0 auto;">
+
+          <!-- Photo -->
+          <div style="background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);height:200px;display:flex;align-items:center;justify-content:center;position:relative;">
+            <span style="font-size:72px;">🍕</span>
+            <div style="position:absolute;top:12px;right:12px;background:rgba(255,255,255,0.9);border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;">✕</div>
+          </div>
+
+          <div style="padding:22px;">
+            <!-- Name + price -->
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+              <div>
+                <strong style="font-size:19px;color:#201515;display:block;">Pizza Margherita</strong>
+                <span style="font-size:12px;color:#888;">🌿 Vegetarisch</span>
+              </div>
+              <strong style="font-size:22px;color:#6b1535;">10.90 €</strong>
+            </div>
+
+            <!-- Description -->
+            <p style="font-size:13px;color:#555;line-height:1.75;margin:0 0 14px;">The classic: tomato sauce, mozzarella and fresh basil. Our dough rests 48 hours for the perfect crust. Simple, honest, unbeatable. Approx. Ø 33 cm.</p>
+
+            <!-- Ingredients -->
+            <div style="background:#faf8f4;border-radius:8px;padding:12px 14px;margin-bottom:14px;">
+              <p style="font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.06em;margin:0 0 5px;">Ingredients</p>
+              <p style="font-size:12px;color:#444;margin:0 0 8px;line-height:1.6;">Tomato sauce · Mozzarella · Fresh basil · Olive oil</p>
+              <p style="font-size:11px;color:#aaa;margin:0;">Allergens: 1a,7 / A,D,I</p>
+            </div>
+
+            <!-- 3 action buttons -->
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <a style="display:flex;align-items:center;justify-content:center;gap:8px;background:#009de0;color:#fff;padding:12px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;">
+                <span>🛵</span> Order on Wolt
+              </a>
+              <a style="display:flex;align-items:center;justify-content:center;gap:8px;background:#ff8000;color:#fff;padding:12px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;">
+                <span>🛵</span> Order on Lieferando
+              </a>
+              <a style="display:flex;align-items:center;justify-content:center;gap:8px;background:#201515;color:#fff;padding:12px;border-radius:7px;font-size:13px;font-weight:600;text-decoration:none;">
+                <span>🍽️</span> Reserve a table
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>✓ Approve this design</h3>
+      <p>Big photo · rich description · ingredients · allergens · Order Wolt · Order Lieferando · Reserve table</p>
+    </div>
+  </div>
+</div>
+
+<div class="mockup" style="margin-top:28px;">
+  <div class="mockup-header">Card (what you see in the menu grid) → clicks to open the popup above</div>
+  <div class="mockup-body" style="padding:16px;background:#f5f2ec;">
+    <div style="border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.1);background:#fff;max-width:380px;cursor:pointer;transition:box-shadow .2s;">
+      <div style="display:flex;min-height:120px;">
+        <div style="width:38%;background:linear-gradient(135deg,#9b7b5b,#c5b9a8);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+          <span style="font-size:36px;">🍕</span>
+        </div>
+        <div style="flex:1;padding:14px 16px;display:flex;flex-direction:column;justify-content:center;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;">
+            <strong style="font-size:14px;color:#201515;">Pizza Margherita</strong>
+            <strong style="color:#6b1535;font-size:14px;white-space:nowrap;margin-left:10px;">10.90 €</strong>
+          </div>
+          <p style="font-size:12px;color:#666;line-height:1.5;margin:0 0 6px;">Tomato sauce, mozzarella and fresh basil.</p>
+          <p style="font-size:11px;color:#aaa;margin:0;">1a,7 / A,D,I · 🌿</p>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:12px;color:#888;margin-top:8px;text-align:center;">↑ Click any card to open the popup</p>
+  </div>
+</div>

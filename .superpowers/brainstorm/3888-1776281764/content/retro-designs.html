@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trattoria Marano — 10 Retro Design Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Serif+Display:ital@0;1&family=Bebas+Neue&family=Special+Elite&family=Righteous&family=Russo+One&family=Abril+Fatface&family=Lobster&family=Press+Start+2P&family=Oswald:wght@300;400;600;700&family=Montserrat:wght@300;400;700;900&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1a1209;
+    font-family: 'Montserrat', sans-serif;
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 48px 24px 36px;
+    background: linear-gradient(180deg, #0d0a05 0%, #1a1209 100%);
+    border-bottom: 1px solid rgba(255,200,50,0.15);
+  }
+
+  .page-header .era-badge {
+    display: inline-block;
+    background: #c8a040;
+    color: #1a1209;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+  }
+
+  .page-header h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    letter-spacing: 0.06em;
+    color: #f5e8c0;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .page-header p {
+    color: rgba(245,232,192,0.55);
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 0;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px 64px;
+    gap: 28px;
+  }
+
+  .design-card {
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .design-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  .design-card.selected {
+    outline: 3px solid #c8a040;
+    outline-offset: 3px;
+  }
+
+  .card-meta {
+    padding: 14px 18px;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-meta .num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: #c8a040;
+    line-height: 1;
+  }
+
+  .card-meta .name {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #f5e8c0;
+    flex: 1;
+    margin: 0 12px;
+  }
+
+  .card-meta .year {
+    font-size: 0.68rem;
+    color: rgba(245,232,192,0.4);
+    letter-spacing: 0.06em;
+  }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 1: MOD POP '65
+  ───────────────────────────────────────────── */
+  .d1 {
+    background: #fff;
+    min-height: 280px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Oswald', sans-serif;
+  }
+  .d1-nav {
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  .d1-logo { color: #ff5a00; font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.1em; }
+  .d1-links { display: flex; gap: 14px; }
+  .d1-links span { color: #fff; font-size: 0.55rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; }
+  .d1-links span:last-child { color: #ff5a00; }
+  .d1-hero {
+    display: flex;
+    min-height: 220px;
+  }
+  .d1-left {
+    flex: 1;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px 22px;
+    position: relative;
+  }
+  .d1-left::before {
+    content: '';
+    position: absolute;
+    top: 12px; left: 12px; right: 12px; bottom: 12px;
+    border: 2px solid #000;
+  }
+  .d1-eyebrow { font-size: 0.5rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: #ff5a00; margin-bottom: 6px; }
+  .d1-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; line-height: 0.9; color: #000; letter-spacing: 0.04em; }
+  .d1-title span { color: #ff5a00; }
+  .d1-sub { font-size: 0.52rem; color: #333; margin-top: 8px; letter-spacing: 0.08em; text-transform: uppercase; max-width: 160px; }
+  .d1-cta {
+    display: inline-block; margin-top: 12px; background: #000; color: #ff5a00;
+    font-size: 0.52rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 6px 12px;
+  }
+  .d1-right {
+    width: 45%;
+    background: #ff5a00;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+  }
+  .d1-circles {
+    position: absolute;
+    inset: 0;
+  }
+  .d1-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(0,0,0,0.15);
+  }
+  .d1-dish { font-size: 2.5rem; position: relative; z-index: 1; }
+  .d1-dish-label { font-size: 0.45rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(0,0,0,0.7); margin-top: 4px; }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 2: VINTAGE ITALIAN TRAVEL POSTER '62
+  ───────────────────────────────────────────── */
+  .d2 {
+    background: #e8d5a3;
+    min-height: 280px;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+  }
+  .d2-inner {
+    border: 6px solid #8b1a1a;
+    margin: 10px;
+    padding: 0;
+    position: relative;
+    background: #f2e4c0;
+    min-height: 258px;
+    overflow: hidden;
+  }
+  .d2-inner::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1.5px solid #8b1a1a;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .d2-stripe {
+    height: 38px;
+    background: repeating-linear-gradient(90deg, #8b1a1a 0px, #8b1a1a 8px, transparent 8px, transparent 16px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+  }
+  .d2-stripe-text { font-family: 'Bebas Neue', sans-serif; font-size: 0.65rem; letter-spacing: 0.3em; color: #f2e4c0; background: #8b1a1a; padding: 0 14px; }
+  .d2-body { padding: 14px 20px; text-align: center; }
+  .d2-ital { font-family: 'Satisfy', cursive; font-size: 0.75rem; color: #8b1a1a; margin-bottom: 2px; }
+  .d2-title { font-family: 'Abril Fatface', cursive; font-size: 2.6rem; color: #1a0a00; line-height: 0.9; margin-bottom: 6px; }
+  .d2-subtitle { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.7rem; color: #5a3010; margin-bottom: 10px; }
+  .d2-orn { color: #8b1a1a; font-size: 1rem; letter-spacing: 4px; margin-bottom: 8px; }
+  .d2-address { font-family: 'Oswald', sans-serif; font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: #5a3010; }
+  .d2-menu-strip {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: #8b1a1a; padding: 8px 20px;
+    display: flex; justify-content: space-around;
+  }
+  .d2-item { font-family: 'Playfair Display', serif; font-size: 0.5rem; color: #f2e4c0; text-align: center; }
+  .d2-item span { display: block; font-size: 0.65rem; font-weight: 700; }
+  .d2-seal {
+    position: absolute; top: 50px; right: 14px;
+    width: 52px; height: 52px;
+    background: #2d5a1b; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-direction: column;
+    font-family: 'Bebas Neue', sans-serif;
+    border: 2px solid #f2e4c0;
+  }
+  .d2-seal span { color: #f2e4c0; font-size: 0.38rem; text-align: center; letter-spacing: 0.1em; line-height: 1.2; }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 3: PSYCHEDELIC SUMMER '67
+  ───────────────────────────────────────────── */
+  .d3 {
+    min-height: 280px;
+    background: linear-gradient(135deg, #4b0082 0%, #ff69b4 35%, #ff8c00 65%, #ffd700 100%);
+    position: relative;
+    overflow: hidden;
+    font-family: 'Righteous', cursive;
+  }
+  .d3-waves {
+    position: absolute;
+    inset: 0;
+    background: repeating-radial-gradient(circle at 50% 50%, transparent 0, transparent 12px, rgba(255,255,255,0.04) 12px, rgba(255,255,255,0.04) 13px);
+  }
+  .d3-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
+    text-align: center;
+  }
+  .d3-nav {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .d3-nav span {
+    font-size: 0.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 0 8px rgba(255,255,100,0.8);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .d3-flower { font-size: 1.5rem; animation: none; }
+  .d3-title {
+    font-family: 'Righteous', cursive;
+    font-size: 2.4rem;
+    color: #fff;
+    text-shadow: 3px 3px 0 #ff0080, 6px 6px 0 rgba(255,215,0,0.5);
+    line-height: 1;
+    margin: 8px 0;
+    transform: rotate(-2deg);
+  }
+  .d3-swirl { font-family: 'Satisfy', cursive; font-size: 0.8rem; color: #ffd700; text-shadow: 0 0 12px rgba(255,215,0,0.8); }
+  .d3-menu {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 14px 0;
+    flex-wrap: wrap;
+  }
+  .d3-dish {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(4px);
+    border: 1.5px solid rgba(255,255,255,0.5);
+    border-radius: 50px;
+    padding: 4px 12px;
+    font-size: 0.5rem;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+  .d3-cta-row { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+  .d3-btn {
+    background: #ffd700;
+    color: #4b0082;
+    font-size: 0.5rem;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 50px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .d3-flowers-bg {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.08;
+    pointer-events: none;
+  }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 4: GROOVY 70s TRATTORIA
+  ───────────────────────────────────────────── */
+  .d4 {
+    min-height: 280px;
+    background: #c17d2a;
+    font-family: 'Righteous', cursive;
+    position: relative;
+    overflow: hidden;
+  }
+  .d4-wood {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      180deg,
+      rgba(0,0,0,0.04) 0px,
+      rgba(0,0,0,0.04) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+  }
+  .d4-nav {
+    background: #5c3d00;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .d4-logo { font-family: 'Lobster', cursive; color: #e8c46a; font-size: 1.1rem; }
+  .d4-links { display: flex; gap: 10px; }
+  .d4-links span { color: rgba(232,196,106,0.7); font-size: 0.48rem; text-transform: uppercase; letter-spacing: 0.12em; }
+  .d4-hero {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    min-height: 230px;
+  }
+  .d4-left {
+    flex: 1;
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .d4-eyebrow { font-size: 0.48rem; color: #5c3d00; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; font-family: 'Oswald', sans-serif; }
+  .d4-title { font-family: 'Lobster', cursive; font-size: 2.8rem; color: #fff; line-height: 1; text-shadow: 2px 2px 0 rgba(0,0,0,0.2); }
+  .d4-title em { color: #5c3d00; }
+  .d4-tagline { font-family: 'Satisfy', cursive; font-size: 0.75rem; color: #5c3d00; margin-top: 6px; }
+  .d4-btns { display: flex; gap: 8px; margin-top: 14px; }
+  .d4-btn1 { background: #5c3d00; color: #e8c46a; font-size: 0.5rem; font-weight: 700; padding: 7px 14px; border-radius: 50px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .d4-btn2 { background: rgba(92,61,0,0.2); color: #5c3d00; font-size: 0.5rem; font-weight: 700; padding: 7px 14px; border-radius: 50px; letter-spacing: 0.12em; text-transform: uppercase; border: 1.5px solid #5c3d00; }
+  .d4-right {
+    width: 42%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 16px;
+    background: rgba(92,61,0,0.15);
+  }
+  .d4-menu-title { font-family: 'Bebas Neue', sans-serif; font-size: 0.65rem; letter-spacing: 0.2em; color: #5c3d00; margin-bottom: 8px; }
+  .d4-menu-item { font-size: 0.55rem; color: #3d2800; margin-bottom: 4px; font-family: 'Oswald', sans-serif; }
+  .d4-menu-item strong { color: #5c3d00; margin-right: 4px; }
+  .d4-badge {
+    width: 55px; height: 55px;
+    background: #698b3a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 10px;
+    border: 2px solid #e8c46a;
+  }
+  .d4-badge span { font-size: 0.38rem; color: #e8c46a; text-align: center; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.3; }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 5: ITALIAN CINEMA NOIR '63
+  ───────────────────────────────────────────── */
+  .d5 {
+    min-height: 280px;
+    background: #0d0d0d;
+    font-family: 'Oswald', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .d5-grain {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+    opacity: 0.4;
+    pointer-events: none;
+  }
+  .d5-stripe {
+    height: 5px;
+    background: repeating-linear-gradient(90deg, #cc0000 0, #cc0000 20px, #000 20px, #000 22px);
+  }
+  .d5-nav {
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(204,0,0,0.3);
+    position: relative; z-index: 1;
+  }
+  .d5-logo { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1rem; color: #fff; }
+  .d5-logo span { color: #cc0000; }
+  .d5-links { display: flex; gap: 12px; }
+  .d5-links em { color: rgba(255,255,255,0.5); font-size: 0.48rem; letter-spacing: 0.15em; text-transform: uppercase; font-style: normal; }
+  .d5-hero {
+    padding: 28px 22px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .d5-eyebrow { font-size: 0.48rem; color: #cc0000; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 8px; }
+  .d5-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    color: #fff;
+    line-height: 0.95;
+    margin-bottom: 12px;
+  }
+  .d5-title em { color: #cc0000; font-style: italic; }
+  .d5-rule { width: 60px; height: 2px; background: #cc0000; margin-bottom: 12px; }
+  .d5-text { font-size: 0.52rem; color: rgba(255,255,255,0.5); max-width: 220px; line-height: 1.7; font-family: 'Playfair Display', serif; font-style: italic; }
+  .d5-dishes {
+    display: flex;
+    gap: 6px;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .d5-tag {
+    background: rgba(204,0,0,0.15);
+    border: 1px solid rgba(204,0,0,0.4);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.45rem;
+    padding: 3px 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .d5-cta-row { display: flex; gap: 8px; margin-top: 14px; }
+  .d5-btn { background: #cc0000; color: #fff; font-size: 0.5rem; font-weight: 700; padding: 7px 16px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .d5-btn2 { background: transparent; color: rgba(255,255,255,0.6); font-size: 0.5rem; padding: 7px 14px; letter-spacing: 0.15em; text-transform: uppercase; border: 1px solid rgba(255,255,255,0.25); }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 6: OP-ART MILAN '66
+  ───────────────────────────────────────────── */
+  .d6 {
+    min-height: 280px;
+    background: #fff;
+    font-family: 'Oswald', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .d6-pattern {
+    position: absolute;
+    right: 0; top: 0; bottom: 0;
+    width: 45%;
+    background: repeating-linear-gradient(
+      45deg,
+      #000 0, #000 4px,
+      #fff 4px, #fff 12px
+    );
+  }
+  .d6-nav {
+    background: #000;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .d6-logo { font-family: 'Bebas Neue', sans-serif; color: #fff; font-size: 1.1rem; letter-spacing: 0.1em; }
+  .d6-links { display: flex; gap: 12px; }
+  .d6-links span { color: rgba(255,255,255,0.7); font-size: 0.48rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .d6-hero {
+    padding: 28px 20px;
+    position: relative;
+    z-index: 1;
+    max-width: 58%;
+  }
+  .d6-eyebrow { font-size: 0.48rem; letter-spacing: 0.25em; text-transform: uppercase; color: #000; margin-bottom: 8px; }
+  .d6-title { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 0.88; color: #000; letter-spacing: 0.05em; }
+  .d6-title .inv { background: #000; color: #fff; padding: 0 4px; }
+  .d6-rule { width: 40px; height: 4px; background: #000; margin: 10px 0; }
+  .d6-text { font-size: 0.5rem; color: #333; max-width: 180px; line-height: 1.6; letter-spacing: 0.04em; }
+  .d6-menu-row { display: flex; gap: 0; margin-top: 14px; }
+  .d6-menu-item {
+    flex: 1;
+    border: 1px solid #000;
+    padding: 6px 8px;
+    font-size: 0.45rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #000;
+    margin-right: -1px;
+  }
+  .d6-menu-item:last-child { background: #000; color: #fff; }
+  .d6-cta-row { display: flex; gap: 8px; margin-top: 12px; }
+  .d6-btn { background: #000; color: #fff; font-size: 0.5rem; font-weight: 700; padding: 8px 16px; letter-spacing: 0.15em; text-transform: uppercase; }
+  .d6-btn2 { background: transparent; color: #000; font-size: 0.5rem; font-weight: 700; padding: 8px 14px; letter-spacing: 0.15em; text-transform: uppercase; border: 1.5px solid #000; }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 7: FLOWER POWER FOLK '69
+  ───────────────────────────────────────────── */
+  .d7 {
+    min-height: 280px;
+    background: #f5e6c8;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .d7-bg-flowers {
+    position: absolute; inset: 0;
+    font-size: 2.5rem;
+    opacity: 0.06;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    padding: 10px;
+    pointer-events: none;
+  }
+  .d7-nav {
+    background: #5e8a3c;
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 1;
+  }
+  .d7-logo { font-family: 'Satisfy', cursive; color: #fff; font-size: 1.1rem; }
+  .d7-links { display: flex; gap: 12px; }
+  .d7-links span { color: rgba(255,255,255,0.8); font-size: 0.48rem; font-family: 'Oswald', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+  .d7-hero {
+    padding: 22px 20px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    gap: 18px;
+  }
+  .d7-left { flex: 1; }
+  .d7-flower-icon { font-size: 2rem; margin-bottom: 6px; }
+  .d7-eyebrow { font-size: 0.5rem; color: #5e8a3c; font-family: 'Oswald', sans-serif; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 4px; }
+  .d7-title { font-family: 'Abril Fatface', cursive; font-size: 2.2rem; color: #2c1810; line-height: 0.95; }
+  .d7-title em { color: #c0392b; font-style: normal; }
+  .d7-tagline { font-family: 'Satisfy', cursive; font-size: 0.75rem; color: #5e8a3c; margin-top: 8px; }
+  .d7-text { font-size: 0.5rem; color: #4a3020; line-height: 1.6; margin-top: 6px; max-width: 180px; }
+  .d7-btns { display: flex; gap: 8px; margin-top: 12px; }
+  .d7-btn1 { background: #c0392b; color: #fff; font-size: 0.5rem; font-weight: 700; padding: 7px 14px; border-radius: 50px; }
+  .d7-btn2 { background: transparent; color: #5e8a3c; font-size: 0.5rem; font-weight: 700; padding: 7px 12px; border-radius: 50px; border: 1.5px solid #5e8a3c; }
+  .d7-right {
+    width: 38%;
+    background: rgba(94,138,60,0.1);
+    border-radius: 8px;
+    padding: 14px;
+    border: 1.5px solid rgba(94,138,60,0.3);
+  }
+  .d7-menu-title { font-family: 'Abril Fatface', cursive; font-size: 0.8rem; color: #2c1810; margin-bottom: 8px; text-align: center; }
+  .d7-item { font-size: 0.5rem; color: #4a3020; margin-bottom: 5px; display: flex; justify-content: space-between; border-bottom: 1px dotted rgba(94,138,60,0.3); padding-bottom: 3px; }
+  .d7-price { color: #c0392b; font-weight: 700; }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 8: DISCO GLAMOUR '76
+  ───────────────────────────────────────────── */
+  .d8 {
+    min-height: 280px;
+    background: linear-gradient(135deg, #1a0a2e 0%, #2d1854 50%, #1a1a3e 100%);
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .d8-glitter {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,215,0,0.12) 0, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(192,0,128,0.1) 0, transparent 35%),
+      radial-gradient(circle at 60% 20%, rgba(0,128,255,0.08) 0, transparent 30%);
+  }
+  .d8-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(255,215,0,0.4) 1px, transparent 1px);
+    background-size: 22px 22px;
+    opacity: 0.25;
+  }
+  .d8-nav {
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,215,0,0.2);
+    position: relative;
+    z-index: 1;
+  }
+  .d8-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.15rem; letter-spacing: 0.15em; background: linear-gradient(90deg, #ffd700, #ff69b4, #ffd700); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .d8-links { display: flex; gap: 12px; }
+  .d8-links span { color: rgba(255,215,0,0.6); font-size: 0.48rem; letter-spacing: 0.15em; text-transform: uppercase; }
+  .d8-hero {
+    padding: 24px 20px;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .d8-star { font-size: 1.5rem; margin-bottom: 8px; }
+  .d8-eyebrow { font-size: 0.48rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,215,0,0.7); margin-bottom: 8px; }
+  .d8-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #ffd700; line-height: 0.95; text-shadow: 0 0 30px rgba(255,215,0,0.3); }
+  .d8-title em { font-style: italic; color: #ff69b4; }
+  .d8-sub { font-family: 'Satisfy', cursive; font-size: 0.75rem; color: rgba(255,255,255,0.6); margin-top: 6px; }
+  .d8-divider { display: flex; align-items: center; gap: 12px; margin: 12px 0; }
+  .d8-divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.4), transparent); }
+  .d8-divider-star { color: #ffd700; font-size: 0.6rem; }
+  .d8-dishes {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .d8-dish {
+    border: 1px solid rgba(255,215,0,0.35);
+    color: rgba(255,255,255,0.75);
+    font-size: 0.45rem;
+    padding: 4px 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: rgba(255,215,0,0.08);
+  }
+  .d8-btn { background: linear-gradient(90deg, #ffd700, #ffb800); color: #1a0a2e; font-size: 0.52rem; font-weight: 900; padding: 8px 22px; letter-spacing: 0.15em; text-transform: uppercase; border-radius: 2px; display: inline-block; }
+  .d8-btn2 { border: 1px solid rgba(255,215,0,0.4); color: rgba(255,215,0,0.8); font-size: 0.52rem; font-weight: 700; padding: 8px 18px; letter-spacing: 0.15em; text-transform: uppercase; display: inline-block; margin-left: 8px; }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 9: RIVIERA MEDITERRANEO '68
+  ───────────────────────────────────────────── */
+  .d9 {
+    min-height: 280px;
+    background: #dff0f8;
+    font-family: 'Playfair Display', serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .d9-sea {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 45%;
+    background: linear-gradient(180deg, #1a7dbf 0%, #0d4f7a 100%);
+    clip-path: polygon(0 30%, 100% 0%, 100% 100%, 0% 100%);
+  }
+  .d9-sun {
+    position: absolute;
+    top: 30px; right: 40px;
+    width: 55px; height: 55px;
+    background: radial-gradient(circle, #ffd700 40%, rgba(255,215,0,0.3) 70%, transparent 100%);
+    border-radius: 50%;
+  }
+  .d9-nav {
+    background: rgba(255,255,255,0.9);
+    padding: 10px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+    border-bottom: 2px solid #1a7dbf;
+  }
+  .d9-logo { font-family: 'Abril Fatface', cursive; font-size: 1rem; color: #0d4f7a; }
+  .d9-logo em { color: #cc3300; font-style: italic; }
+  .d9-links { display: flex; gap: 10px; }
+  .d9-links span { color: #0d4f7a; font-size: 0.48rem; font-family: 'Oswald', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+  .d9-hero {
+    padding: 22px 20px;
+    position: relative;
+    z-index: 2;
+    max-width: 56%;
+  }
+  .d9-eyebrow { font-size: 0.48rem; color: #1a7dbf; font-family: 'Oswald', sans-serif; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 6px; }
+  .d9-title { font-family: 'Abril Fatface', cursive; font-size: 2.3rem; color: #0d4f7a; line-height: 0.95; }
+  .d9-title em { color: #cc3300; font-style: italic; }
+  .d9-sub { font-family: 'Satisfy', cursive; font-size: 0.75rem; color: #1a7dbf; margin-top: 8px; }
+  .d9-text { font-size: 0.5rem; color: #1a3550; line-height: 1.6; margin-top: 6px; font-family: 'Playfair Display', serif; font-style: italic; max-width: 170px; }
+  .d9-btns { display: flex; gap: 8px; margin-top: 12px; }
+  .d9-btn1 { background: #cc3300; color: #fff; font-size: 0.5rem; font-weight: 700; padding: 7px 14px; font-family: 'Oswald', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+  .d9-btn2 { background: transparent; color: #0d4f7a; font-size: 0.5rem; font-weight: 700; padding: 7px 12px; border: 1.5px solid #1a7dbf; font-family: 'Oswald', sans-serif; letter-spacing: 0.1em; text-transform: uppercase; }
+  .d9-float {
+    position: absolute;
+    right: 20px; top: 90px;
+    z-index: 3;
+    text-align: center;
+  }
+  .d9-circle {
+    width: 85px; height: 85px;
+    background: rgba(255,255,255,0.92);
+    border-radius: 50%;
+    border: 2px solid #1a7dbf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+  }
+  .d9-c-title { font-family: 'Abril Fatface', cursive; font-size: 0.55rem; color: #0d4f7a; }
+  .d9-c-items { font-size: 0.38rem; color: #333; line-height: 1.5; margin-top: 2px; font-family: 'Playfair Display', serif; font-style: italic; }
+
+  /* ─────────────────────────────────────────────
+     DESIGN 10: FUTURISMO ITALIA '71
+  ───────────────────────────────────────────── */
+  .d10 {
+    min-height: 280px;
+    background: #f7f5f0;
+    font-family: 'Montserrat', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  .d10-accent {
+    position: absolute;
+    top: 0; left: 0;
+    width: 6px; height: 100%;
+    background: repeating-linear-gradient(180deg, #d4411a 0, #d4411a 33%, #fff 33%, #fff 66%, #006b3c 66%, #006b3c 100%);
+  }
+  .d10-corner {
+    position: absolute;
+    top: 0; right: 0;
+    width: 120px; height: 120px;
+    background: #d4411a;
+    clip-path: polygon(100% 0, 100% 100%, 0 0);
+  }
+  .d10-nav {
+    padding: 10px 20px 10px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1.5px solid #d4411a;
+    position: relative;
+    z-index: 1;
+    background: #fff;
+  }
+  .d10-logo { font-family: 'Russo One', sans-serif; font-size: 0.9rem; color: #1a1a1a; letter-spacing: 0.06em; }
+  .d10-logo span { color: #d4411a; }
+  .d10-links { display: flex; gap: 12px; }
+  .d10-links em { color: #444; font-size: 0.45rem; letter-spacing: 0.15em; text-transform: uppercase; font-style: normal; }
+  .d10-hero {
+    display: flex;
+    position: relative;
+    z-index: 1;
+    min-height: 230px;
+  }
+  .d10-left {
+    flex: 1;
+    padding: 24px 20px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .d10-eyebrow { font-size: 0.45rem; font-weight: 900; letter-spacing: 0.3em; text-transform: uppercase; color: #d4411a; margin-bottom: 8px; }
+  .d10-title { font-family: 'Russo One', sans-serif; font-size: 2.4rem; color: #111; line-height: 0.9; letter-spacing: -0.01em; }
+  .d10-title span { color: #d4411a; }
+  .d10-rule { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+  .d10-rule-line { height: 2px; width: 40px; background: #d4411a; }
+  .d10-rule-dot { width: 6px; height: 6px; background: #006b3c; border-radius: 50%; }
+  .d10-text { font-size: 0.5rem; color: #444; max-width: 200px; line-height: 1.65; }
+  .d10-btns { display: flex; gap: 8px; margin-top: 14px; }
+  .d10-btn1 { background: #d4411a; color: #fff; font-size: 0.5rem; font-weight: 700; padding: 8px 16px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .d10-btn2 { background: transparent; color: #111; font-size: 0.5rem; font-weight: 700; padding: 8px 14px; letter-spacing: 0.12em; text-transform: uppercase; border: 1.5px solid #111; }
+  .d10-right {
+    width: 42%;
+    background: #111;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    gap: 8px;
+  }
+  .d10-right::before {
+    content: '';
+    position: absolute;
+    inset: 8px;
+    border: 1px solid rgba(212,65,26,0.3);
+    pointer-events: none;
+  }
+  .d10-menu-label { font-size: 0.45rem; font-weight: 900; letter-spacing: 0.3em; text-transform: uppercase; color: #d4411a; margin-bottom: 4px; }
+  .d10-menu-row { width: 100%; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 5px; }
+  .d10-m-name { font-size: 0.5rem; color: rgba(255,255,255,0.75); font-style: italic; font-family: 'Playfair Display', serif; }
+  .d10-m-price { font-size: 0.5rem; color: #d4411a; font-weight: 700; }
+
+  /* Selection indicator */
+  .selected-badge {
+    display: none;
+    position: absolute;
+    top: 8px; right: 8px;
+    background: #c8a040;
+    color: #000;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 2px;
+    letter-spacing: 0.1em;
+    z-index: 10;
+  }
+
+  .design-card.selected .selected-badge { display: block; }
+
+  .design-card { position: relative; }
+
+  /* Selection bar */
+  #sel-bar {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: #c8a040;
+    color: #0d0a05;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 14px 24px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+    z-index: 100;
+  }
+  #sel-bar.visible { display: flex; }
+  #sel-bar button {
+    background: #0d0a05;
+    color: #c8a040;
+    border: none;
+    padding: 6px 18px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="era-badge">1960s – 1970s Design Concepts</div>
+  <h1>Trattoria Marano<br>Retro Redesigns</h1>
+  <p>Click any design to select it · 10 concepts below</p>
+</div>
+
+<div class="grid">
+
+  <!-- ───── 1: MOD POP '65 ───── -->
+  <div class="design-card" data-choice="1" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">01</span>
+      <span class="name">Mod Pop</span>
+      <span class="year">London '65</span>
+    </div>
+    <div class="d1">
+      <div class="d1-nav">
+        <span class="d1-logo">MARANO</span>
+        <div class="d1-links">
+          <span>MENU</span><span>GALLERY</span><span>EVENTS</span><span>RESERVE →</span>
+        </div>
+      </div>
+      <div class="d1-hero">
+        <div class="d1-left">
+          <div class="d1-eyebrow">Ohlmüllerstr. 22 · München</div>
+          <div class="d1-title">TRATTORIA<br><span>MARANO</span></div>
+          <div class="d1-sub">Authentic Italian cuisine · Est. München</div>
+          <div class="d1-cta">VIEW MENU →</div>
+        </div>
+        <div class="d1-right">
+          <div class="d1-circles">
+            <div class="d1-circle" style="width:80px;height:80px;top:-20px;right:-20px;"></div>
+            <div class="d1-circle" style="width:140px;height:140px;bottom:-40px;left:-40px;"></div>
+            <div class="d1-circle" style="width:50px;height:50px;top:50%;right:20px;"></div>
+          </div>
+          <div class="d1-dish">🍕</div>
+          <div class="d1-dish-label">PIZZA NAPOLETANA</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 2: VINTAGE POSTER '62 ───── -->
+  <div class="design-card" data-choice="2" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">02</span>
+      <span class="name">Vintage Poster</span>
+      <span class="year">Italia '62</span>
+    </div>
+    <div class="d2">
+      <div class="d2-inner">
+        <div class="d2-stripe">
+          <span class="d2-stripe-text">RISTORANTE AUTENTICO · MÜNCHEN</span>
+        </div>
+        <div class="d2-body">
+          <div class="d2-ital">Benvenuti a</div>
+          <div class="d2-title">Trattoria<br>Marano</div>
+          <div class="d2-subtitle">La vera cucina italiana nel cuore di Monaco</div>
+          <div class="d2-orn">✦ ✦ ✦</div>
+          <div class="d2-address">Ohlmüllerstraße 22 · 81541 München · Tel. (089) 000-0000</div>
+        </div>
+        <div class="d2-menu-strip">
+          <div class="d2-item"><span>Antipasti</span>from €8</div>
+          <div class="d2-item"><span>Pasta</span>from €12</div>
+          <div class="d2-item"><span>Pizza</span>from €11</div>
+          <div class="d2-item"><span>Dolci</span>from €6</div>
+        </div>
+        <div class="d2-seal">
+          <span>SINCE<br>1968</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 3: PSYCHEDELIC '67 ───── -->
+  <div class="design-card" data-choice="3" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">03</span>
+      <span class="name">Psychedelic Summer</span>
+      <span class="year">Haight-Ashbury '67</span>
+    </div>
+    <div class="d3">
+      <div class="d3-waves"></div>
+      <div class="d3-flowers-bg" style="top:10px;left:-10px">🌸🌼🌺🌸🌼🌺🌸🌼🌺🌸</div>
+      <div class="d3-content">
+        <div class="d3-nav">
+          <span>🌸 MENU</span>
+          <span>GALLERY ✿</span>
+          <span>EVENTS 🌻</span>
+          <span>RESERVE ☮</span>
+        </div>
+        <div class="d3-flower">🌼</div>
+        <div class="d3-title">TRATTORIA<br>MARANO</div>
+        <div class="d3-swirl">~ Mangia con amore · München ~</div>
+        <div class="d3-menu">
+          <div class="d3-dish">🍝 Pasta Fresca</div>
+          <div class="d3-dish">🍕 Pizza al Forno</div>
+          <div class="d3-dish">🍷 Vino Italiano</div>
+          <div class="d3-dish">🍮 Dolci</div>
+        </div>
+        <div class="d3-cta-row">
+          <div class="d3-btn">☮ SEE THE MENU ☮</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 4: GROOVY 70s ───── -->
+  <div class="design-card" data-choice="4" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">04</span>
+      <span class="name">Groovy Trattoria</span>
+      <span class="year">München '72</span>
+    </div>
+    <div class="d4">
+      <div class="d4-wood"></div>
+      <div class="d4-nav">
+        <span class="d4-logo">Trattoria Marano</span>
+        <div class="d4-links">
+          <span>MENU</span><span>ABOUT</span><span>EVENTS</span><span>BOOK A TABLE</span>
+        </div>
+      </div>
+      <div class="d4-hero">
+        <div class="d4-left">
+          <div class="d4-eyebrow">Authentic Italian Since 1968</div>
+          <div class="d4-title">Trattoria<br><em>Marano</em></div>
+          <div class="d4-tagline">La cucina come la faceva la nonna</div>
+          <div class="d4-btns">
+            <div class="d4-btn1">SEE MENU</div>
+            <div class="d4-btn2">RESERVE</div>
+          </div>
+        </div>
+        <div class="d4-right">
+          <div class="d4-menu-title">TODAY'S SPECIALS</div>
+          <div class="d4-menu-item"><strong>Pasta</strong> Tagliatelle al ragù — €14</div>
+          <div class="d4-menu-item"><strong>Pizza</strong> Margherita classica — €11</div>
+          <div class="d4-menu-item"><strong>Risotto</strong> ai funghi porcini — €16</div>
+          <div class="d4-menu-item"><strong>Dolce</strong> Tiramisu della casa — €7</div>
+          <div class="d4-badge"><span>DAILY FRESH</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 5: CINEMA NOIR '63 ───── -->
+  <div class="design-card" data-choice="5" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">05</span>
+      <span class="name">Cinema Italiano</span>
+      <span class="year">Roma '63</span>
+    </div>
+    <div class="d5">
+      <div class="d5-grain"></div>
+      <div class="d5-stripe"></div>
+      <div class="d5-nav">
+        <span class="d5-logo">Trattoria <span>Marano</span></span>
+        <div class="d5-links">
+          <em>MENU</em><em>GALLERY</em><em>EVENTI</em><em>PRENOTA →</em>
+        </div>
+      </div>
+      <div class="d5-hero">
+        <div class="d5-eyebrow">Ohlmüllerstraße 22 · München</div>
+        <div class="d5-title">Trattoria<br><em>Marano</em></div>
+        <div class="d5-rule"></div>
+        <div class="d5-text">Dove ogni pasto diventa un film indimenticabile. Cucina italiana autentica nel cuore di Monaco.</div>
+        <div class="d5-dishes">
+          <div class="d5-tag">Pasta Fresca</div>
+          <div class="d5-tag">Pizza al Forno</div>
+          <div class="d5-tag">Antipasti</div>
+          <div class="d5-tag">Vino Selezionato</div>
+        </div>
+        <div class="d5-cta-row">
+          <div class="d5-btn">VEDI IL MENU</div>
+          <div class="d5-btn2">PRENOTA TAVOLO</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 6: OP-ART MILAN '66 ───── -->
+  <div class="design-card" data-choice="6" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">06</span>
+      <span class="name">Op-Art Milano</span>
+      <span class="year">Milano '66</span>
+    </div>
+    <div class="d6">
+      <div class="d6-pattern"></div>
+      <div class="d6-nav">
+        <span class="d6-logo">MARANO</span>
+        <div class="d6-links">
+          <span>MENU</span><span>GALLERY</span><span>EVENTS</span><span>BOOK</span>
+        </div>
+      </div>
+      <div class="d6-hero">
+        <div class="d6-eyebrow">Authentic · Italian · München</div>
+        <div class="d6-title">TRAT<br>TORIA<br><span class="inv">MARANO</span></div>
+        <div class="d6-rule"></div>
+        <div class="d6-text">Pure Italian cuisine. No compromise. Ohlmüllerstraße 22, München.</div>
+        <div class="d6-menu-row">
+          <div class="d6-menu-item">PASTA</div>
+          <div class="d6-menu-item">PIZZA</div>
+          <div class="d6-menu-item">ANTIPASTI</div>
+          <div class="d6-menu-item">BOOK →</div>
+        </div>
+        <div class="d6-cta-row">
+          <div class="d6-btn">VIEW MENU</div>
+          <div class="d6-btn2">RESERVE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 7: FLOWER POWER '69 ───── -->
+  <div class="design-card" data-choice="7" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">07</span>
+      <span class="name">Flower Power Folk</span>
+      <span class="year">Woodstock '69</span>
+    </div>
+    <div class="d7">
+      <div class="d7-bg-flowers">🌻🌸🌺🌼🌻🌸🌺🌼🌻🌸🌺🌼🌻🌸🌺🌼🌻🌸🌺🌼🌻🌸🌺🌼</div>
+      <div class="d7-nav">
+        <span class="d7-logo">Trattoria Marano</span>
+        <div class="d7-links">
+          <span>MENU</span><span>ABOUT</span><span>EVENTS</span><span>CONTACT</span>
+        </div>
+      </div>
+      <div class="d7-hero">
+        <div class="d7-left">
+          <div class="d7-flower-icon">🌻</div>
+          <div class="d7-eyebrow">With Love from Italy</div>
+          <div class="d7-title">Trattoria<br><em>Marano</em></div>
+          <div class="d7-tagline">Food made with love &amp; soul</div>
+          <div class="d7-text">Fresh pasta, wood-fired pizza, organic wines — all served with the warmth of an Italian family table.</div>
+          <div class="d7-btns">
+            <div class="d7-btn1">Our Menu</div>
+            <div class="d7-btn2">Reserve Table</div>
+          </div>
+        </div>
+        <div class="d7-right">
+          <div class="d7-menu-title">Today's Menu 🌿</div>
+          <div class="d7-item"><span>Bruschetta al pomodoro</span><span class="d7-price">€8</span></div>
+          <div class="d7-item"><span>Tagliatelle al ragù</span><span class="d7-price">€14</span></div>
+          <div class="d7-item"><span>Pizza Margherita</span><span class="d7-price">€11</span></div>
+          <div class="d7-item"><span>Risotto porcini</span><span class="d7-price">€16</span></div>
+          <div class="d7-item"><span>Tiramisu</span><span class="d7-price">€7</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 8: DISCO '76 ───── -->
+  <div class="design-card" data-choice="8" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">08</span>
+      <span class="name">Disco Glamour</span>
+      <span class="year">Studio 54 '76</span>
+    </div>
+    <div class="d8">
+      <div class="d8-glitter"></div>
+      <div class="d8-dots"></div>
+      <div class="d8-nav">
+        <span class="d8-logo">TRATTORIA MARANO</span>
+        <div class="d8-links">
+          <span>MENU</span><span>GALLERY</span><span>EVENTS</span><span>★ RESERVE</span>
+        </div>
+      </div>
+      <div class="d8-hero">
+        <div class="d8-star">✦✦✦</div>
+        <div class="d8-eyebrow">La Cucina Più Glamour di München</div>
+        <div class="d8-title">Trattoria<br><em>Marano</em></div>
+        <div class="d8-sub">Where Italian cuisine meets golden nights</div>
+        <div class="d8-divider">
+          <div class="d8-divider-line"></div>
+          <div class="d8-divider-star">✦</div>
+          <div class="d8-divider-line"></div>
+        </div>
+        <div class="d8-dishes">
+          <div class="d8-dish">✦ Antipasti</div>
+          <div class="d8-dish">✦ Pasta Fresca</div>
+          <div class="d8-dish">✦ Pizza al Forno</div>
+          <div class="d8-dish">✦ Vini Pregiati</div>
+          <div class="d8-dish">✦ Dolci della Casa</div>
+        </div>
+        <div class="d8-btn">VIEW THE MENU</div>
+        <div class="d8-btn2">RESERVE YOUR TABLE</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 9: RIVIERA '68 ───── -->
+  <div class="design-card" data-choice="9" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">09</span>
+      <span class="name">Riviera Mediterraneo</span>
+      <span class="year">Côte d'Azur '68</span>
+    </div>
+    <div class="d9">
+      <div class="d9-sea"></div>
+      <div class="d9-sun"></div>
+      <div class="d9-nav">
+        <span class="d9-logo">Trattoria <em>Marano</em></span>
+        <div class="d9-links">
+          <span>MENU</span><span>GALLERY</span><span>EVENTS</span><span>CONTACT</span>
+        </div>
+      </div>
+      <div class="d9-hero">
+        <div class="d9-eyebrow">Autentica Cucina Italiana</div>
+        <div class="d9-title">Trattoria<br><em>Marano</em></div>
+        <div class="d9-sub">Dal sole del Mediterraneo a Monaco</div>
+        <div class="d9-text">Fresh seafood pasta, wood-fired pizza, and sun-kissed flavors from the Italian coastline.</div>
+        <div class="d9-btns">
+          <div class="d9-btn1">SEE MENU</div>
+          <div class="d9-btn2">RESERVE</div>
+        </div>
+      </div>
+      <div class="d9-float">
+        <div class="d9-circle">
+          <div class="d9-c-title">Oggi in Cucina</div>
+          <div class="d9-c-items">Pasta al limone<br>Branzino fresco<br>Pizza marinara<br>Panna cotta</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ───── 10: FUTURISMO '71 ───── -->
+  <div class="design-card" data-choice="10" onclick="selectCard(this)">
+    <div class="selected-badge">SELECTED ✓</div>
+    <div class="card-meta">
+      <span class="num">10</span>
+      <span class="name">Futurismo Italia</span>
+      <span class="year">Milano '71</span>
+    </div>
+    <div class="d10">
+      <div class="d10-accent"></div>
+      <div class="d10-corner"></div>
+      <div class="d10-nav">
+        <span class="d10-logo">TRATTORIA <span>MARANO</span></span>
+        <div class="d10-links">
+          <em>MENU</em><em>GALLERY</em><em>EVENTS</em><em>PRENOTA</em>
+        </div>
+      </div>
+      <div class="d10-hero">
+        <div class="d10-left">
+          <div class="d10-eyebrow">Cucina Italiana Autentica</div>
+          <div class="d10-title">TRAT<br>TORIA<br><span>MARANO</span></div>
+          <div class="d10-rule">
+            <div class="d10-rule-line"></div>
+            <div class="d10-rule-dot"></div>
+          </div>
+          <div class="d10-text">The bold flavors of Italy, presented with Italian modernist precision. Ohlmüllerstr. 22, München.</div>
+          <div class="d10-btns">
+            <div class="d10-btn1">VEDI IL MENU</div>
+            <div class="d10-btn2">PRENOTA</div>
+          </div>
+        </div>
+        <div class="d10-right">
+          <div class="d10-menu-label">La Carta</div>
+          <div class="d10-menu-row">
+            <span class="d10-m-name">Bruschetta classica</span>
+            <span class="d10-m-price">€8</span>
+          </div>
+          <div class="d10-menu-row">
+            <span class="d10-m-name">Tagliatelle al ragù</span>
+            <span class="d10-m-price">€14</span>
+          </div>
+          <div class="d10-menu-row">
+            <span class="d10-m-name">Pizza Margherita</span>
+            <span class="d10-m-price">€11</span>
+          </div>
+          <div class="d10-menu-row">
+            <span class="d10-m-name">Risotto ai funghi</span>
+            <span class="d10-m-price">€16</span>
+          </div>
+          <div class="d10-menu-row">
+            <span class="d10-m-name">Tiramisù della casa</span>
+            <span class="d10-m-price">€7</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /grid -->
+
+<div id="sel-bar">
+  <span id="sel-text">0 designs selected</span>
+  <button onclick="clearAll()">CLEAR</button>
+</div>
+
+<script>
+  const selected = new Set();
+
+  function selectCard(el) {
+    const choice = el.dataset.choice;
+    if (selected.has(choice)) {
+      selected.delete(choice);
+      el.classList.remove('selected');
+    } else {
+      selected.add(choice);
+      el.classList.add('selected');
+    }
+    updateBar();
+
+    // record event for server
+    try {
+      fetch('/__select__', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'click', choice, timestamp: Math.floor(Date.now()/1000) })
+      }).catch(() => {});
+    } catch(e) {}
+  }
+
+  function updateBar() {
+    const bar = document.getElementById('sel-bar');
+    const txt = document.getElementById('sel-text');
+    if (selected.size > 0) {
+      bar.classList.add('visible');
+      const names = [...selected].map(n => `#${n}`).join(', ');
+      txt.textContent = `Selected: Design${selected.size > 1 ? 's' : ''} ${names}`;
+    } else {
+      bar.classList.remove('visible');
+    }
+  }
+
+  function clearAll() {
+    selected.clear();
+    document.querySelectorAll('.design-card.selected').forEach(el => el.classList.remove('selected'));
+    updateBar();
+  }
+</script>
+</body>
+</html>

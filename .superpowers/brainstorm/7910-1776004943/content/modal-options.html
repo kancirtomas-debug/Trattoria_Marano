@@ -1,0 +1,85 @@
+<h2>What shows inside the popup when you click a card?</h2>
+<p class="subtitle">Click a modal design to select it</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="modal-a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <!-- Modal A mockup -->
+      <div style="background:#00000022;padding:12px;border-radius:8px 8px 0 0;">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);max-width:420px;margin:0 auto;">
+          <div style="background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);height:180px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:64px;">🍕</span>
+          </div>
+          <div style="padding:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+              <strong style="font-size:18px;color:#201515;">Pizza Margherita</strong>
+              <strong style="font-size:20px;color:#6b1535;">10.90 €</strong>
+            </div>
+            <p style="font-size:13px;color:#555;line-height:1.7;margin:0;">The classic: tomato sauce, mozzarella and fresh basil. Simple, honest, unbeatable. Our dough rests for 48 hours for the perfect crust. Approx. Ø 33 cm.</p>
+            <p style="font-size:11px;color:#aaa;margin-top:12px;">🌿 Vegetarian · 1a,7 / A,D,I</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Clean &amp; simple</h3>
+      <p>Big photo, name, price, and a rich description. No clutter. Close by clicking outside.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="modal-b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <!-- Modal B mockup -->
+      <div style="background:#00000022;padding:12px;border-radius:8px 8px 0 0;">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);max-width:420px;margin:0 auto;">
+          <div style="background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);height:160px;display:flex;align-items:center;justify-content:center;">
+            <span style="font-size:56px;">🍝</span>
+          </div>
+          <div style="padding:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <strong style="font-size:17px;color:#201515;">Spaghetti Carbonara</strong>
+              <strong style="font-size:19px;color:#6b1535;">14.90 €</strong>
+            </div>
+            <p style="font-size:13px;color:#555;line-height:1.7;margin:0 0 12px;">Roman-style carbonara: al-dente spaghetti with crispy guanciale, creamy egg-pecorino sauce and freshly ground black pepper. No cream — just tradition.</p>
+            <div style="border-top:1px solid #eee;padding-top:12px;">
+              <p style="font-size:11px;color:#888;margin:0 0 6px;text-transform:uppercase;letter-spacing:.05em;">Ingredients</p>
+              <p style="font-size:12px;color:#555;margin:0 0 10px;">Spaghetti · Guanciale · Egg yolk · Pecorino Romano · Black pepper</p>
+              <p style="font-size:11px;color:#aaa;margin:0 0 14px;">1a,3,7 / A,B,C,D,E</p>
+            </div>
+            <a style="display:block;text-align:center;background:#009de0;color:#fff;padding:10px;border-radius:6px;font-size:13px;font-weight:600;text-decoration:none;">Order on Wolt →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Full details + Wolt button</h3>
+      <p>Photo, description, full ingredient list, allergens, and a direct link to order it on Wolt.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="modal-c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <!-- Modal C mockup -->
+      <div style="background:#00000022;padding:12px;border-radius:8px 8px 0 0;">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.18);max-width:420px;margin:0 auto;display:flex;min-height:180px;">
+          <div style="width:42%;background:linear-gradient(135deg,#8B7355 0%,#c5b9a8 100%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <span style="font-size:52px;">🥗</span>
+          </div>
+          <div style="flex:1;padding:18px;display:flex;flex-direction:column;justify-content:center;">
+            <strong style="font-size:16px;color:#201515;display:block;margin-bottom:6px;">Insalata Nizza</strong>
+            <strong style="font-size:17px;color:#6b1535;display:block;margin-bottom:10px;">16.50 €</strong>
+            <p style="font-size:12px;color:#555;line-height:1.6;margin:0 0 10px;">Salade Niçoise with tuna, eggs, olives, capers and anchovy dressing.</p>
+            <p style="font-size:11px;color:#aaa;margin:0 0 12px;">3,4,10,13 / A,B,C,D,F</p>
+            <a style="display:block;text-align:center;background:#6b1535;color:#fff;padding:8px;border-radius:5px;font-size:12px;font-weight:600;text-decoration:none;">Order on Wolt →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Side-by-side in the popup too</h3>
+      <p>Modal keeps the same horizontal layout as the card. More compact popup.</p>
+    </div>
+  </div>
+
+</div>

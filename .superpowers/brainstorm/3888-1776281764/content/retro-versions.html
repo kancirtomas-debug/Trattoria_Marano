@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trattoria Marano — 10 Retro Versions</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Bebas+Neue&family=Special+Elite&family=Righteous&family=Russo+One&family=Abril+Fatface&family=Lobster&family=Oswald:wght@300;400;600;700&family=Montserrat:wght@300;400;700;900&family=Satisfy&family=DM+Serif+Display:ital@0;1&family=Cinzel:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#111;font-family:'Montserrat',sans-serif;color:#fff;min-height:100vh}
+
+/* ── TAB BAR ── */
+.tab-bar{
+  position:sticky;top:0;z-index:100;
+  background:#0d0d0d;
+  border-bottom:2px solid rgba(255,255,255,0.08);
+  display:flex;align-items:stretch;
+  overflow-x:auto;scrollbar-width:thin;
+}
+.tab-bar::-webkit-scrollbar{height:3px}
+.tab-bar::-webkit-scrollbar-track{background:#0d0d0d}
+.tab-bar::-webkit-scrollbar-thumb{background:#c8a040}
+
+.tab{
+  flex-shrink:0;
+  padding:14px 20px;
+  cursor:pointer;
+  font-size:0.62rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);
+  border-bottom:2px solid transparent;
+  margin-bottom:-2px;
+  transition:color 0.15s,border-color 0.15s;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+}
+.tab .num{font-size:1rem;font-family:'Bebas Neue',sans-serif;line-height:1}
+.tab:hover{color:rgba(255,255,255,0.75)}
+.tab.active{color:#c8a040;border-bottom-color:#c8a040}
+
+/* ── STAGE ── */
+.stage{position:relative;min-height:calc(100vh - 58px)}
+
+/* ── VERSION PANELS ── */
+.ver{display:none;animation:fadeIn 0.2s ease}
+.ver.active{display:block}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ── SHARED MINI-SITE LAYOUT ── */
+.site{font-size:10px;line-height:1.4} /* base = 10px so all rem inside scale right */
+.site-nav{
+  position:sticky;top:58px;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2em 2.4em;height:5.8em;
+}
+.site-hero{
+  min-height:38em;
+  display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+.site-hero-inner{
+  flex:1;display:flex;align-items:center;
+  position:relative;
+}
+.site-hero-text{
+  position:relative;z-index:2;
+  padding:2.8em 2.6em;
+  max-width:48%;
+}
+.site-hero-img{
+  position:absolute;right:0;top:0;bottom:0;width:55%;
+  background:#888;
+  display:flex;align-items:center;justify-content:center;
+  font-size:5em;
+}
+.site-hours{
+  padding:1.4em 2.4em;
+  display:flex;align-items:center;gap:2em;
+  font-size:0.75em;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;
+}
+.site-section{padding:3em 2.4em}
+.site-section-label{font-size:0.6em;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:0.8em}
+.site-section-title{font-size:1.6em;font-weight:700;margin-bottom:1.2em}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2em}
+.menu-card{border-radius:0.8em;padding:1.4em 1.2em}
+.menu-card-label{font-size:0.55em;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5em}
+.menu-card-name{font-size:1em;font-weight:700;margin-bottom:0.4em}
+.menu-card-items{font-size:0.65em;opacity:0.7;line-height:1.6}
+.reviews-badge{display:inline-block;padding:0.7em 1.8em;border-radius:0.3em;font-size:0.8em;font-weight:700;margin-bottom:2em}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1em}
+.review-card{border-radius:0.8em;padding:1.2em}
+.review-text{font-size:0.6em;line-height:1.6;margin-bottom:0.8em}
+.review-name{font-size:0.65em;font-weight:700}
+.review-stars{font-size:0.55em;opacity:0.7}
+.feature-grid{display:grid;grid-template-columns:3fr 2fr;gap:1em;margin-bottom:1em}
+.feature-card{border-radius:0.8em;padding:1.4em}
+.feature-label{font-size:0.55em;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.5em}
+.feature-title{font-size:0.9em;font-weight:700;margin-bottom:0.5em}
+.feature-text{font-size:0.58em;line-height:1.5;margin-bottom:0.8em;opacity:0.75}
+.feature-link{font-size:0.58em;font-weight:700}
+.feature-strip{border-radius:0.8em;padding:1em 1.4em;display:flex;align-items:center;justify-content:space-between}
+.site-footer{padding:3em 2.4em;display:grid;grid-template-columns:repeat(4,1fr);gap:2em}
+.footer-col-title{font-size:0.6em;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:1em;opacity:0.5}
+.footer-logo{font-size:1.5em;font-weight:700;margin-bottom:0.2em}
+.footer-sublabel{font-size:0.55em;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.8em}
+.footer-text{font-size:0.6em;line-height:1.6;opacity:0.65}
+.footer-contact-item{font-size:0.6em;margin-bottom:0.5em;opacity:0.75}
+.footer-bottom{padding:1em 2.4em;border-top:1px solid rgba(255,255,255,0.08);font-size:0.6em;opacity:0.4;display:flex;justify-content:space-between}
+.nav-logo{display:flex;flex-direction:column;line-height:1}
+.nav-logo-main{font-size:1.5em;font-weight:700;letter-spacing:-0.02em}
+.nav-logo-sub{font-size:0.55em;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;margin-top:0.15em}
+.nav-links{display:flex;gap:1.5em;font-size:0.72em;font-weight:500}
+.nav-right{display:flex;align-items:center;gap:1em}
+.nav-lang{font-size:0.6em;font-weight:700;padding:0.4em 0.9em;border-radius:0.3em;border:1px solid currentColor}
+.nav-btn{font-size:0.6em;font-weight:700;padding:0.6em 1.4em;border-radius:0.3em}
+.hero-label{font-size:0.7em;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;margin-bottom:0.8em}
+.hero-title{font-size:3.5em;font-weight:700;line-height:0.92;letter-spacing:-0.03em;margin-bottom:0.5em}
+.hero-tagline{font-size:0.85em;line-height:1.5;margin-bottom:1.2em;max-width:36ch}
+.hero-btns{display:flex;gap:0.8em}
+.hero-btn1,.hero-btn2{font-size:0.65em;font-weight:700;padding:0.8em 1.6em;border-radius:0.3em;letter-spacing:0.05em}
+
+/* ══════════════════════════════════════════════
+   1. ORIGINAL (reference)
+══════════════════════════════════════════════ */
+.v1 .site{background:#fffefb;color:#36342e}
+.v1 .site-nav{background:rgba(255,254,251,0.96);border-bottom:1px solid #c5c0b1}
+.v1 .nav-logo-main{font-family:'Playfair Display',serif;color:#201515}
+.v1 .nav-logo-sub{color:#6b1535}
+.v1 .nav-links a,.v1 .nav-links span{color:#36342e}
+.v1 .nav-lang{color:#36342e;border-color:#c5c0b1}
+.v1 .nav-btn{background:#e07000;color:#fff}
+.v1 .site-hero{background:#fffefb}
+.v1 .site-hero-img{background:linear-gradient(135deg,#d4a574,#8b6340);font-size:4em}
+.v1 .hero-label{color:#6b1535}
+.v1 .hero-title{color:#201515}
+.v1 .hero-title span{color:#6b1535}
+.v1 .hero-tagline{color:#36342e}
+.v1 .hero-btn1{background:#e07000;color:#fff}
+.v1 .hero-btn2{background:#201515;color:#fffefb}
+.v1 .site-hours{background:#6b1535;color:#fffefb}
+.v1 .menu-card{background:rgba(255,254,251,0.95);border:1px solid rgba(107,21,53,0.12);box-shadow:0 4px 18px rgba(107,21,53,0.04)}
+.v1 .menu-card-label{color:#6b1535}
+.v1 .menu-card-name{color:#201515}
+.v1 .reviews-badge{background:#6b1535;color:#fffefb}
+.v1 .review-card{background:rgba(255,254,251,0.9);border:1px solid rgba(107,21,53,0.08)}
+.v1 .review-text,.v1 .review-name,.v1 .review-stars{color:#36342e}
+.v1 .feature-card{background:rgba(255,254,251,0.93);border:1px solid rgba(107,21,53,0.1)}
+.v1 .feature-card.dark{background:#201515}
+.v1 .feature-card.dark .feature-title,.v1 .feature-card.dark .feature-label,.v1 .feature-card.dark .feature-text,.v1 .feature-card.dark .feature-link{color:#fffefb}
+.v1 .feature-label{color:#6b1535}
+.v1 .feature-title{color:#201515}
+.v1 .feature-link{color:#6b1535}
+.v1 .feature-strip{background:rgba(255,254,251,0.93);border:1px solid rgba(107,21,53,0.1)}
+.v1 .feature-strip .feature-label{color:#6b1535}
+.v1 .feature-strip .feature-title{color:#201515}
+.v1 .feature-strip .feature-link{color:#6b1535}
+.v1 .site-footer{background:#201515;color:#fffefb}
+.v1 .footer-bottom{background:#201515;color:#fffefb}
+.v1 .site-section{background:#fffefb}
+
+/* ══════════════════════════════════════════════
+   2. MOD POP '65
+══════════════════════════════════════════════ */
+.v2 .site{background:#fff;color:#000;font-family:'Oswald',sans-serif}
+.v2 .site-nav{background:#000;border-bottom:none}
+.v2 .nav-logo-main{font-family:'Bebas Neue',sans-serif;color:#ff5500;font-size:1.8em;letter-spacing:0.08em}
+.v2 .nav-logo-sub{color:rgba(255,255,255,0.5);letter-spacing:0.2em}
+.v2 .nav-links span{color:rgba(255,255,255,0.75)}
+.v2 .nav-lang{color:#ff5500;border-color:#ff5500}
+.v2 .nav-btn{background:#ff5500;color:#fff;border-radius:0}
+.v2 .site-hero{background:#fff}
+.v2 .site-hero-img{
+  background:#ff5500;
+  clip-path:polygon(8% 0,100% 0,100% 100%,0 100%);
+}
+.v2 .hero-label{color:#ff5500;font-family:'Bebas Neue',sans-serif;font-size:0.9em;letter-spacing:0.25em}
+.v2 .hero-title{font-family:'Bebas Neue',sans-serif;color:#000;font-size:5em;letter-spacing:0.04em;line-height:0.88}
+.v2 .hero-title span{color:#ff5500}
+.v2 .hero-tagline{color:#333;font-size:0.8em}
+.v2 .hero-btn1{background:#ff5500;color:#fff;border-radius:0;text-transform:uppercase;letter-spacing:0.15em}
+.v2 .hero-btn2{background:#000;color:#fff;border-radius:0;text-transform:uppercase;letter-spacing:0.15em}
+.v2 .site-hours{background:#ff5500;color:#fff}
+.v2 .menu-card{background:#f5f5f5;border-left:4px solid #ff5500;border-radius:0}
+.v2 .menu-card-label{color:#ff5500}
+.v2 .menu-card-name{color:#000}
+.v2 .reviews-badge{background:#000;color:#ff5500;border-radius:0}
+.v2 .review-card{background:#f5f5f5;border-radius:0;border-left:2px solid #ff5500}
+.v2 .review-text,.v2 .review-name{color:#000}
+.v2 .feature-card{background:#f5f5f5;border-radius:0}
+.v2 .feature-card.dark{background:#ff5500}
+.v2 .feature-card.dark .feature-title,.v2 .feature-card.dark .feature-label,.v2 .feature-card.dark .feature-text,.v2 .feature-card.dark .feature-link{color:#fff}
+.v2 .feature-label{color:#ff5500}
+.v2 .feature-title{color:#000}
+.v2 .feature-link{color:#ff5500}
+.v2 .feature-strip{background:#000;border-radius:0}
+.v2 .feature-strip .feature-label,.v2 .feature-strip .feature-title,.v2 .feature-strip .feature-link{color:#ff5500}
+.v2 .site-footer{background:#000;color:#fff}
+.v2 .footer-logo{color:#ff5500;font-family:'Bebas Neue',sans-serif}
+.v2 .footer-sublabel{color:#ff5500}
+.v2 .footer-bottom{background:#000;border-color:rgba(255,255,255,0.1)}
+.v2 .site-section{background:#fff}
+
+/* ══════════════════════════════════════════════
+   3. VINTAGE ITALIAN POSTER '62
+══════════════════════════════════════════════ */
+.v3 .site{background:#f0e4c2;color:#3a1a00;font-family:'Playfair Display',serif}
+.v3 .site-nav{background:#8b1a1a;border-bottom:3px double #f0e4c2}
+.v3 .nav-logo-main{font-family:'Abril Fatface',cursive;color:#f0e4c2;font-size:1.4em}
+.v3 .nav-logo-sub{color:rgba(240,228,194,0.7);font-family:'Playfair Display',serif;font-style:italic}
+.v3 .nav-links span{color:rgba(240,228,194,0.85);font-family:'Oswald',sans-serif;font-size:0.9em}
+.v3 .nav-lang{color:#f0e4c2;border-color:rgba(240,228,194,0.5)}
+.v3 .nav-btn{background:#f0e4c2;color:#8b1a1a;font-family:'Oswald',sans-serif}
+.v3 .site-hero{background:#f0e4c2}
+.v3 .site-hero::before{content:'';position:absolute;inset:0;border:8px solid #8b1a1a;margin:0.8em;pointer-events:none;z-index:3}
+.v3 .site-hero-img{background:linear-gradient(135deg,#c4956a,#7a4520);clip-path:none}
+.v3 .hero-label{color:#8b1a1a;font-family:'Oswald',sans-serif;letter-spacing:0.25em}
+.v3 .hero-title{font-family:'Abril Fatface',cursive;color:#3a1a00;font-size:3.8em;line-height:0.88}
+.v3 .hero-title span{color:#8b1a1a}
+.v3 .hero-tagline{font-family:'Playfair Display',serif;font-style:italic;color:#5a3010}
+.v3 .hero-btn1{background:#8b1a1a;color:#f0e4c2;font-family:'Oswald',sans-serif;border-radius:0}
+.v3 .hero-btn2{background:transparent;color:#3a1a00;border:2px solid #3a1a00;font-family:'Oswald',sans-serif;border-radius:0}
+.v3 .site-hours{background:#2d5a1b;color:#f0e4c2;border-top:3px solid #8b1a1a}
+.v3 .menu-card{background:#fff9ec;border:2px solid #8b1a1a;border-radius:0}
+.v3 .menu-card-label{color:#8b1a1a;font-family:'Oswald',sans-serif}
+.v3 .menu-card-name{font-family:'Abril Fatface',cursive;color:#3a1a00}
+.v3 .reviews-badge{background:#8b1a1a;color:#f0e4c2;border:2px solid #f0e4c2;border-radius:0}
+.v3 .review-card{background:#fff9ec;border:1.5px solid #c4a060;border-radius:0}
+.v3 .review-text{font-style:italic}
+.v3 .review-text,.v3 .review-name{color:#3a1a00}
+.v3 .feature-card{background:#fff9ec;border:2px solid #8b1a1a;border-radius:0}
+.v3 .feature-card.dark{background:#3a1a00}
+.v3 .feature-card.dark .feature-title,.v3 .feature-card.dark .feature-label,.v3 .feature-card.dark .feature-text,.v3 .feature-card.dark .feature-link{color:#f0e4c2}
+.v3 .feature-label{color:#8b1a1a;font-family:'Oswald',sans-serif}
+.v3 .feature-title{font-family:'Abril Fatface',cursive;color:#3a1a00}
+.v3 .feature-link{color:#8b1a1a}
+.v3 .feature-strip{background:#fff9ec;border:2px solid #8b1a1a;border-radius:0}
+.v3 .feature-strip .feature-label{color:#8b1a1a}
+.v3 .feature-strip .feature-title{font-family:'Abril Fatface',cursive;color:#3a1a00}
+.v3 .site-footer{background:#3a1a00;color:#f0e4c2}
+.v3 .footer-logo{font-family:'Abril Fatface',cursive;color:#f0e4c2}
+.v3 .footer-sublabel{color:#c4956a}
+.v3 .footer-bottom{background:#3a1a00;border-color:rgba(240,228,194,0.15)}
+.v3 .site-section{background:#f0e4c2}
+
+/* ══════════════════════════════════════════════
+   4. PSYCHEDELIC SUMMER '67
+══════════════════════════════════════════════ */
+.v4 .site{background:linear-gradient(150deg,#4b0082,#9b1dac,#ff6600,#ffd700);color:#fff;font-family:'Righteous',cursive}
+.v4 .site-nav{background:rgba(30,0,60,0.92);border-bottom:2px solid rgba(255,215,0,0.4)}
+.v4 .nav-logo-main{font-family:'Righteous',cursive;color:#ffd700;font-size:1.3em}
+.v4 .nav-logo-sub{color:rgba(255,215,0,0.7);font-family:'Satisfy',cursive}
+.v4 .nav-links span{color:rgba(255,215,0,0.8)}
+.v4 .nav-lang{color:#ffd700;border-color:#ffd700}
+.v4 .nav-btn{background:#ffd700;color:#4b0082;border-radius:50px}
+.v4 .site-hero{background:transparent;min-height:42em}
+.v4 .site-hero::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:repeating-radial-gradient(circle at 50% 50%,transparent 0,transparent 15px,rgba(255,255,255,0.03) 15px,rgba(255,255,255,0.03) 16px);
+}
+.v4 .site-hero-img{background:radial-gradient(circle,#ff6600,#9b1dac);z-index:1}
+.v4 .site-hero-text{z-index:2}
+.v4 .hero-label{color:#ffd700;font-family:'Satisfy',cursive;font-size:0.9em;letter-spacing:0.05em;text-shadow:0 0 10px rgba(255,215,0,0.5)}
+.v4 .hero-title{font-family:'Righteous',cursive;color:#fff;font-size:4em;text-shadow:3px 3px 0 #ff0080,6px 6px 0 rgba(255,215,0,0.4);transform:rotate(-1deg)}
+.v4 .hero-title span{color:#ffd700}
+.v4 .hero-tagline{color:rgba(255,255,255,0.85);font-family:'Satisfy',cursive}
+.v4 .hero-btn1{background:#ffd700;color:#4b0082;border-radius:50px;text-transform:uppercase;letter-spacing:0.1em}
+.v4 .hero-btn2{background:rgba(255,255,255,0.15);color:#fff;border:1.5px solid rgba(255,255,255,0.5);border-radius:50px}
+.v4 .site-hours{background:rgba(30,0,60,0.85);color:#ffd700;border-top:2px solid rgba(255,215,0,0.3)}
+.v4 .menu-card{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);border-radius:16px;backdrop-filter:blur(4px)}
+.v4 .menu-card-label{color:#ffd700}
+.v4 .menu-card-name{color:#fff}
+.v4 .reviews-badge{background:#ffd700;color:#4b0082;border-radius:50px}
+.v4 .review-card{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:14px}
+.v4 .review-text,.v4 .review-name,.v4 .review-stars{color:#fff}
+.v4 .feature-card{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.25);border-radius:14px}
+.v4 .feature-card.dark{background:rgba(30,0,60,0.7)}
+.v4 .feature-label,.v4 .feature-title,.v4 .feature-text,.v4 .feature-link{color:#fff}
+.v4 .feature-link{color:#ffd700}
+.v4 .feature-strip{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);border-radius:10px}
+.v4 .feature-strip .feature-label,.v4 .feature-strip .feature-title{color:#fff}
+.v4 .feature-strip .feature-link{color:#ffd700}
+.v4 .site-footer{background:rgba(20,0,50,0.95);color:#fff}
+.v4 .footer-logo{font-family:'Righteous',cursive;color:#ffd700}
+.v4 .footer-sublabel{color:rgba(255,215,0,0.7)}
+.v4 .footer-bottom{background:rgba(20,0,50,0.95);border-color:rgba(255,255,255,0.1)}
+.v4 .site-section{background:transparent}
+
+/* ══════════════════════════════════════════════
+   5. HARVEST GOLD '72
+══════════════════════════════════════════════ */
+.v5 .site{background:#c17d2a;color:#fff;font-family:'Righteous',cursive}
+.v5 .site-nav{
+  background:#5c3d00;border-bottom:3px solid #e8c46a;
+  background-image:repeating-linear-gradient(180deg,rgba(0,0,0,0.04) 0,rgba(0,0,0,0.04) 2px,transparent 2px,transparent 8px);
+}
+.v5 .nav-logo-main{font-family:'Lobster',cursive;color:#e8c46a;font-size:1.5em}
+.v5 .nav-logo-sub{color:rgba(232,196,106,0.65);font-family:'Satisfy',cursive}
+.v5 .nav-links span{color:rgba(232,196,106,0.8)}
+.v5 .nav-lang{color:#e8c46a;border-color:#e8c46a}
+.v5 .nav-btn{background:#e8c46a;color:#5c3d00;border-radius:50px;font-family:'Oswald',sans-serif}
+.v5 .site-hero{
+  background:#c17d2a;
+  background-image:repeating-linear-gradient(180deg,rgba(0,0,0,0.03) 0,rgba(0,0,0,0.03) 2px,transparent 2px,transparent 10px);
+}
+.v5 .site-hero-img{background:linear-gradient(135deg,#698b3a,#3d5a00)}
+.v5 .hero-label{color:#5c3d00;font-family:'Oswald',sans-serif;letter-spacing:0.2em}
+.v5 .hero-title{font-family:'Lobster',cursive;color:#fff;font-size:4em;text-shadow:2px 2px 0 rgba(0,0,0,0.2)}
+.v5 .hero-title span{color:#5c3d00}
+.v5 .hero-tagline{font-family:'Satisfy',cursive;color:#5c3d00}
+.v5 .hero-btn1{background:#5c3d00;color:#e8c46a;border-radius:50px;font-family:'Oswald',sans-serif}
+.v5 .hero-btn2{background:transparent;color:#5c3d00;border:2px solid #5c3d00;border-radius:50px;font-family:'Oswald',sans-serif}
+.v5 .site-hours{background:#5c3d00;color:#e8c46a}
+.v5 .menu-card{background:rgba(255,255,255,0.2);border:2px solid rgba(92,61,0,0.3);border-radius:12px}
+.v5 .menu-card-label{color:#5c3d00}
+.v5 .menu-card-name{color:#fff;font-family:'Lobster',cursive}
+.v5 .reviews-badge{background:#5c3d00;color:#e8c46a;border-radius:50px}
+.v5 .review-card{background:rgba(255,255,255,0.18);border:1px solid rgba(92,61,0,0.2);border-radius:12px}
+.v5 .review-text,.v5 .review-name,.v5 .review-stars{color:#fff}
+.v5 .feature-card{background:rgba(255,255,255,0.18);border:1.5px solid rgba(92,61,0,0.2);border-radius:12px}
+.v5 .feature-card.dark{background:#5c3d00}
+.v5 .feature-label{color:#5c3d00}
+.v5 .feature-title,.v5 .feature-text,.v5 .feature-link{color:#fff}
+.v5 .feature-card.dark .feature-label{color:#e8c46a}
+.v5 .feature-link{color:#e8c46a}
+.v5 .feature-strip{background:rgba(255,255,255,0.18);border:1px solid rgba(92,61,0,0.2);border-radius:12px}
+.v5 .site-footer{background:#3d2500;color:#f5e8c0}
+.v5 .footer-logo{font-family:'Lobster',cursive;color:#e8c46a}
+.v5 .footer-sublabel{color:#698b3a}
+.v5 .footer-bottom{background:#3d2500;border-color:rgba(255,255,255,0.1)}
+.v5 .site-section{background:transparent}
+
+/* ══════════════════════════════════════════════
+   6. CINEMA ITALIANO NOIR '63
+══════════════════════════════════════════════ */
+.v6 .site{background:#0d0d0d;color:#f0f0f0;font-family:'Playfair Display',serif}
+.v6 .site-nav{background:#0d0d0d;border-bottom:1px solid rgba(204,0,0,0.35)}
+.v6 .nav-logo-main{font-family:'Playfair Display',serif;font-style:italic;color:#fff;font-size:1.3em}
+.v6 .nav-logo-sub{color:#cc0000;font-family:'Oswald',sans-serif}
+.v6 .nav-links span{color:rgba(255,255,255,0.55);font-family:'Oswald',sans-serif;font-size:0.85em}
+.v6 .nav-lang{color:rgba(255,255,255,0.6);border-color:rgba(255,255,255,0.2)}
+.v6 .nav-btn{background:#cc0000;color:#fff;font-family:'Oswald',sans-serif;border-radius:0}
+.v6 .site-hero{background:#0d0d0d}
+.v6 .site-hero::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;z-index:3;
+  background:repeating-linear-gradient(90deg,#cc0000 0,#cc0000 20px,transparent 20px,transparent 22px);
+}
+.v6 .site-hero-img{background:linear-gradient(135deg,#2a2a2a,#0d0d0d)}
+.v6 .hero-label{color:#cc0000;font-family:'Oswald',sans-serif;letter-spacing:0.3em}
+.v6 .hero-title{font-family:'Playfair Display',serif;color:#fff;font-size:3.8em;font-weight:900}
+.v6 .hero-title span{color:#cc0000;font-style:italic}
+.v6 .hero-tagline{font-style:italic;color:rgba(255,255,255,0.6)}
+.v6 .hero-btn1{background:#cc0000;color:#fff;border-radius:0;font-family:'Oswald',sans-serif;letter-spacing:0.12em}
+.v6 .hero-btn2{background:transparent;color:rgba(255,255,255,0.65);border:1px solid rgba(255,255,255,0.25);border-radius:0;font-family:'Oswald',sans-serif}
+.v6 .site-hours{background:#0d0d0d;color:rgba(255,255,255,0.75);border-top:1px solid rgba(204,0,0,0.3);border-bottom:1px solid rgba(204,0,0,0.3)}
+.v6 .menu-card{background:rgba(255,255,255,0.04);border:1px solid rgba(204,0,0,0.25);border-radius:0}
+.v6 .menu-card-label{color:#cc0000;font-family:'Oswald',sans-serif}
+.v6 .menu-card-name{font-style:italic;color:#fff}
+.v6 .reviews-badge{background:#cc0000;color:#fff;border-radius:0}
+.v6 .review-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0}
+.v6 .review-text{font-style:italic;color:rgba(255,255,255,0.7)}
+.v6 .review-name{color:#fff}
+.v6 .feature-card{background:rgba(255,255,255,0.04);border:1px solid rgba(204,0,0,0.2);border-radius:0}
+.v6 .feature-card.dark{background:#cc0000}
+.v6 .feature-label{color:#cc0000;font-family:'Oswald',sans-serif}
+.v6 .feature-title{font-style:italic;color:#fff}
+.v6 .feature-card.dark .feature-label{color:rgba(255,255,255,0.7)}
+.v6 .feature-card.dark .feature-title,.v6 .feature-card.dark .feature-text,.v6 .feature-card.dark .feature-link{color:#fff}
+.v6 .feature-link{color:#cc0000}
+.v6 .feature-strip{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:0}
+.v6 .feature-strip .feature-label{color:#cc0000}
+.v6 .feature-strip .feature-title{color:#fff;font-style:italic}
+.v6 .feature-strip .feature-link{color:#cc0000}
+.v6 .site-footer{background:#000;color:#f0f0f0}
+.v6 .footer-logo{font-family:'Playfair Display',serif;font-style:italic;color:#fff}
+.v6 .footer-sublabel{color:#cc0000}
+.v6 .footer-bottom{background:#000;border-color:rgba(255,255,255,0.06)}
+.v6 .site-section{background:#111}
+
+/* ══════════════════════════════════════════════
+   7. OP-ART MILAN '66
+══════════════════════════════════════════════ */
+.v7 .site{background:#fff;color:#000;font-family:'Oswald',sans-serif}
+.v7 .site-nav{background:#000}
+.v7 .nav-logo-main{font-family:'Bebas Neue',sans-serif;color:#fff;font-size:1.8em;letter-spacing:0.12em}
+.v7 .nav-logo-sub{color:rgba(255,255,255,0.5);letter-spacing:0.25em}
+.v7 .nav-links span{color:rgba(255,255,255,0.7)}
+.v7 .nav-lang{color:#fff;border-color:rgba(255,255,255,0.4)}
+.v7 .nav-btn{background:#fff;color:#000;border-radius:0;font-weight:700;letter-spacing:0.1em}
+.v7 .site-hero{background:#fff}
+.v7 .site-hero-img{
+  background:repeating-linear-gradient(45deg,#000 0,#000 5px,#fff 5px,#fff 14px);
+}
+.v7 .hero-label{color:#000;letter-spacing:0.3em}
+.v7 .hero-title{font-family:'Bebas Neue',sans-serif;color:#000;font-size:5.5em;letter-spacing:0.05em;line-height:0.85}
+.v7 .hero-title span{background:#000;color:#fff;padding:0 4px}
+.v7 .hero-tagline{color:#333;font-size:0.75em}
+.v7 .hero-btn1{background:#000;color:#fff;border-radius:0;letter-spacing:0.15em;text-transform:uppercase}
+.v7 .hero-btn2{background:#fff;color:#000;border:2px solid #000;border-radius:0;letter-spacing:0.15em;text-transform:uppercase}
+.v7 .site-hours{background:#000;color:#fff}
+.v7 .menu-card{background:#f5f5f5;border:2px solid #000;border-radius:0}
+.v7 .menu-card-label{color:#000;letter-spacing:0.25em}
+.v7 .menu-card-name{color:#000;font-family:'Bebas Neue',sans-serif;font-size:1.3em;letter-spacing:0.1em}
+.v7 .reviews-badge{background:#000;color:#fff;border-radius:0;letter-spacing:0.15em}
+.v7 .review-card{background:#f5f5f5;border:1.5px solid #000;border-radius:0}
+.v7 .review-text,.v7 .review-name{color:#000}
+.v7 .feature-card{background:#f5f5f5;border:2px solid #000;border-radius:0}
+.v7 .feature-card.dark{background:#000}
+.v7 .feature-card.dark .feature-title,.v7 .feature-card.dark .feature-label,.v7 .feature-card.dark .feature-text,.v7 .feature-card.dark .feature-link{color:#fff}
+.v7 .feature-label{letter-spacing:0.2em}
+.v7 .feature-strip{background:#000;border-radius:0}
+.v7 .feature-strip .feature-label,.v7 .feature-strip .feature-title,.v7 .feature-strip .feature-link{color:#fff}
+.v7 .site-footer{background:#000;color:#fff}
+.v7 .footer-logo{font-family:'Bebas Neue',sans-serif;color:#fff;letter-spacing:0.1em}
+.v7 .footer-sublabel{color:rgba(255,255,255,0.5)}
+.v7 .footer-bottom{background:#000;border-color:rgba(255,255,255,0.1)}
+.v7 .site-section{background:#fff}
+
+/* ══════════════════════════════════════════════
+   8. FLOWER POWER FOLK '69
+══════════════════════════════════════════════ */
+.v8 .site{background:#f5e6c8;color:#2c1810;font-family:'Playfair Display',serif}
+.v8 .site-nav{background:#5e8a3c;border-bottom:3px solid #3d5c22}
+.v8 .nav-logo-main{font-family:'Satisfy',cursive;color:#fff;font-size:1.5em}
+.v8 .nav-logo-sub{color:rgba(255,255,255,0.7);font-family:'Playfair Display',serif;font-style:italic;font-size:0.5em}
+.v8 .nav-links span{color:rgba(255,255,255,0.85);font-family:'Oswald',sans-serif;font-size:0.85em}
+.v8 .nav-lang{color:#fff;border-color:rgba(255,255,255,0.4)}
+.v8 .nav-btn{background:#fff;color:#5e8a3c;border-radius:50px;font-family:'Oswald',sans-serif}
+.v8 .site-hero{background:#f5e6c8}
+.v8 .site-hero-img{background:linear-gradient(135deg,#a8d88a,#5e8a3c)}
+.v8 .hero-label{color:#5e8a3c;font-family:'Oswald',sans-serif}
+.v8 .hero-title{font-family:'Abril Fatface',cursive;color:#2c1810;font-size:3.6em}
+.v8 .hero-title span{color:#c0392b}
+.v8 .hero-tagline{font-family:'Satisfy',cursive;color:#5e8a3c;font-size:1em}
+.v8 .hero-btn1{background:#c0392b;color:#fff;border-radius:50px;font-family:'Oswald',sans-serif}
+.v8 .hero-btn2{background:transparent;color:#5e8a3c;border:2px solid #5e8a3c;border-radius:50px;font-family:'Oswald',sans-serif}
+.v8 .site-hours{background:#5e8a3c;color:#fff}
+.v8 .menu-card{background:rgba(255,255,255,0.85);border:2px solid rgba(94,138,60,0.35);border-radius:12px}
+.v8 .menu-card-label{color:#5e8a3c}
+.v8 .menu-card-name{font-family:'Abril Fatface',cursive;color:#2c1810}
+.v8 .reviews-badge{background:#c0392b;color:#fff;border-radius:50px}
+.v8 .review-card{background:rgba(255,255,255,0.8);border:1.5px solid rgba(94,138,60,0.25);border-radius:12px}
+.v8 .review-text{font-style:italic;color:#4a3020}
+.v8 .review-name{color:#2c1810}
+.v8 .feature-card{background:rgba(255,255,255,0.8);border:2px solid rgba(94,138,60,0.3);border-radius:12px}
+.v8 .feature-card.dark{background:#2c1810}
+.v8 .feature-label{color:#5e8a3c}
+.v8 .feature-title{font-family:'Abril Fatface',cursive;color:#2c1810}
+.v8 .feature-card.dark .feature-label{color:#a8d88a}
+.v8 .feature-card.dark .feature-title,.v8 .feature-card.dark .feature-text,.v8 .feature-card.dark .feature-link{color:#f5e6c8}
+.v8 .feature-link{color:#c0392b}
+.v8 .feature-strip{background:rgba(255,255,255,0.8);border:2px solid rgba(94,138,60,0.3);border-radius:12px}
+.v8 .feature-strip .feature-label{color:#5e8a3c}
+.v8 .feature-strip .feature-title{font-family:'Abril Fatface',cursive;color:#2c1810}
+.v8 .feature-strip .feature-link{color:#c0392b}
+.v8 .site-footer{background:#2c1810;color:#f5e6c8}
+.v8 .footer-logo{font-family:'Satisfy',cursive;color:#f5e6c8}
+.v8 .footer-sublabel{color:#5e8a3c}
+.v8 .footer-bottom{background:#2c1810;border-color:rgba(255,255,255,0.1)}
+.v8 .site-section{background:#f5e6c8}
+
+/* ══════════════════════════════════════════════
+   9. DISCO GLAMOUR '76
+══════════════════════════════════════════════ */
+.v9 .site{
+  background:linear-gradient(135deg,#1a0a2e 0%,#2d1854 60%,#1a1a3e 100%);
+  color:#fff;font-family:'Montserrat',sans-serif;
+}
+.v9 .site-nav{background:rgba(15,5,30,0.95);border-bottom:1px solid rgba(255,215,0,0.25)}
+.v9 .nav-logo-main{
+  font-family:'Playfair Display',serif;font-size:1.3em;
+  background:linear-gradient(90deg,#ffd700,#ff69b4,#ffd700);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.v9 .nav-logo-sub{color:rgba(255,215,0,0.6);font-family:'Satisfy',cursive}
+.v9 .nav-links span{color:rgba(255,215,0,0.65)}
+.v9 .nav-lang{color:rgba(255,215,0,0.8);border-color:rgba(255,215,0,0.3)}
+.v9 .nav-btn{background:linear-gradient(90deg,#ffd700,#ffb800);color:#1a0a2e;border-radius:2px;font-weight:900}
+.v9 .site-hero{background:transparent;min-height:40em}
+.v9 .site-hero::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(circle,rgba(255,215,0,0.35) 1px,transparent 1px);
+  background-size:20px 20px;opacity:0.2;
+}
+.v9 .site-hero-img{background:radial-gradient(circle at 60% 50%,#6a0080,#1a0a2e)}
+.v9 .hero-label{color:rgba(255,215,0,0.75);letter-spacing:0.3em}
+.v9 .hero-title{font-family:'Playfair Display',serif;color:#ffd700;font-size:3.8em;text-shadow:0 0 30px rgba(255,215,0,0.3)}
+.v9 .hero-title span{color:#ff69b4;font-style:italic}
+.v9 .hero-tagline{font-family:'Satisfy',cursive;color:rgba(255,255,255,0.7)}
+.v9 .hero-btn1{background:linear-gradient(90deg,#ffd700,#ffb800);color:#1a0a2e;font-weight:900;border-radius:2px}
+.v9 .hero-btn2{background:transparent;color:rgba(255,215,0,0.8);border:1px solid rgba(255,215,0,0.4);border-radius:2px}
+.v9 .site-hours{background:rgba(15,5,30,0.9);color:rgba(255,215,0,0.85);border-top:1px solid rgba(255,215,0,0.2)}
+.v9 .menu-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,215,0,0.25);border-radius:2px}
+.v9 .menu-card-label{color:rgba(255,215,0,0.7)}
+.v9 .menu-card-name{color:#ffd700;font-family:'Playfair Display',serif;font-style:italic}
+.v9 .reviews-badge{background:linear-gradient(90deg,#ffd700,#ffb800);color:#1a0a2e;border-radius:2px}
+.v9 .review-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,215,0,0.15);border-radius:2px}
+.v9 .review-text{color:rgba(255,255,255,0.65);font-style:italic;font-family:'Playfair Display',serif}
+.v9 .review-name{color:#ffd700}
+.v9 .feature-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,215,0,0.2);border-radius:2px}
+.v9 .feature-card.dark{background:rgba(106,0,128,0.5);border-color:rgba(255,105,180,0.3)}
+.v9 .feature-label{color:rgba(255,215,0,0.6)}
+.v9 .feature-title{color:#ffd700;font-family:'Playfair Display',serif;font-style:italic}
+.v9 .feature-card.dark .feature-title{color:#ff69b4}
+.v9 .feature-card.dark .feature-label{color:rgba(255,255,255,0.5)}
+.v9 .feature-card.dark .feature-text,.v9 .feature-card.dark .feature-link{color:rgba(255,255,255,0.7)}
+.v9 .feature-link{color:rgba(255,215,0,0.8)}
+.v9 .feature-strip{background:rgba(255,255,255,0.05);border:1px solid rgba(255,215,0,0.2);border-radius:2px}
+.v9 .feature-strip .feature-label{color:rgba(255,215,0,0.6)}
+.v9 .feature-strip .feature-title{color:#ffd700}
+.v9 .feature-strip .feature-link{color:rgba(255,215,0,0.8)}
+.v9 .site-footer{background:rgba(10,3,20,0.98);color:#fff}
+.v9 .footer-logo{
+  font-family:'Playfair Display',serif;font-style:italic;
+  background:linear-gradient(90deg,#ffd700,#ff69b4);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.v9 .footer-sublabel{color:rgba(255,215,0,0.5)}
+.v9 .footer-bottom{background:rgba(10,3,20,0.98);border-color:rgba(255,255,255,0.06)}
+.v9 .site-section{background:transparent}
+
+/* ══════════════════════════════════════════════
+   10. RIVIERA MEDITERRANEO '68
+══════════════════════════════════════════════ */
+.v10 .site{background:#e8f4fd;color:#0d4f7a;font-family:'Playfair Display',serif}
+.v10 .site-nav{background:rgba(255,255,255,0.95);border-bottom:2px solid #1a7dbf}
+.v10 .nav-logo-main{font-family:'Abril Fatface',cursive;color:#0d4f7a;font-size:1.35em}
+.v10 .nav-logo-sub{color:#cc3300;font-family:'Satisfy',cursive}
+.v10 .nav-links span{color:#0d4f7a;font-family:'Oswald',sans-serif;font-size:0.85em}
+.v10 .nav-lang{color:#0d4f7a;border-color:#1a7dbf}
+.v10 .nav-btn{background:#cc3300;color:#fff;font-family:'Oswald',sans-serif;border-radius:2px}
+.v10 .site-hero{background:#e8f4fd;position:relative}
+.v10 .site-hero::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:35%;
+  background:linear-gradient(180deg,#1a7dbf,#0d4f7a);
+  clip-path:polygon(0 40%,100% 0%,100% 100%,0% 100%);
+  z-index:0;
+}
+.v10 .site-hero-img{
+  background:linear-gradient(135deg,#87ceeb,#1a7dbf);
+  z-index:1;
+}
+.v10 .site-hero-text{z-index:2}
+.v10 .hero-label{color:#1a7dbf;font-family:'Oswald',sans-serif}
+.v10 .hero-title{font-family:'Abril Fatface',cursive;color:#0d4f7a;font-size:3.6em}
+.v10 .hero-title span{color:#cc3300;font-style:italic}
+.v10 .hero-tagline{font-family:'Satisfy',cursive;color:#1a7dbf;font-size:1em}
+.v10 .hero-btn1{background:#cc3300;color:#fff;font-family:'Oswald',sans-serif}
+.v10 .hero-btn2{background:transparent;color:#0d4f7a;border:2px solid #1a7dbf;font-family:'Oswald',sans-serif}
+.v10 .site-hours{background:#1a7dbf;color:#fff}
+.v10 .menu-card{background:rgba(255,255,255,0.9);border:1.5px solid rgba(26,125,191,0.25);border-radius:8px}
+.v10 .menu-card-label{color:#1a7dbf}
+.v10 .menu-card-name{font-family:'Abril Fatface',cursive;color:#0d4f7a}
+.v10 .reviews-badge{background:#0d4f7a;color:#fff;border-radius:50px}
+.v10 .review-card{background:rgba(255,255,255,0.85);border:1.5px solid rgba(26,125,191,0.2);border-radius:8px}
+.v10 .review-text{font-style:italic;color:#1a3550}
+.v10 .review-name{color:#0d4f7a}
+.v10 .feature-card{background:rgba(255,255,255,0.85);border:1.5px solid rgba(26,125,191,0.2);border-radius:8px}
+.v10 .feature-card.dark{background:#0d4f7a}
+.v10 .feature-label{color:#1a7dbf}
+.v10 .feature-title{font-family:'Abril Fatface',cursive;color:#0d4f7a}
+.v10 .feature-card.dark .feature-label{color:rgba(255,255,255,0.6)}
+.v10 .feature-card.dark .feature-title,.v10 .feature-card.dark .feature-text,.v10 .feature-card.dark .feature-link{color:#fff}
+.v10 .feature-link{color:#cc3300}
+.v10 .feature-strip{background:rgba(255,255,255,0.85);border:1.5px solid rgba(26,125,191,0.2);border-radius:8px}
+.v10 .feature-strip .feature-label{color:#1a7dbf}
+.v10 .feature-strip .feature-title{font-family:'Abril Fatface',cursive;color:#0d4f7a}
+.v10 .feature-strip .feature-link{color:#cc3300}
+.v10 .site-footer{background:#0d2e45;color:#e8f4fd}
+.v10 .footer-logo{font-family:'Abril Fatface',cursive;color:#fff}
+.v10 .footer-sublabel{color:#87ceeb}
+.v10 .footer-bottom{background:#0d2e45;border-color:rgba(255,255,255,0.1)}
+.v10 .site-section{background:#e8f4fd}
+</style>
+</head>
+<body>
+
+<div class="tab-bar" id="tabBar">
+  <div class="tab active" data-v="1" onclick="show(1)"><span class="num">01</span>Original</div>
+  <div class="tab" data-v="2" onclick="show(2)"><span class="num">02</span>Mod Pop '65</div>
+  <div class="tab" data-v="3" onclick="show(3)"><span class="num">03</span>Vintage Poster '62</div>
+  <div class="tab" data-v="4" onclick="show(4)"><span class="num">04</span>Psychedelic '67</div>
+  <div class="tab" data-v="5" onclick="show(5)"><span class="num">05</span>Harvest Gold '72</div>
+  <div class="tab" data-v="6" onclick="show(6)"><span class="num">06</span>Cinema Noir '63</div>
+  <div class="tab" data-v="7" onclick="show(7)"><span class="num">07</span>Op-Art Milan '66</div>
+  <div class="tab" data-v="8" onclick="show(8)"><span class="num">08</span>Flower Power '69</div>
+  <div class="tab" data-v="9" onclick="show(9)"><span class="num">09</span>Disco Glamour '76</div>
+  <div class="tab" data-v="10" onclick="show(10)"><span class="num">10</span>Riviera '68</div>
+</div>
+
+<div class="stage">
+
+<!-- ══ SHARED SITE TEMPLATE (rendered per version) ══ -->
+<script>
+// Shared content injected into each version
+function makeSite(cls) {
+  return `
+  <div class="site">
+    <!-- NAV -->
+    <nav class="site-nav">
+      <div class="nav-logo">
+        <span class="nav-logo-main">Trattoria Marano</span>
+        <span class="nav-logo-sub">München · Autentica Cucina</span>
+      </div>
+      <div class="nav-links">
+        <span>Home</span><span>Gallery</span><span>About</span><span>Events</span><span>Contact</span>
+      </div>
+      <div class="nav-right">
+        <span class="nav-lang">DE</span>
+        <span class="nav-btn">Reserve →</span>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="site-hero">
+      <div class="site-hero-inner">
+        <div class="site-hero-text">
+          <div class="hero-label">Ohlmüllerstr. 22 · 81541 München</div>
+          <div class="hero-title">Trattoria<br><span>Marano</span></div>
+          <div class="hero-tagline">Authentic Italian cuisine in the heart of Munich — wood-fired oven, fresh pasta, real Neapolitan tradition.</div>
+          <div class="hero-btns">
+            <span class="hero-btn1">View Menu</span>
+            <span class="hero-btn2">Reserve Table</span>
+          </div>
+        </div>
+        <div class="site-hero-img">🍕</div>
+      </div>
+    </section>
+
+    <!-- HOURS STRIP -->
+    <div class="site-hours">
+      <span>⏰ Opening Hours</span>
+      <span style="opacity:0.55">Monday: Closed</span>
+      <span style="opacity:0.3">|</span>
+      <span>Tue–Sun: 11:30–14:30 · 17:30–22:30</span>
+    </div>
+
+    <!-- MENU SECTION -->
+    <div class="site-section">
+      <div class="site-section-label">Our Menu</div>
+      <div class="site-section-title">Fresh from Our Kitchen</div>
+      <div class="menu-grid">
+        <div class="menu-card">
+          <div class="menu-card-label">Antipasti</div>
+          <div class="menu-card-name">Starters</div>
+          <div class="menu-card-items">Bruschetta al pomodoro · Carpaccio di manzo · Burrata fresca · Insalata caprese</div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-label">Pasta & Risotto</div>
+          <div class="menu-card-name">Primi Piatti</div>
+          <div class="menu-card-items">Tagliatelle al ragù · Spaghetti carbonara · Pappardelle porcini · Risotto al limone</div>
+        </div>
+        <div class="menu-card">
+          <div class="menu-card-label">Wood-Fired</div>
+          <div class="menu-card-name">Pizza al Forno</div>
+          <div class="menu-card-items">Margherita classica · Diavola · Quattro stagioni · Tartufo nero · Marinara</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TESTIMONIALS -->
+    <div class="site-section" style="padding-top:1em">
+      <div style="text-align:center;margin-bottom:2em">
+        <span class="reviews-badge">Google Reviews · 4.9 ★</span>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-text">"Absolutely world class. One of the best Italian restaurants in Munich — every dish was perfect."</div>
+          <div class="review-name">Philip</div>
+          <div class="review-stars">★★★★★ Google Review</div>
+        </div>
+        <div class="review-card">
+          <div class="review-text">"The stone-oven pizzas are outstanding! Wonderful atmosphere with Italian newspaper decor."</div>
+          <div class="review-name">Vanessa</div>
+          <div class="review-stars">★★★★★ Google Review</div>
+        </div>
+        <div class="review-card">
+          <div class="review-text">"The best pizza in Munich! Thin crust, perfectly crispy, highest quality ingredients."</div>
+          <div class="review-name">Marco R.</div>
+          <div class="review-stars">★★★★★ Google Review</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FEATURE SECTION -->
+    <div class="site-section">
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-label">Events</div>
+          <div class="feature-title">Private Dining & Events</div>
+          <div class="feature-text">Birthdays, corporate events, and special occasions — we take care of everything so your evening is unforgettable.</div>
+          <div class="feature-link">Learn more →</div>
+        </div>
+        <div class="feature-card dark">
+          <div class="feature-label">Take Away</div>
+          <div class="feature-title">Zum Mitnehmen</div>
+          <div class="feature-text">Almost all dishes available to take away — freshly prepared for you to enjoy at home.</div>
+          <div class="feature-link">View menu →</div>
+        </div>
+      </div>
+      <div class="feature-strip">
+        <div>
+          <div class="feature-label">Sister Restaurant</div>
+          <div class="feature-title" style="font-size:0.85em">Solo Pizza · Bereiterangerstr. 18, München</div>
+        </div>
+        <div class="feature-link">Get directions →</div>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div>
+        <div class="footer-logo">Trattoria Marano</div>
+        <div class="footer-sublabel">Autentica Cucina Italiana</div>
+        <div class="footer-text">Authentic Italian cuisine in the heart of Munich since 1968.</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">📍 Ohlmüllerstr. 22, 81541 München</div>
+        <div class="footer-contact-item">📞 089 / 209 28 123</div>
+        <div class="footer-contact-item">✉ kontakt@solopizza.de</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Hours</div>
+        <div class="footer-text">Monday: Closed<br>Tue–Sun:<br>11:30–14:30<br>17:30–22:30</div>
+      </div>
+      <div>
+        <div class="footer-col-title">Sister Restaurant</div>
+        <div class="footer-text">Solo Pizza · Bereiterangerstr. 18 · 81451 München<br><br>Same passion, same quality.</div>
+      </div>
+    </footer>
+    <div class="footer-bottom">
+      <span>© 2025 Trattoria Marano München</span>
+      <span>Sister restaurant: Solo Pizza · Bereiterangerstr. 18</span>
+    </div>
+  </div>`;
+}
+
+const vids = [1,2,3,4,5,6,7,8,9,10];
+vids.forEach(n => {
+  const el = document.createElement('div');
+  el.className = 'ver' + (n===1?' active':'');
+  el.id = 'v'+n;
+  el.innerHTML = `<div class="v${n}">${makeSite('v'+n)}</div>`;
+  document.querySelector('.stage').appendChild(el);
+});
+
+function show(n) {
+  document.querySelectorAll('.ver').forEach(e => e.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(e => e.classList.remove('active'));
+  document.getElementById('v'+n).classList.add('active');
+  document.querySelector('.tab[data-v="'+n+'"]').classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+
+  // record selection
+  try {
+    fetch('/__select__',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({type:'click',choice:String(n),timestamp:Math.floor(Date.now()/1000)})
+    }).catch(()=>{});
+  } catch(e){}
+}
+</script>
+
+</div><!-- /stage -->
+</body>
+</html>
