@@ -2,7 +2,11 @@ import { Resend } from "resend"
 import { generateICS } from "@/lib/ics"
 import type { Lang } from "@/context/LanguageContext"
 
-const resend = new Resend(process.env.RESEND_API_KEY)
+let _resend: Resend | null = null
+function resendClient(): Resend {
+  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY ?? "re_build_placeholder")
+  return _resend
+}
 
 // ── Constants ────────────────────────────────────────────────────────────────
 // TODO: swap to the real trattoriamarano.de URL once the live site launches
@@ -74,9 +78,9 @@ function normalizeLang(lang?: string): Lang {
 // Thin wrapper — Resend returns `{ data, error }` instead of throwing, so
 // `await resend.emails.send(...)` silently succeeds even when the API rejects.
 // This surfaces delivery failures in the server log.
-type SendArgs = Parameters<typeof resend.emails.send>[0]
+type SendArgs = Parameters<Resend["emails"]["send"]>[0]
 async function send(args: SendArgs, label: string): Promise<void> {
-  const { data, error } = await resend.emails.send(args)
+  const { data, error } = await resendClient().emails.send(args)
   if (error) {
     console.error(`[email:${label}] Resend rejected send →`, {
       to: (args as { to?: unknown }).to,
