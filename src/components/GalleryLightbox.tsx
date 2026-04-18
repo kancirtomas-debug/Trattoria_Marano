@@ -122,7 +122,7 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
             objectFit: "contain",
             display: "block",
             boxShadow: "0 32px 80px rgba(0,0,0,0.8)",
-            imageRendering: "high-quality",
+            imageRendering: "auto",
           } as React.CSSProperties}
         />
         {photo.caption && (
