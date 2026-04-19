@@ -36,3 +36,4 @@ yarn-error.log*
 # Runtime state (contains secrets + booking data, updated by app at runtime)
 src/data/admin-config.json
 src/data/reservations.json
+.env*.local

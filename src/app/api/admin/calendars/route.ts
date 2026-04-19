@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import { google } from "googleapis"
+import { listCalendars } from "@/lib/calendar"
 
 const ALLOWED_EMAIL = "maranotrattoria@gmail.com"
 
@@ -11,19 +11,11 @@ export async function GET(_req: NextRequest) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
   }
 
-  const accessToken = (session as any).accessToken as string
-  const auth = new google.auth.OAuth2()
-  auth.setCredentials({ access_token: accessToken })
-
-  const calendar = google.calendar({ version: "v3", auth })
-  const { data } = await calendar.calendarList.list()
-
-  const calendars = (data.items ?? []).map(c => ({
-    id:      c.id,
-    summary: c.summary,
-    primary: c.primary ?? false,
-    color:   c.backgroundColor,
-  }))
-
-  return NextResponse.json({ calendars })
+  try {
+    const calendars = await listCalendars()
+    return NextResponse.json({ calendars })
+  } catch (err) {
+    console.error("[calendars] list failed:", err)
+    return NextResponse.json({ error: "Failed to list calendars" }, { status: 500 })
+  }
 }

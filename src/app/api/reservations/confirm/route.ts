@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import fs from "fs"
-import path from "path"
-
-const RES_PATH = path.join(process.cwd(), "src", "data", "reservations.json")
+import { getByCancelToken, setStatus } from "@/lib/reservations-store"
 
 type Lang = "de" | "en"
 
@@ -10,18 +7,10 @@ export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token")
   if (!token) return new NextResponse("Invalid link.", { status: 400 })
 
-  const reservations = JSON.parse(fs.readFileSync(RES_PATH, "utf-8")) as Array<{
-    id: number
-    cancelToken: string
-    status: string
-    lang?: Lang
-  }>
+  const reservation = await getByCancelToken(token)
+  if (!reservation) return new NextResponse("Reservation not found.", { status: 404 })
 
-  const idx = reservations.findIndex(r => r.cancelToken === token)
-  if (idx === -1) return new NextResponse("Reservation not found.", { status: 404 })
-
-  const reservation = reservations[idx]
-  const lang: Lang  = reservation.lang === "en" ? "en" : "de"
+  const lang: Lang = reservation.lang === "en" ? "en" : "de"
 
   if (reservation.status === "cancelled") {
     return new NextResponse(resultHtml(lang, "cancelled"), { headers: { "Content-Type": "text/html" } })
@@ -30,8 +19,7 @@ export async function GET(req: NextRequest) {
     return new NextResponse(resultHtml(lang, "already"), { headers: { "Content-Type": "text/html" } })
   }
 
-  reservations[idx] = { ...reservation, status: "confirmed" }
-  fs.writeFileSync(RES_PATH, JSON.stringify(reservations, null, 2))
+  await setStatus(reservation.id, "confirmed")
 
   return new NextResponse(resultHtml(lang, "success"), { headers: { "Content-Type": "text/html" } })
 }

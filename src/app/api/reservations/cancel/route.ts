@@ -1,47 +1,25 @@
 import { NextRequest, NextResponse } from "next/server"
-import fs from "fs"
-import path from "path"
-
-const RES_PATH    = path.join(process.cwd(), "src", "data", "reservations.json")
-const CONFIG_PATH = path.join(process.cwd(), "src", "data", "admin-config.json")
+import { getByCancelToken, setStatus } from "@/lib/reservations-store"
+import { getConfig } from "@/lib/config-store"
+import { deleteCalendarEvent } from "@/lib/calendar"
 
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token")
   if (!token) return new NextResponse("Invalid link.", { status: 400 })
 
-  const reservations = JSON.parse(fs.readFileSync(RES_PATH, "utf-8")) as Array<{
-    id: number
-    cancelToken: string
-    status: string
-    calendarEventId?: string
-  }>
-
-  const idx = reservations.findIndex(r => r.cancelToken === token)
-  if (idx === -1) return new NextResponse("Reservation not found.", { status: 404 })
-
-  const reservation = reservations[idx]
+  const reservation = await getByCancelToken(token)
+  if (!reservation) return new NextResponse("Reservation not found.", { status: 404 })
 
   if (reservation.status === "cancelled") {
     return new NextResponse(cancelledHtml("already"), { headers: { "Content-Type": "text/html" } })
   }
 
-  // Mark cancelled
-  reservations[idx] = { ...reservation, status: "cancelled" }
-  fs.writeFileSync(RES_PATH, JSON.stringify(reservations, null, 2))
+  await setStatus(reservation.id, "cancelled")
 
-  // Delete Google Calendar event via Apps Script
-  const config     = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf-8"))
-  const webhookUrl = config.webhookUrl || process.env.CALENDAR_WEBHOOK_URL
-
-  if (webhookUrl && reservation.calendarEventId) {
-    try {
-      await fetch(webhookUrl, {
-        method:  "POST",
-        headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify({ action: "delete", eventId: reservation.calendarEventId }),
-      })
-    } catch {
-      console.error("Failed to delete calendar event")
+  if (reservation.calendarEventId) {
+    const config = await getConfig().catch(() => null)
+    if (config?.calendarId) {
+      await deleteCalendarEvent(config.calendarId, reservation.calendarEventId)
     }
   }
 

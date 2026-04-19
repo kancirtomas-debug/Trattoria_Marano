@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
-import fs from "fs"
-import path from "path"
+import { updateConfig } from "@/lib/config-store"
 
-const CONFIG_PATH = path.join(process.cwd(), "src", "data", "admin-config.json")
 const ALLOWED_EMAIL = "maranotrattoria@gmail.com"
 
 export async function POST(req: NextRequest) {
@@ -18,9 +16,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing calendarId" }, { status: 400 })
   }
 
-  const existing = JSON.parse(fs.readFileSync(CONFIG_PATH, "utf-8"))
-  const config = { ...existing, calendarId, calendarName, updatedAt: new Date().toISOString() }
-  fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2))
-
+  const config = await updateConfig({ calendarId, calendarName: calendarName ?? null })
   return NextResponse.json({ ok: true, config })
 }
