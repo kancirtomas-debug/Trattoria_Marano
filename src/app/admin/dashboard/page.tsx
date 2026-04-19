@@ -126,18 +126,20 @@ export default function AdminDashboard() {
     setTimeout(() => setSyncMsg(null), 4000)
   }, [loadData])
 
-  const events: CalEvent[] = reservations.map(r => {
-    const isTest = r.name === "TEST Reservation" || r.status === "test"
-    return {
-      id: String(r.id),
-      title: `${r.name} · ${r.guests}p`,
-      start: `${r.date}T${r.time}:00`,
-      end:   `${r.date}T${r.time}:00`,
-      extendedProps: r,
-      backgroundColor: isTest ? "#c5c0b1" : "#6b1535",
-      borderColor:     isTest ? "#c5c0b1" : "#6b1535",
-    }
-  })
+  const events: CalEvent[] = reservations
+    .filter(r => r.status !== "cancelled")
+    .map(r => {
+      const isTest = r.name === "TEST Reservation" || r.status === "test"
+      return {
+        id: String(r.id),
+        title: `${r.name} · ${r.guests}p`,
+        start: `${r.date}T${r.time}:00`,
+        end:   `${r.date}T${r.time}:00`,
+        extendedProps: r,
+        backgroundColor: isTest ? "#c5c0b1" : "#6b1535",
+        borderColor:     isTest ? "#c5c0b1" : "#6b1535",
+      }
+    })
 
   function handleEventClick(info: EventClickArg) {
     setSelected(info.event.extendedProps as Reservation)
