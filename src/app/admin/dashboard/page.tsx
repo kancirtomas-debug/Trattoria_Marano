@@ -27,6 +27,7 @@ type Reservation = {
   createdAt: string
   calendarEventId?: string | null
   status: string
+  adminNotes?: string | null
 }
 
 type CalEvent = {
@@ -55,16 +56,6 @@ export default function AdminDashboard() {
   const [reservationsOpen, setReservationsOpen] = useState<boolean>(true)
   const [togglingStatus, setTogglingStatus]     = useState(false)
 
-  useEffect(() => {
-    if (status === "unauthenticated" ||
-       (status === "authenticated" && session?.user?.email !== ALLOWED_EMAIL)) {
-      router.replace("/admin")
-    }
-    if (status === "authenticated" && session?.user?.email === ALLOWED_EMAIL) {
-      loadData()
-    }
-  }, [status, session])
-
   const loadData = useCallback(async () => {
     setLoading(true)
     const [resRes, cfgRes] = await Promise.all([
@@ -82,6 +73,25 @@ export default function AdminDashboard() {
     }
     setLoading(false)
   }, [router])
+
+  useEffect(() => {
+    if (status === "unauthenticated" ||
+       (status === "authenticated" && session?.user?.email !== ALLOWED_EMAIL)) {
+      router.replace("/admin")
+    }
+    if (status === "authenticated" && session?.user?.email === ALLOWED_EMAIL) {
+      loadData()
+    }
+  }, [status, session, router, loadData])
+
+  // Poll every 30s while tab is visible to catch guest confirm/cancel clicks
+  useEffect(() => {
+    if (status !== "authenticated") return
+    const interval = setInterval(() => {
+      if (document.visibilityState === "visible") loadData()
+    }, 30000)
+    return () => clearInterval(interval)
+  }, [status, loadData])
 
   const toggleReservations = useCallback(async () => {
     setTogglingStatus(true)
@@ -130,14 +140,20 @@ export default function AdminDashboard() {
     .filter(r => r.status !== "cancelled")
     .map(r => {
       const isTest = r.name === "TEST Reservation" || r.status === "test"
+      // Color by status: confirmed = olive green, pending = burgundy, test = sand
+      const color = isTest
+        ? "#c5c0b1"
+        : r.status === "confirmed"
+          ? "#4a6b3a"
+          : "#6b1535"
       return {
         id: String(r.id),
-        title: `${r.name} · ${r.guests}p`,
+        title: `${r.status === "confirmed" ? "✓ " : ""}${r.name} · ${r.guests}p`,
         start: `${r.date}T${r.time}:00`,
         end:   `${r.date}T${r.time}:00`,
         extendedProps: r,
-        backgroundColor: isTest ? "#c5c0b1" : "#6b1535",
-        borderColor:     isTest ? "#c5c0b1" : "#6b1535",
+        backgroundColor: color,
+        borderColor:     color,
       }
     })
 
@@ -384,10 +400,19 @@ export default function AdminDashboard() {
                   <h2 className="font-semibold text-lg" style={{ color: "#201515", letterSpacing: "-0.01em", fontFamily: "var(--font-sans)" }}>
                     {selected.name}
                   </h2>
-                  {selected.status === "test" || selected.name === "TEST Reservation" ? (
-                    <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded"
-                      style={{ background: "#eceae3", color: "#939084" }}>test</span>
-                  ) : null}
+                  <div className="flex gap-1.5 mt-1">
+                    {selected.status === "confirmed" ? (
+                      <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded"
+                        style={{ background: "#dde6d5", color: "#3a5a2d" }}>✓ {lang === "de" ? "Bestätigt" : "Confirmed"}</span>
+                    ) : (
+                      <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded"
+                        style={{ background: "rgba(107,21,53,0.1)", color: "#6b1535" }}>{lang === "de" ? "Reserviert" : "Reserved"}</span>
+                    )}
+                    {(selected.status === "test" || selected.name === "TEST Reservation") && (
+                      <span className="text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded"
+                        style={{ background: "#eceae3", color: "#939084" }}>test</span>
+                    )}
+                  </div>
                 </div>
                 <button
                   onClick={() => setSelected(null)}
@@ -433,6 +458,16 @@ export default function AdminDashboard() {
                 )}
               </div>
 
+              <AdminNotesEditor
+                reservationId={selected.id}
+                initialNotes={selected.adminNotes ?? ""}
+                lang={lang}
+                onSaved={notes => {
+                  setSelected(prev => prev ? { ...prev, adminNotes: notes } : prev)
+                  setReservations(list => list.map(r => r.id === selected.id ? { ...r, adminNotes: notes } : r))
+                }}
+              />
+
               <div className="mt-5 pt-4" style={{ borderTop: "1px solid #ede9e0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <p className="text-xs" style={{ color: "#b8b2a5" }}>
                   {t.submitted} {new Date(selected.createdAt).toLocaleDateString(lang === "de" ? "de-DE" : "en-GB", {
@@ -452,5 +487,101 @@ export default function AdminDashboard() {
         )}
       </div>
     </>
+  )
+}
+
+function AdminNotesEditor({
+  reservationId,
+  initialNotes,
+  lang,
+  onSaved,
+}: {
+  reservationId: number
+  initialNotes: string
+  lang: "de" | "en"
+  onSaved: (notes: string) => void
+}) {
+  const [value, setValue] = useState(initialNotes)
+  const [saving, setSaving] = useState(false)
+  const [savedFlash, setSavedFlash] = useState(false)
+
+  useEffect(() => { setValue(initialNotes) }, [reservationId, initialNotes])
+
+  const dirty = value !== initialNotes
+
+  async function save() {
+    if (!dirty) return
+    setSaving(true)
+    try {
+      const res = await fetch(`/api/admin/reservations/${reservationId}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ adminNotes: value.trim() || null }),
+      })
+      if (res.ok) {
+        onSaved(value.trim() || "")
+        setSavedFlash(true)
+        setTimeout(() => setSavedFlash(false), 1600)
+      }
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  return (
+    <div className="mt-5 pt-4" style={{ borderTop: "1px solid #ede9e0" }}>
+      <label className="block text-[11px] font-semibold uppercase tracking-wider mb-2" style={{ color: "#939084" }}>
+        {lang === "de" ? "Interne Notizen" : "Internal notes"}
+      </label>
+      <textarea
+        value={value}
+        onChange={e => setValue(e.target.value)}
+        onBlur={save}
+        placeholder={lang === "de"
+          ? "z.B. Allergien, Geburtstag, Stammgast, Sitzplatz-Präferenz…"
+          : "e.g. allergies, birthday, regular guest, seating preference…"}
+        rows={3}
+        className="w-full text-sm"
+        style={{
+          padding: "0.6rem 0.75rem",
+          border: "1px solid #c5c0b1",
+          borderRadius: 6,
+          background: "#fffefb",
+          color: "#201515",
+          fontFamily: "var(--font-sans)",
+          resize: "vertical",
+          outline: "none",
+        }}
+      />
+      <div className="flex items-center justify-between mt-2">
+        <p className="text-[11px]" style={{ color: "#b8b2a5" }}>
+          {lang === "de"
+            ? "Nur im Dashboard sichtbar — wird nicht an Gäste gesendet."
+            : "Dashboard only — never sent to guests."}
+        </p>
+        <div className="flex items-center gap-2">
+          {savedFlash && (
+            <span className="text-[11px]" style={{ color: "#4a6b3a" }}>
+              {lang === "de" ? "Gespeichert" : "Saved"}
+            </span>
+          )}
+          <button
+            onClick={save}
+            disabled={!dirty || saving}
+            className="text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded"
+            style={{
+              background: dirty ? "#6b1535" : "#eceae3",
+              color: dirty ? "#fffefb" : "#939084",
+              cursor: dirty && !saving ? "pointer" : "default",
+              transition: "background 160ms, color 160ms",
+            }}
+          >
+            {saving
+              ? (lang === "de" ? "Speichert…" : "Saving…")
+              : (lang === "de" ? "Speichern" : "Save")}
+          </button>
+        </div>
+      </div>
+    </div>
   )
 }

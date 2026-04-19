@@ -17,6 +17,7 @@ export type Reservation = {
   calendarEventId: string | null
   remindersSent: string[]
   status: ReservationStatus
+  adminNotes: string | null
   createdAt: string
   updatedAt: string
 }
@@ -35,6 +36,7 @@ type Row = {
   calendar_event_id: string | null
   reminders_sent: string[]
   status: ReservationStatus
+  admin_notes: string | null
   created_at: string
   updated_at: string
 }
@@ -54,6 +56,7 @@ function rowToReservation(r: Row): Reservation {
     calendarEventId: r.calendar_event_id,
     remindersSent: Array.isArray(r.reminders_sent) ? r.reminders_sent : [],
     status: r.status,
+    adminNotes: r.admin_notes ?? null,
     createdAt: r.created_at,
     updatedAt: r.updated_at,
   }
@@ -145,6 +148,15 @@ export async function addReminderSent(id: number, key: string): Promise<void> {
     .eq("id", id)
 
   if (writeErr) throw writeErr
+}
+
+export async function updateAdminNotes(id: number, notes: string | null): Promise<void> {
+  const { error } = await supabaseAdmin
+    .from("reservations")
+    .update({ admin_notes: notes })
+    .eq("id", id)
+
+  if (error) throw error
 }
 
 export async function getUnsynced(): Promise<Reservation[]> {

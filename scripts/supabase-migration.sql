@@ -40,6 +40,9 @@ CREATE TABLE IF NOT EXISTS reservations (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- Admin-only notes column (added later — run this ALTER if the reservations table already exists)
+ALTER TABLE reservations ADD COLUMN IF NOT EXISTS admin_notes TEXT;
+
 CREATE INDEX IF NOT EXISTS idx_reservations_date ON reservations (date);
 CREATE INDEX IF NOT EXISTS idx_reservations_status ON reservations (status);
 CREATE INDEX IF NOT EXISTS idx_reservations_cancel_token ON reservations (cancel_token);
