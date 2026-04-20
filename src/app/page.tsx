@@ -20,7 +20,7 @@ export default function HomePage() {
         className="relative flex items-center overflow-hidden"
         style={{ flex: 1, background: "#fffefb" }}
       >
-        {/* Background image — right-weighted, fades out toward left */}
+        {/* Background image — fully visible, no overlays */}
         <div className="absolute inset-0">
           <Image
             src="/images/hero.webp"
@@ -32,19 +32,25 @@ export default function HomePage() {
             style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
-          {/* Overlay: white on left so text is always legible */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(255,254,251,1) 28%, rgba(255,254,251,0.82) 44%, rgba(255,254,251,0) 65%)" }} />
         </div>
 
-        {/* Text — left side */}
+        {/* Text — white card floated over the left side */}
         <div className="container-default relative z-10 w-full pt-20 pb-8 md:pt-40 md:pb-16">
-          <div className="max-w-xl">
+          <div
+            className="max-w-sm md:max-w-md"
+            style={{
+              background: "#fffefb",
+              padding: "clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.25rem)",
+              borderRadius: 6,
+              boxShadow: "0 4px 32px rgba(32,21,21,0.07)",
+            }}
+          >
             <p className="section-label mb-4 md:mb-6">Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
               className="font-heading font-semibold mb-4 md:mb-6"
               style={{
-                fontSize: "clamp(2.38rem, 6.25vw, 4.91rem)",
+                fontSize: "clamp(2.38rem, 5vw, 4.2rem)",
                 lineHeight: 0.92,
                 letterSpacing: "-0.03em",
                 color: "#201515",
@@ -55,7 +61,7 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="text-base md:text-lg mb-7 md:mb-10 max-w-md leading-snug"
+              className="text-sm md:text-base mb-6 md:mb-8 leading-snug"
               style={{ color: "#36342e", fontWeight: 400 }}
             >
               {t.hero.tagline[lang]}
