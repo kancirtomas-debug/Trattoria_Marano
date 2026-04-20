@@ -20,7 +20,7 @@ export default function HomePage() {
         className="relative flex items-center overflow-hidden"
         style={{ flex: 1, background: "#fffefb" }}
       >
-        {/* Background image — fully visible, no overlays */}
+        {/* Background image — 100% visible */}
         <div className="absolute inset-0">
           <Image
             src="/images/hero.webp"
@@ -32,27 +32,21 @@ export default function HomePage() {
             style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
+          {/* Mobile-only subtle fade so text stays legible on small screens */}
+          <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to right, rgba(255,254,251,0.82) 55%, rgba(255,254,251,0) 100%)" }} />
         </div>
 
-        {/* Text — white card floated over the left side */}
+        {/* Text — directly on image, left side */}
         <div className="container-default relative z-10 w-full pt-20 pb-8 md:pt-40 md:pb-16">
-          <div
-            className="max-w-sm md:max-w-md"
-            style={{
-              background: "#fffefb",
-              padding: "clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.25rem)",
-              borderRadius: 6,
-              boxShadow: "0 4px 32px rgba(32,21,21,0.07)",
-            }}
-          >
+          <div className="max-w-xl">
             <p className="section-label mb-4 md:mb-6">Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
-              className="font-heading font-semibold mb-4 md:mb-6"
+              className="font-heading font-bold mb-4 md:mb-6"
               style={{
-                fontSize: "clamp(2.38rem, 5vw, 4.2rem)",
-                lineHeight: 0.92,
-                letterSpacing: "-0.03em",
+                fontSize: "clamp(2.8rem, 7.5vw, 5.5rem)",
+                lineHeight: 0.9,
+                letterSpacing: "-0.02em",
                 color: "#201515",
               }}
             >
@@ -61,7 +55,7 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="text-sm md:text-base mb-6 md:mb-8 leading-snug"
+              className="text-base md:text-lg mb-7 md:mb-10 max-w-md leading-snug"
               style={{ color: "#36342e", fontWeight: 400 }}
             >
               {t.hero.tagline[lang]}
