@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes pizza-tumble {
+  to { transform: rotate(360deg); }
+}
+
 @font-face {
   font-family: "PointPanther";
   src: url("/fonts/PointPanther.otf") format("opentype");

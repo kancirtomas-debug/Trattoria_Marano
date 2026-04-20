@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ChevronLeft, ChevronRight, Check } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
@@ -28,9 +28,30 @@ export default function ReservationCalendar() {
   const [name, setName]             = useState("")
   const [phone, setPhone]           = useState("")
   const [email, setEmail]           = useState("")
+  const [allergies, setAllergies]   = useState("")
+  const [honeypot, setHoneypot]     = useState("")
+  const [errors, setErrors]         = useState<Record<string, string>>({})
   const [submitted, setSubmitted]   = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [reservationsOpen, setReservationsOpen] = useState(true)
+  const savedLoaded = useRef(false)
+
+  useEffect(() => {
+    setName(localStorage.getItem("res_name") ?? "")
+    setPhone(localStorage.getItem("res_phone") ?? "")
+    setEmail(localStorage.getItem("res_email") ?? "")
+    savedLoaded.current = true
+  }, [])
+
+  useEffect(() => {
+    if (!savedLoaded.current) return
+    const t = setTimeout(() => {
+      localStorage.setItem("res_name", name)
+      localStorage.setItem("res_phone", phone)
+      localStorage.setItem("res_email", email)
+    }, 400)
+    return () => clearTimeout(t)
+  }, [name, phone, email])
 
   useEffect(() => {
     let cancelled = false
@@ -93,6 +114,11 @@ export default function ReservationCalendar() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
+    const newErrors: Record<string, string> = {}
+    if (!name.trim()) newErrors.name = lang === "de" ? "Name ist erforderlich" : "Name is required"
+    if (!phone.trim()) newErrors.phone = lang === "de" ? "Telefonnummer ist erforderlich" : "Phone number is required"
+    if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return }
+    setErrors({})
     setSubmitting(true)
     const dateStr = selectedDate
       ? `${selectedDate.getFullYear()}-${String(selectedDate.getMonth()+1).padStart(2,"0")}-${String(selectedDate.getDate()).padStart(2,"0")}`
@@ -100,7 +126,7 @@ export default function ReservationCalendar() {
     await fetch("/api/reservations", {
       method:  "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, phone, email, date: dateStr, time: selectedTime, guests, lang }),
+      body: JSON.stringify({ name, phone, email, date: dateStr, time: selectedTime, guests, lang, allergies, honeypot }),
     })
     setSubmitting(false)
     setSubmitted(true)
@@ -427,21 +453,35 @@ export default function ReservationCalendar() {
             </div>
           </div>
 
+          {/* honeypot — hidden from real users, caught server-side */}
+          <input
+            type="text"
+            name="fax"
+            value={honeypot}
+            onChange={e => setHoneypot(e.target.value)}
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }}
+          />
+
           <div>
             <label className="mono-label block mb-2">{t.reservation.name[lang]}</label>
             <input
-              required value={name} onChange={e => setName(e.target.value)}
+              value={name} onChange={e => { setName(e.target.value); setErrors(er => ({ ...er, name: "" })) }}
               className="input-underline"
               placeholder={lang === "de" ? "Ihr Name" : "Your name"}
             />
+            {errors.name && <p className="text-xs mt-1.5" style={{ color: "#6b1535", fontFamily: "Georgia, serif" }}>{errors.name}</p>}
           </div>
 
           <div>
             <label className="mono-label block mb-2">{t.reservation.phone[lang]}</label>
             <input
-              required value={phone} onChange={e => setPhone(e.target.value)}
+              value={phone} onChange={e => { setPhone(e.target.value); setErrors(er => ({ ...er, phone: "" })) }}
               className="input-underline" placeholder="+49 ..."
             />
+            {errors.phone && <p className="text-xs mt-1.5" style={{ color: "#6b1535", fontFamily: "Georgia, serif" }}>{errors.phone}</p>}
           </div>
 
           <div>
@@ -454,6 +494,23 @@ export default function ReservationCalendar() {
             <input
               type="email" value={email} onChange={e => setEmail(e.target.value)}
               className="input-underline" placeholder="ihre@email.de"
+            />
+          </div>
+
+          <div>
+            <label className="mono-label block mb-2">
+              {lang === "de" ? "Allergien / Unverträglichkeiten" : "Allergies / Intolerances"}
+              <span className="ml-1 normal-case font-normal" style={{ color: "#c5c0b1" }}>
+                {lang === "de" ? "(optional)" : "(optional)"}
+              </span>
+            </label>
+            <textarea
+              value={allergies}
+              onChange={e => setAllergies(e.target.value)}
+              className="input-underline"
+              placeholder={lang === "de" ? "z.B. Gluten, Laktose, Nüsse…" : "e.g. gluten, lactose, nuts…"}
+              rows={2}
+              style={{ resize: "vertical", display: "block", width: "100%" }}
             />
           </div>
 

@@ -7,8 +7,10 @@ import { useLanguage } from "@/context/LanguageContext"
 import { menuCategories } from "@/data/menu"
 import type { Lang } from "@/context/LanguageContext"
 
-// Flatten all menu items — positions assigned at render time for brick stagger
-const allItems = menuCategories.flatMap(cat => cat.items)
+// Flatten all menu items, keeping category label for keyword search
+const allItems = menuCategories.flatMap(cat =>
+  cat.items.map(item => ({ ...item, _cat: cat.label }))
+)
 
 const BLUR_URL = "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2IiBoZWlnaHQ9IjQiPjxyZWN0IHdpZHRoPSI2IiBoZWlnaHQ9IjQiIGZpbGw9IiNmMGRmZDAiLz48L3N2Zz4="
 
@@ -26,7 +28,9 @@ export default function MenuColumnsSection() {
     const q = query.toLowerCase()
     return allItems.filter(item =>
       item.name.toLowerCase().includes(q) ||
-      item.description[lang as Lang]?.toLowerCase().includes(q)
+      item.description[lang as Lang]?.toLowerCase().includes(q) ||
+      item._cat.de.toLowerCase().includes(q) ||
+      item._cat.en.toLowerCase().includes(q)
     )
   }, [query, lang])
 

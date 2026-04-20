@@ -156,6 +156,7 @@ export const menuCategories: MenuCategory[] = [
         price: 7.50,
         vegetarian: true,
         allergens: "1a,7,9 / A,C,D,F",
+        image: "lieferando-tomato-soup.jpg",
       },
     ],
   },
@@ -172,6 +173,7 @@ export const menuCategories: MenuCategory[] = [
         },
         price: 16.90,
         allergens: "1a,3,7,(9),13 / C,E",
+        image: "lieferando-fettuccine-veal.jpg",
       },
       {
         id: "ps2",
@@ -183,6 +185,7 @@ export const menuCategories: MenuCategory[] = [
         price: 12.90,
         vegetarian: true,
         allergens: "1a,3,7 / A,C,E",
+        image: "lieferando-cannelloni.jpg",
       },
       {
         id: "ps3",
@@ -245,6 +248,7 @@ export const menuCategories: MenuCategory[] = [
         },
         price: 13.90,
         allergens: "1a,3,7,8,13 / A,C,D,E",
+        image: "lieferando-penne-marano.jpg",
       },
       {
         id: "pt3",

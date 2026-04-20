@@ -23,30 +23,46 @@ const features = {
   ],
 }
 
-function PizzaSlice({ rotate = 0 }: { rotate?: number }) {
+const PIZZA_ANIM = [
+  { dur: "9s",  del: "0s"    },
+  { dur: "12s", del: "-4.5s" },
+  { dur: "8s",  del: "-1.5s" },
+  { dur: "11s", del: "-6s"   },
+  { dur: "10s", del: "-3s"   },
+  { dur: "7s",  del: "-5s"   },
+]
+
+function PizzaInBox({ dur, del }: { dur: string; del: string }) {
   return (
-    <svg width="22" height="22" viewBox="0 0 40 40" aria-hidden style={{ flexShrink: 0 }}>
-      <g transform={`translate(20 20) rotate(${rotate})`}>
-        {/* wedge body */}
+    <svg width="32" height="32" viewBox="0 0 56 56" aria-hidden style={{ flexShrink: 0 }}>
+      {/* box depth */}
+      <rect x="6" y="11" width="46" height="38" rx="2" fill="#b07428" />
+      {/* box face */}
+      <rect x="4" y="8" width="46" height="38" rx="2" fill="#d4974e" stroke="#a06c25" strokeWidth="1.5" />
+      {/* inner base */}
+      <rect x="10" y="14" width="34" height="26" rx="1" fill="#dba35a" />
+      {/* corner fold marks */}
+      <line x1="4"  y1="8"  x2="10" y2="14" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
+      <line x1="50" y1="8"  x2="44" y2="14" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
+      <line x1="4"  y1="46" x2="10" y2="40" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
+      <line x1="50" y1="46" x2="44" y2="40" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
+      {/* spinning pizza slice — tip anchored at box centre (27,27) */}
+      <g style={{ transformOrigin: "27px 27px", animation: `pizza-tumble ${dur} linear infinite ${del}` }}>
         <path
-          d="M 0 0 L 0 -18 A 18 18 0 0 1 15.588 -9 Z"
+          d="M 27 27 L 15 14 A 18 18 0 0 1 39 14 Z"
           fill="#f0ebe0"
           stroke="#201515"
-          strokeWidth="1.5"
+          strokeWidth="1.8"
           strokeLinejoin="round"
-        />
-        {/* crust arc */}
-        <path
-          d="M 0 -18 A 18 18 0 0 1 15.588 -9"
-          fill="none"
-          stroke="#201515"
-          strokeWidth="3"
           strokeLinecap="round"
         />
-        {/* pepperoni + basil dots */}
-        <circle cx="3" cy="-11" r="1.6" fill="#201515" />
-        <circle cx="7" cy="-7" r="1.2" fill="#201515" />
-        <circle cx="9.5" cy="-12" r="1.1" fill="#201515" />
+        <path
+          d="M 15 14 A 18 18 0 0 1 39 14"
+          fill="none"
+          stroke="#201515"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+        />
       </g>
     </svg>
   )
@@ -118,16 +134,17 @@ export default function AboutPage() {
                   key={f}
                   style={{
                     display: "flex",
-                    gap: 12,
+                    gap: 14,
                     alignItems: "center",
                     fontFamily: "Georgia, serif",
-                    fontSize: 13.5,
-                    color: "#6b1535",
-                    padding: "8px 0",
+                    fontSize: 14.5,
+                    lineHeight: 1.4,
+                    color: "#36342e",
+                    padding: "10px 0",
                     borderBottom: "1px dotted #c5c0b1",
                   }}
                 >
-                  <PizzaSlice rotate={i * 60} />
+                  <PizzaInBox dur={PIZZA_ANIM[i].dur} del={PIZZA_ANIM[i].del} />
                   {f}
                 </li>
               ))}

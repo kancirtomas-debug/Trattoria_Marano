@@ -26,7 +26,7 @@ export async function PATCH(
     }
     return NextResponse.json({ ok: true })
   } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e)
+    const msg = e instanceof Error ? e.message : ((e as any)?.message ?? JSON.stringify(e))
     console.error("[reservations PATCH] failed:", msg)
     return NextResponse.json({ error: msg }, { status: 500 })
   }

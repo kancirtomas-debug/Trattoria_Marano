@@ -10,7 +10,9 @@ const ALLOWED_EMAIL = "maranotrattoria@gmail.com"
 
 export async function POST(req: NextRequest) {
   const body = await req.json()
-  const { name, phone, email, date, time, guests, message, lang } = body
+  const { name, phone, email, date, time, guests, message, lang, allergies, honeypot } = body
+
+  if (honeypot) return NextResponse.json({ ok: true, id: 0 })
 
   if (!name || !phone || !date || !time || !guests) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
@@ -23,10 +25,13 @@ export async function POST(req: NextRequest) {
 
   const normalizedLang: "de" | "en" = lang === "en" ? "en" : "de"
 
+  const allergyNote = allergies?.trim() ? `[${normalizedLang === "de" ? "Allergien" : "Allergies"}] ${allergies.trim()}` : null
+  const fullMessage = [message, allergyNote].filter(Boolean).join("\n\n") || null
+
   const reservation = await createReservation({
     name, phone, email, date, time,
     guests: Number(guests),
-    message, lang: normalizedLang,
+    message: fullMessage, lang: normalizedLang,
   })
 
   if (config?.calendarId) {

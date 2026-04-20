@@ -37,6 +37,7 @@ export default function EventsPage() {
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [honeypot, setHoneypot] = useState("")
 
   const typeOptions = t.events_page.f_type_opt[lang] as readonly string[]
   const otherLabel  = typeOptions[typeOptions.length - 1]   // "Other" / "Anderes"
@@ -51,7 +52,7 @@ export default function EventsPage() {
       const res = await fetch("/api/catering", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, type: typeToSend, lang }),
+        body: JSON.stringify({ ...form, type: typeToSend, lang, honeypot }),
       })
       if (!res.ok) throw new Error(String(res.status))
       setSubmitted(true)
@@ -305,6 +306,7 @@ export default function EventsPage() {
                   <label htmlFor="cf-msg" style={npLabel}>{t.events_page.f_msg[lang]}</label>
                   <textarea id="cf-msg" rows={4} style={{ ...npInput, borderBottom: "1px solid #201515", border: "1px solid #201515", padding: 8, resize: "vertical", fontFamily: "Georgia, serif" }} value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} />
                 </div>
+                <input type="text" name="fax" value={honeypot} onChange={e => setHoneypot(e.target.value)} tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: "absolute", left: "-9999px", opacity: 0, height: 0, width: 0 }} />
                 {error && <p style={{ color: "#6b1535", fontSize: 12, fontFamily: "Georgia, serif" }}>{error}</p>}
                 <button
                   type="submit"
@@ -314,7 +316,8 @@ export default function EventsPage() {
                     fontSize: 12, letterSpacing: "0.25em", textTransform: "uppercase", fontWeight: 900,
                     padding: "14px 18px", marginTop: 4,
                     background: "#201515", color: "#f0ebe0",
-                    border: "2px solid #201515", cursor: submitting ? "wait" : "pointer",
+                    border: "2px solid #201515",
+                    cursor: submitting ? "not-allowed" : "pointer",
                     opacity: submitting ? 0.7 : 1,
                   }}
                 >

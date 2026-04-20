@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback, useRef } from "react"
 import { useRouter } from "next/navigation"
 import { useSession, signOut } from "next-auth/react"
 import FullCalendar from "@fullcalendar/react"
@@ -538,6 +538,7 @@ function AdminNotesEditor({
   const [saving, setSaving] = useState(false)
   const [savedFlash, setSavedFlash] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const isSavingRef = useRef(false)
 
   useEffect(() => {
     setValue(initialNotes)
@@ -547,7 +548,8 @@ function AdminNotesEditor({
   const dirty = value !== initialNotes
 
   async function save() {
-    if (!dirty || saving) return
+    if (value === initialNotes || isSavingRef.current) return
+    isSavingRef.current = true
     setSaving(true)
     setError(null)
     try {
@@ -567,6 +569,7 @@ function AdminNotesEditor({
     } catch (e) {
       setError((e as Error).message)
     } finally {
+      isSavingRef.current = false
       setSaving(false)
     }
   }
@@ -579,7 +582,6 @@ function AdminNotesEditor({
       <textarea
         value={value}
         onChange={e => setValue(e.target.value)}
-        onBlur={save}
         placeholder={lang === "de"
           ? "z.B. Allergien, Geburtstag, Stammgast, Sitzplatz-Präferenz…"
           : "e.g. allergies, birthday, regular guest, seating preference…"}
