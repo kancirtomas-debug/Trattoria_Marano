@@ -38,7 +38,7 @@ export default function HomePage() {
 
         {/* Text — directly on image, left side */}
         <div className="container-default relative z-10 w-full pt-20 pb-8 md:pt-40 md:pb-16">
-          <div className="max-w-xl" style={{ marginLeft: "-300px", marginTop: "-90px" }}>
+          <div className="max-w-xl" style={{ marginLeft: "-240px", marginTop: "-90px" }}>
             <p className="section-label mb-4 md:mb-6">Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
