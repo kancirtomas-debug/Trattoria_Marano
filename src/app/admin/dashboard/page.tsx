@@ -7,7 +7,7 @@ import dayGridPlugin from "@fullcalendar/daygrid"
 import timeGridPlugin from "@fullcalendar/timegrid"
 import interactionPlugin from "@fullcalendar/interaction"
 import deLocale from "@fullcalendar/core/locales/de"
-import type { EventClickArg } from "@fullcalendar/core"
+import type { EventClickArg, EventContentArg } from "@fullcalendar/core"
 import { useLanguage } from "@/context/LanguageContext"
 import {
   LogOut, Loader2, X, Calendar, Clock, Users, Phone, Mail, MessageSquare, RefreshCw, Lock, Unlock,
@@ -361,6 +361,7 @@ export default function AdminDashboard() {
             }}
             events={events}
             eventClick={handleEventClick}
+            eventContent={renderEventContent}
             height="calc(100vh - 130px)"
             nowIndicator
             eventDisplay="block"
@@ -490,6 +491,38 @@ export default function AdminDashboard() {
   )
 }
 
+function renderEventContent(info: EventContentArg) {
+  const r = info.event.extendedProps as Reservation
+  const time = info.timeText
+  const note = r.adminNotes?.trim() ?? ""
+  return (
+    <div style={{ padding: "2px 4px", overflow: "hidden", fontSize: 11, lineHeight: 1.25 }}>
+      {time && <div style={{ opacity: 0.85, fontSize: 10 }}>{time}</div>}
+      <div style={{ fontWeight: 600 }}>
+        {r.status === "confirmed" ? "✓ " : ""}{r.name} · {r.guests}p
+      </div>
+      {note && (
+        <div
+          title={note}
+          style={{
+            marginTop: 2,
+            fontSize: 10,
+            opacity: 0.95,
+            fontStyle: "italic",
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            borderTop: "1px solid rgba(255,255,255,0.25)",
+            paddingTop: 1,
+          }}
+        >
+          ✎ {note}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function AdminNotesEditor({
   reservationId,
   initialNotes,
@@ -504,14 +537,19 @@ function AdminNotesEditor({
   const [value, setValue] = useState(initialNotes)
   const [saving, setSaving] = useState(false)
   const [savedFlash, setSavedFlash] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => { setValue(initialNotes) }, [reservationId, initialNotes])
+  useEffect(() => {
+    setValue(initialNotes)
+    setError(null)
+  }, [reservationId, initialNotes])
 
   const dirty = value !== initialNotes
 
   async function save() {
-    if (!dirty) return
+    if (!dirty || saving) return
     setSaving(true)
+    setError(null)
     try {
       const res = await fetch(`/api/admin/reservations/${reservationId}`, {
         method: "PATCH",
@@ -522,7 +560,12 @@ function AdminNotesEditor({
         onSaved(value.trim() || "")
         setSavedFlash(true)
         setTimeout(() => setSavedFlash(false), 1600)
+      } else {
+        const body = await res.json().catch(() => ({}))
+        setError(body.error || `HTTP ${res.status}`)
       }
+    } catch (e) {
+      setError((e as Error).message)
     } finally {
       setSaving(false)
     }
@@ -553,6 +596,11 @@ function AdminNotesEditor({
           outline: "none",
         }}
       />
+      {error && (
+        <p className="text-[11px] mt-1.5" style={{ color: "#c0392b" }}>
+          ⚠ {error}
+        </p>
+      )}
       <div className="flex items-center justify-between mt-2">
         <p className="text-[11px]" style={{ color: "#b8b2a5" }}>
           {lang === "de"

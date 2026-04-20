@@ -20,9 +20,14 @@ export async function PATCH(
   }
 
   const body = await req.json().catch(() => ({}))
-  if (typeof body.adminNotes === "string" || body.adminNotes === null) {
-    await updateAdminNotes(id, body.adminNotes)
+  try {
+    if (typeof body.adminNotes === "string" || body.adminNotes === null) {
+      await updateAdminNotes(id, body.adminNotes)
+    }
+    return NextResponse.json({ ok: true })
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e)
+    console.error("[reservations PATCH] failed:", msg)
+    return NextResponse.json({ error: msg }, { status: 500 })
   }
-
-  return NextResponse.json({ ok: true })
 }
