@@ -32,8 +32,8 @@ export default function HomePage() {
             style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
-          {/* Mobile overlay so text is legible over the image */}
-          <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to right, rgba(255,254,251,0.88) 60%, rgba(255,254,251,0.3) 100%)" }} />
+          {/* Overlay: white on left so text is always legible */}
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to right, rgba(255,254,251,1) 28%, rgba(255,254,251,0.82) 44%, rgba(255,254,251,0) 65%)" }} />
         </div>
 
         {/* Text — left side */}
