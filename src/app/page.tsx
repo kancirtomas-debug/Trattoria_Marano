@@ -65,7 +65,7 @@ export default function HomePage() {
               <Link href="/#menu" className="btn-orange">
                 {t.hero.cta_menu[lang]} <ArrowRight size={14} />
               </Link>
-              <Link href="/contact#reservation" className="btn-dark">
+              <Link href="/reserve" className="btn-dark">
                 {t.hero.cta_reserve[lang]}
               </Link>
             </div>
