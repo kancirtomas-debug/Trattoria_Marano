@@ -19,19 +19,19 @@ const avatars = {
 // ── English reviews ───────────────────────────────────────────────────────
 const reviewsEn: Testimonial[] = [
   {
-    text: "Absolutely world class. One of the best Italian restaurants in Munich — every dish was perfect.",
+    text: "Absolutely world class. One of the best Italian restaurants in Munich - every dish was perfect.",
     name: "Philip",
     role: "Google Review · ★★★★★",
     image: avatars.Philip,
   },
   {
-    text: "Wonderful atmosphere — the walls are decorated with Italian newspaper clippings. The stone-oven pizzas are outstanding!",
+    text: "Wonderful atmosphere - the walls are decorated with Italian newspaper clippings. The stone-oven pizzas are outstanding!",
     name: "Vanessa",
     role: "Google Review · ★★★★★",
     image: avatars.Vanessa,
   },
   {
-    text: "Super friendly staff — will definitely come back! The team makes every visit feel special.",
+    text: "Super friendly staff - will definitely come back! The team makes every visit feel special.",
     name: "Amelie",
     role: "Google Review · ★★★★★",
     image: avatars.Amelie,
@@ -61,7 +61,7 @@ const reviewsEn: Testimonial[] = [
     image: avatars.ThomasK,
   },
   {
-    text: "Genuine Neapolitan pizza from a wood-fired oven — you can taste the difference immediately. Cosy and welcoming.",
+    text: "Genuine Neapolitan pizza from a wood-fired oven - you can taste the difference immediately. Cosy and welcoming.",
     name: "Sandra W.",
     role: "Google Review · ★★★★★",
     image: avatars.SandraW,
@@ -77,19 +77,19 @@ const reviewsEn: Testimonial[] = [
 // ── German reviews ────────────────────────────────────────────────────────
 const reviewsDe: Testimonial[] = [
   {
-    text: "Absolut Weltklasse. Eines der besten italienischen Restaurants in München — jedes Gericht war perfekt.",
+    text: "Absolut Weltklasse. Eines der besten italienischen Restaurants in München - jedes Gericht war perfekt.",
     name: "Philip",
     role: "Google Bewertung · ★★★★★",
     image: avatars.Philip,
   },
   {
-    text: "Super schönes Ambiente — die Wände sind mit italienischen Zeitungsartikeln geschmückt. Die Pizzen aus dem Steinofen sind ausgezeichnet!",
+    text: "Super schönes Ambiente - die Wände sind mit italienischen Zeitungsartikeln geschmückt. Die Pizzen aus dem Steinofen sind ausgezeichnet!",
     name: "Vanessa",
     role: "Google Bewertung · ★★★★★",
     image: avatars.Vanessa,
   },
   {
-    text: "Super freundlich — gerne wieder! Das Team macht jeden Besuch zu etwas Besonderem.",
+    text: "Super freundlich - gerne wieder! Das Team macht jeden Besuch zu etwas Besonderem.",
     name: "Amelie",
     role: "Google Bewertung · ★★★★★",
     image: avatars.Amelie,
@@ -119,7 +119,7 @@ const reviewsDe: Testimonial[] = [
     image: avatars.ThomasK,
   },
   {
-    text: "Echte neapolitanische Pizza aus dem Holzofen — man merkt den Unterschied sofort. Das Ambiente ist gemütlich und einladend.",
+    text: "Echte neapolitanische Pizza aus dem Holzofen - man merkt den Unterschied sofort. Das Ambiente ist gemütlich und einladend.",
     name: "Sandra W.",
     role: "Google Bewertung · ★★★★★",
     image: avatars.SandraW,
@@ -145,22 +145,17 @@ export default function TestimonialsSection() {
       <div style={{ maxWidth: 1720, margin: "0 auto", padding: "0 1.5rem" }}>
         {/* Header */}
         <Reveal className="text-center mb-10">
-          <div className="flex justify-center w-full">
-            <p
-              className="font-heading font-semibold px-7 py-3"
-              style={{
-                fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
-                color: "#fffefb",
-                letterSpacing: "-0.01em",
-                textAlign: "center",
-                background: "#6b1535",
-                borderRadius: 4,
-                boxShadow: "0 4px 20px rgba(107,21,53,0.35)",
-              }}
-            >
-              {lang === "de" ? "Google Bewertungen · 4,9 ★" : "Google Reviews · 4.9 ★"}
-            </p>
-          </div>
+          <p
+            className="font-heading font-semibold"
+            style={{
+              fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
+              color: "#6b1535",
+              letterSpacing: "-0.01em",
+              textAlign: "center",
+            }}
+          >
+            {lang === "de" ? "Google Bewertungen · 4,9 ★" : "Google Reviews · 4.9 ★"}
+          </p>
         </Reveal>
 
         {/* Scrolling columns */}

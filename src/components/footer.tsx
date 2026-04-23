@@ -1,4 +1,6 @@
 "use client"
+import Image from "next/image"
+import Link from "next/link"
 import { MapPin, Phone, Mail, Navigation, ExternalLink } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
@@ -24,18 +26,26 @@ export default function Footer() {
 
         {/* Brand */}
         <div>
-          <p
-            className="font-heading text-2xl font-semibold mb-1"
-            style={{ color: "#e0d8ce", letterSpacing: "-0.02em" }}
+          <div
+            style={{
+              width: "100%",
+              maxWidth: 220,
+              aspectRatio: "1 / 1",
+              position: "relative",
+              marginBottom: "1.25rem",
+              background: "#e0d8ce",
+              borderRadius: 12,
+              padding: 12,
+            }}
           >
-            Trattoria Marano
-          </p>
-          <p
-            className="text-xs font-semibold uppercase tracking-widest mb-5"
-            style={{ color: "rgba(224,216,206,0.5)" }}
-          >
-            Autentica Cucina Italiana
-          </p>
+            <Image
+              src="/images/trattoria-logo-full.png"
+              alt="Trattoria Marano"
+              fill
+              sizes="220px"
+              style={{ objectFit: "contain", padding: 12 }}
+            />
+          </div>
           <p className="text-sm leading-relaxed" style={{ color: "rgba(224,216,206,0.65)" }}>
             {t.welcome.body[lang]}
           </p>
@@ -143,26 +153,38 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div style={{ borderTop: "1px solid rgba(224,216,206,0.15)" }}>
+      <div style={{ borderTop: "1px solid rgba(224,216,206,0.15)", position: "relative" }}>
         <div
-          className="container-wide py-5 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs"
+          className="container-wide py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
           style={{ color: "rgba(224,216,206,0.45)" }}
         >
           <span>© {year} Trattoria Marano München</span>
-          <span>
-            {t.footer_extra.sister_short[lang]}{" "}
-            <a
-              href="https://solopizza.de"
-              target="_blank"
-              rel="noopener noreferrer"
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <Link
+              href="/datenschutz"
               className="transition-colors"
-              style={{ color: "rgba(224,216,206,0.45)" }}
+              style={{ color: "rgba(224,216,206,0.55)" }}
               onMouseEnter={e => (e.currentTarget.style.color = "#e0d8ce")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(224,216,206,0.45)")}
+              onMouseLeave={e => (e.currentTarget.style.color = "rgba(224,216,206,0.55)")}
             >
-              Solo Pizza · Bereiterangerstr. 18
-            </a>
-          </span>
+              {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
+            </Link>
+            <span style={{ opacity: 0.35 }}>·</span>
+            <span>
+              {t.footer_extra.sister_short[lang]}{" "}
+              <a
+                href="https://solopizza.de"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="transition-colors"
+                style={{ color: "rgba(224,216,206,0.45)" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#e0d8ce")}
+                onMouseLeave={e => (e.currentTarget.style.color = "rgba(224,216,206,0.45)")}
+              >
+                Solo Pizza · Bereiterangerstr. 18
+              </a>
+            </span>
+          </div>
         </div>
       </div>
     </footer>

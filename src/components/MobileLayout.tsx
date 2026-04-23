@@ -98,6 +98,30 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
       {/* Bottom padding so content isn't hidden behind the fixed bar */}
       <main id="main-content" style={{ paddingBottom: 80 }}>
         {children}
+
+        {/* Legal footer strip */}
+        <div
+          style={{
+            borderTop: "1px solid #c5c0b1",
+            padding: "18px 16px 24px",
+            background: "#fffefb",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 6,
+            textAlign: "center",
+          }}
+        >
+          <Link
+            href="/datenschutz"
+            style={{ fontSize: 13, fontWeight: 600, color: "#6b1535" }}
+          >
+            {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
+          </Link>
+          <span style={{ fontSize: 11, color: "rgba(32,21,21,0.5)" }}>
+            © {new Date().getFullYear()} Trattoria Marano München
+          </span>
+        </div>
       </main>
 
       {/* ── Fixed bottom action bar ──────────────────────────── */}

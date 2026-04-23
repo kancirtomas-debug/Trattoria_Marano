@@ -32,8 +32,22 @@ export default function HomePage() {
             style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
-          {/* Mobile-only subtle fade so text stays legible on small screens */}
-          <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to right, rgba(255,254,251,0.82) 55%, rgba(255,254,251,0) 100%)" }} />
+          {/* Desktop: soft fade from cream on left to transparent near center so pizzas stay visible */}
+          <div
+            className="absolute inset-0 hidden md:block"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(255,254,251,0.95) 0%, rgba(255,254,251,0.85) 22%, rgba(255,254,251,0.45) 42%, rgba(255,254,251,0) 58%)",
+            }}
+          />
+          {/* Mobile: stronger fade — tiny screen needs more legibility */}
+          <div
+            className="absolute inset-0 md:hidden"
+            style={{
+              background:
+                "linear-gradient(to right, rgba(255,254,251,0.96) 0%, rgba(255,254,251,0.88) 45%, rgba(255,254,251,0.35) 80%, rgba(255,254,251,0) 100%)",
+            }}
+          />
         </div>
 
         {/* Text — directly on image, left side */}
