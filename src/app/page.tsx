@@ -20,63 +20,37 @@ export default function HomePage() {
         className="relative flex items-center overflow-hidden"
         style={{ flex: 1, background: "#fffefb" }}
       >
-        {/* Background image - desktop uses the landscape hero.webp. Mobile uses two physically sliced PNG bands (top pizza + bottom pizzas) from the nano-banana mockup, with a cream gap between them where the overlay text and buttons render. No CSS masking - the baked text band is simply not present in the slice files. */}
+        {/* Background image — 100% visible */}
         <div className="absolute inset-0">
-          {/* Desktop */}
           <Image
             src="/images/hero.webp"
             alt=""
             fill
             priority
             unoptimized
-            className="hidden md:block object-cover [object-position:70%_center]"
+            className="object-cover"
+            style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
-          {/* Mobile top pizza band */}
-          <div className="absolute top-0 inset-x-0 h-[32%] block md:hidden">
-            <Image
-              src="/images/hero-mobile-top.png"
-              alt=""
-              fill
-              priority
-              unoptimized
-              className="object-cover object-center"
-              sizes="100vw"
-            />
-          </div>
-          {/* Mobile bottom pizzas band */}
-          <div className="absolute bottom-0 inset-x-0 h-[32%] block md:hidden">
-            <Image
-              src="/images/hero-mobile-bottom.png"
-              alt=""
-              fill
-              priority
-              unoptimized
-              className="object-cover object-center"
-              sizes="100vw"
-            />
-          </div>
-          {/* Mobile white haze - radial gradient centered on the overlay so text blends softly into the pizzas with no visible box edge, just a fade from near-opaque cream at the text to transparent at the corners */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 block md:hidden"
-            style={{
-              background:
-                "radial-gradient(ellipse 95% 42% at 50% 50%, rgba(255,254,251,0.97) 0%, rgba(255,254,251,0.85) 28%, rgba(255,254,251,0.55) 55%, rgba(255,254,251,0.2) 80%, rgba(255,254,251,0) 100%)",
-              zIndex: 1,
-            }}
-          />
+          {/* Mobile-only subtle fade so text stays legible on small screens */}
+          <div className="absolute inset-0 md:hidden" style={{ background: "linear-gradient(to right, rgba(255,254,251,0.82) 55%, rgba(255,254,251,0) 100%)" }} />
         </div>
 
-        {/* Text overlay - centered on mobile (sits on the clean white middle band of the nano-banana image), left-anchored inside container-default on desktop */}
-        <div className="container-default relative z-10 w-full pt-24 pb-8 md:pt-40 md:pb-16 text-center md:text-left">
-          <div className="max-w-xl mx-auto md:mx-0">
+        {/* Text — directly on image, left side */}
+        <div className="container-default relative z-10 w-full pt-20 pb-8 md:pt-40 md:pb-16">
+          <div
+            className="max-w-xl"
+            style={{
+              marginLeft: "clamp(-210px, calc((1024px - 100vw) / 4), 0px)",
+              marginTop: "clamp(-90px, calc((1024px - 100vw) / 8), 0px)",
+            }}
+          >
             <p className="section-label mb-4 md:mb-6">Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
               className="font-heading font-bold mb-4 md:mb-6"
               style={{
-                fontSize: "clamp(2.8rem, 12vw, 5.5rem)",
+                fontSize: "clamp(2.8rem, 7.5vw, 5.5rem)",
                 lineHeight: 0.9,
                 letterSpacing: "-0.02em",
                 color: "#201515",
@@ -87,13 +61,13 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="text-base md:text-lg mb-7 md:mb-10 max-w-md leading-snug mx-auto md:mx-0"
+              className="text-base md:text-lg mb-7 md:mb-10 max-w-md leading-snug"
               style={{ color: "#36342e", fontWeight: 400 }}
             >
               {t.hero.tagline[lang]}
             </p>
 
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+            <div className="flex flex-wrap gap-3">
               <Link href="/#menu" className="btn-orange">
                 {t.hero.cta_menu[lang]} <ArrowRight size={14} />
               </Link>
@@ -123,7 +97,7 @@ export default function HomePage() {
 
       </div>{/* end 100vh hero wrapper */}
 
-      {/* ── Printed menu - right after hours strip ── */}
+      {/* ── Printed menu — right after hours strip ── */}
       <PrintedMenuSection />
 
       <div>
@@ -131,12 +105,12 @@ export default function HomePage() {
           {/* Testimonials */}
           <TestimonialsSection />
 
-          {/* Feature section - asymmetric layout */}
+          {/* Feature section — asymmetric layout */}
           <section className="py-16">
             <div className="container-default">
               {/* Top row: wide left + narrow right */}
               <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mb-5">
-                {/* Events - 3 cols wide */}
+                {/* Events — 3 cols wide */}
                 <Link
                   href="/events"
                   className="md:col-span-3 group flex flex-col justify-between p-8 overflow-hidden"
@@ -159,15 +133,15 @@ export default function HomePage() {
                   <p className="section-label font-heading mb-3" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Veranstaltungen" : "Events"}</p>
                   <p className="text-sm leading-relaxed mb-6" style={{ color: "#36342e", maxWidth: "42ch" }}>
                     {lang === "de"
-                      ? "Feste, Geburtstage, Firmenevents und besondere Anlässe - wir kümmern uns um alles, damit Ihr Abend unvergesslich wird."
-                      : "Parties, birthdays, corporate events and special occasions - we take care of everything so your evening is unforgettable."}
+                      ? "Feste, Geburtstage, Firmenevents und besondere Anlässe — wir kümmern uns um alles, damit Ihr Abend unvergesslich wird."
+                      : "Parties, birthdays, corporate events and special occasions — we take care of everything so your evening is unforgettable."}
                   </p>
                   <span className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: "#6b1535" }}>
                     {lang === "de" ? "Mehr erfahren" : "Learn more"} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                   </span>
                 </Link>
 
-                {/* Take Away - 2 cols */}
+                {/* Take Away — 2 cols */}
                 <div
                   className="md:col-span-2 flex flex-col justify-between p-8"
                   style={{ borderRadius: 12, minHeight: 220, background: "#201515" }}
@@ -177,8 +151,8 @@ export default function HomePage() {
                   </p>
                   <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,254,251,0.65)" }}>
                     {lang === "de"
-                      ? "Fast alle Speisen auch zum Mitnehmen - frisch zubereitet, verpackt zum Genuss zuhause."
-                      : "Almost all dishes available to take away - freshly prepared for you to enjoy at home."}
+                      ? "Fast alle Speisen auch zum Mitnehmen — frisch zubereitet, verpackt zum Genuss zuhause."
+                      : "Almost all dishes available to take away — freshly prepared for you to enjoy at home."}
                   </p>
                   <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                     {[
@@ -216,7 +190,7 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Bottom row: Solo Pizza - full width strip */}
+              {/* Bottom row: Solo Pizza — full width strip */}
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=Bereiterangerstr.+18%2C+81451+M%C3%BCnchen"
                 target="_blank"
