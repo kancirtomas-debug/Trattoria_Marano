@@ -120,7 +120,7 @@ export default function HomePage() {
                 {/* Events — 3 cols wide */}
                 <Link
                   href="/events"
-                  className="md:col-span-3 group flex flex-col justify-between p-8 overflow-hidden"
+                  className="md:col-span-3 group grid grid-cols-1 md:grid-cols-[1fr_1fr] overflow-hidden"
                   style={{
                     borderRadius: 12, minHeight: 220,
                     border: "1px solid rgba(107,21,53,0.1)",
@@ -137,15 +137,26 @@ export default function HomePage() {
                     ;(e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(107,21,53,0.1)"
                   }}
                 >
-                  <p className="section-label font-heading mb-3" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Veranstaltungen" : "Events"}</p>
-                  <p className="text-sm leading-relaxed mb-6" style={{ color: "#36342e", maxWidth: "42ch" }}>
-                    {lang === "de"
-                      ? "Feste, Geburtstage, Firmenevents und besondere Anlässe — wir kümmern uns um alles, damit Ihr Abend unvergesslich wird."
-                      : "Parties, birthdays, corporate events and special occasions — we take care of everything so your evening is unforgettable."}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: "#6b1535" }}>
-                    {lang === "de" ? "Mehr erfahren" : "Learn more"} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
-                  </span>
+                  <div className="flex flex-col justify-between p-8">
+                    <p className="section-label font-heading mb-3" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Veranstaltungen" : "Events"}</p>
+                    <p className="text-sm leading-relaxed mb-6" style={{ color: "#36342e" }}>
+                      {lang === "de"
+                        ? "Feste, Geburtstage, Firmenevents und besondere Anlässe — wir kümmern uns um alles, damit Ihr Abend unvergesslich wird."
+                        : "Parties, birthdays, corporate events and special occasions — we take care of everything so your evening is unforgettable."}
+                    </p>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: "#6b1535" }}>
+                      {lang === "de" ? "Mehr erfahren" : "Learn more"} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </div>
+                  <div className="relative hidden md:block">
+                    <Image
+                      src="/images/events-interior.webp"
+                      alt={lang === "de" ? "Trattoria Marano Innenraum" : "Trattoria Marano interior"}
+                      fill
+                      sizes="30vw"
+                      style={{ objectFit: "cover", objectPosition: "center" }}
+                    />
+                  </div>
                 </Link>
 
                 {/* Take Away — 2 cols */}

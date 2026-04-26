@@ -10,8 +10,7 @@ function resendClient(): Resend {
 
 // ── Constants ────────────────────────────────────────────────────────────────
 // TODO: swap to the real trattoriamarano.de URL once the live site launches
-const WEBSITE_URL       = "https://trattoriamarano.de"
-const GOOGLE_REVIEW_URL = "https://g.page/r/CcOIBqB5YoISEBM/review"
+const WEBSITE_URL = "https://trattoriamarano.de"
 const RESTAURANT_NAME   = "Trattoria Marano"
 const RESTAURANT_ADDR   = "Ohlmüllerstr. 22, 81541 München"
 const PHONE_DISPLAY     = "089 / 209 28 123"
@@ -226,8 +225,8 @@ export async function sendGuestReservationConfirmation(data: ReservationData): P
       [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
     ])}
     ${noticeBox(lang === "de"
-      ? "<strong>Wichtig:</strong> Sie erhalten zwei Erinnerungen per E-Mail - <strong>3 Stunden</strong> vor Ihrem Besuch (bitte dort bestätigen) und <strong>1 Stunde</strong> vorher. Bitte bestätigen Sie Ihre Reservierung über den Button in der ersten Erinnerung."
-      : "<strong>Important:</strong> You will receive two email reminders - <strong>3 hours</strong> before your visit (please confirm there) and <strong>1 hour</strong> before. Please confirm your reservation via the button in the first reminder.")}
+      ? "<strong>Wichtig:</strong> Sie erhalten <strong>3 Stunden</strong> vor Ihrem Besuch eine Erinnerung per E-Mail. Bitte bestätigen Sie Ihre Reservierung über den Button in dieser E-Mail."
+      : "<strong>Important:</strong> You will receive an email reminder <strong>3 hours</strong> before your visit. Please confirm your reservation via the button in that email.")}
     ${divider()}
     <p style="margin:0 0 14px;font-size:13px;color:${C.muted}">
       ${lang === "de" ? "Pläne geändert?" : "Plans changed?"}
@@ -305,133 +304,7 @@ export async function sendGuest3hConfirmation(data: ReservationData): Promise<vo
   }, "guest-3h-confirmation")
 }
 
-// ── Sender 4: guest - 1h reminder ────────────────────────────────────────────
-export async function sendGuest1hReminder(data: ReservationData): Promise<void> {
-  if (!data.email) return
-  const lang      = normalizeLang(data.lang)
-  const cancelUrl = `${appUrl()}/api/reservations/cancel?token=${data.cancelToken}`
-
-  const body = `
-    ${heading(lang === "de" ? "Wir sehen uns in einer Stunde" : "See you in one hour")}
-    ${lead(lang === "de"
-      ? `Ihr Tisch ist bereit, ${data.name}. Buon appetito schon jetzt.`
-      : `Your table is ready, ${data.name}. Buon appetito in advance.`)}
-    ${detailsTable([
-      [lang === "de" ? "Uhrzeit"  : "Time",    `${data.time} ${lang === "de" ? "Uhr" : ""}`],
-      [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
-      [lang === "de" ? "Adresse"  : "Address", RESTAURANT_ADDR],
-    ])}
-    ${paragraph(lang === "de"
-      ? `Verspätet? Ein kurzer Anruf auf <a href="tel:${PHONE_TEL}" style="color:${C.terra};text-decoration:none;font-weight:600">${PHONE_DISPLAY}</a> reicht.`
-      : `Running late? A quick call to <a href="tel:${PHONE_TEL}" style="color:${C.terra};text-decoration:none;font-weight:600">${PHONE_DISPLAY}</a> is enough.`)}
-    ${divider()}
-    <p style="margin:0;font-size:12px;color:${C.muted}">${lang === "de" ? "Pläne geändert?" : "Plans changed?"}</p>
-    <div style="margin-top:10px">${ctaGhost(cancelUrl, lang === "de" ? "Reservierung stornieren" : "Cancel reservation")}</div>`
-
-  await send({
-    from:    fromAddr(),
-    to:      data.email,
-    subject: lang === "de"
-      ? "Ihr Tisch in 1 Stunde - Trattoria Marano"
-      : "Your table in 1 hour - Trattoria Marano",
-    html: baseLayout({
-      preheader: lang === "de" ? "Buon appetito." : "Buon appetito.",
-      body,
-    }),
-  }, "guest-1h-reminder")
-}
-
-// ── Sender 5: guest - post-visit thank-you with Google review link ───────────
-export async function sendGuestPostVisitThankYou(data: ReservationData): Promise<void> {
-  if (!data.email) return
-  const lang = normalizeLang(data.lang)
-
-  const body = `
-    ${heading(lang === "de" ? "Grazie für Ihren Besuch" : "Grazie for your visit")}
-    ${lead(lang === "de"
-      ? `Wir hoffen, es hat Ihnen geschmeckt, ${data.name}.`
-      : `We hope you enjoyed it, ${data.name}.`)}
-    ${paragraph(lang === "de"
-      ? "Eine kurze Bewertung bei Google hilft uns enorm - und anderen Gästen, uns zu finden. Es dauert keine Minute."
-      : "A short Google review helps us enormously - and helps other guests find us. It takes less than a minute.")}
-    <div style="margin:24px 0 4px">${ctaPrimary(GOOGLE_REVIEW_URL, lang === "de" ? "Bewertung schreiben" : "Write a review")}</div>
-    <p style="margin:10px 0 0;font-size:12px;color:${C.muted}">
-      ${lang === "de"
-        ? "Öffnet direkt das Bewertungsfenster auf Google."
-        : "Opens the Google review window directly."}
-    </p>
-    ${divider()}
-    ${paragraph(lang === "de"
-      ? `Mehr zu unserer Küche, dem Team und kommenden Events finden Sie auf <a href="${WEBSITE_URL}" style="color:${C.terra};text-decoration:none;font-weight:600">trattoriamarano.de</a>.`
-      : `Discover our kitchen, the team and upcoming events at <a href="${WEBSITE_URL}" style="color:${C.terra};text-decoration:none;font-weight:600">trattoriamarano.de</a>.`)}
-    <p style="margin:22px 0 0;font-family:Georgia,serif;font-style:italic;color:${C.terra};font-size:15px">
-      - Famiglia Marano
-    </p>`
-
-  await send({
-    from:    fromAddr(),
-    to:      data.email,
-    subject: lang === "de"
-      ? "Grazie - wie war Ihr Abend bei uns?"
-      : "Grazie - how was your evening with us?",
-    html: baseLayout({
-      preheader: lang === "de"
-        ? "Eine kurze Google-Bewertung bedeutet uns viel."
-        : "A short Google review means a lot to us.",
-      body,
-    }),
-  }, "guest-postvisit-thankyou")
-}
-
-// ── Sender 6: restaurant - unconfirmed reservation alert ─────────────────────
-export async function sendRestaurantUnconfirmedAlert(data: ReservationData): Promise<void> {
-  const lang = normalizeLang(data.lang)
-  const to   = restaurantEmail()
-  if (!to) return
-
-  const body = `
-    ${heading(lang === "de" ? "⚠ Unbestätigte Reservierung" : "⚠ Unconfirmed reservation")}
-    ${lead(lang === "de"
-      ? "Der Gast hat die 3h-Bestätigungs-E-Mail noch nicht angeklickt."
-      : "The guest has not clicked the 3h confirmation email yet.")}
-    <div style="margin:20px 0 0;padding:16px;background:${C.creamAlt};border:1px solid ${C.sandLight};border-radius:3px;text-align:center">
-      <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:${C.muted};font-family:Georgia,serif;font-weight:700">
-        ${lang === "de" ? "Gast anrufen" : "Call the guest"}
-      </p>
-      <a href="tel:${data.phone}" style="font-family:Georgia,serif;font-size:26px;font-weight:700;color:${C.terra};text-decoration:none;letter-spacing:-0.01em">
-        ${data.phone}
-      </a>
-    </div>
-    ${detailsTable([
-      [lang === "de" ? "Name"     : "Name",    data.name],
-      [lang === "de" ? "Datum"    : "Date",    fmtDate(data.date, lang)],
-      [lang === "de" ? "Uhrzeit"  : "Time",    `${data.time} ${lang === "de" ? "Uhr" : ""}`],
-      [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
-      ...(data.email ? [[lang === "de" ? "E-Mail" : "Email", data.email] as [string, string]] : []),
-    ])}
-    ${divider()}
-    <p style="margin:0;font-size:12px;color:${C.muted}">
-      ${lang === "de"
-        ? "Die Reservierung bleibt im System, solange Sie sie nicht stornieren."
-        : "The reservation stays in the system unless you cancel it."}
-    </p>`
-
-  await send({
-    from:    fromAddr(),
-    to,
-    subject: lang === "de"
-      ? `⚠ Unbestätigt: ${data.name} - heute ${data.time}`
-      : `⚠ Unconfirmed: ${data.name} - today ${data.time}`,
-    html: baseLayout({
-      preheader: lang === "de"
-        ? `Gast nicht bestätigt · Telefon: ${data.phone}`
-        : `Guest not confirmed · Phone: ${data.phone}`,
-      body,
-    }),
-  }, "restaurant-unconfirmed-alert")
-}
-
-// ── Sender 7: guest - catering/event thank-you ───────────────────────────────
+// ── Sender 4: guest - catering/event thank-you ───────────────────────────────
 export async function sendGuestCateringThankYou(data: CateringData): Promise<void> {
   const lang = normalizeLang(data.lang)
 

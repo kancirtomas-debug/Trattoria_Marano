@@ -1,10 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
-import {
-  sendGuest3hConfirmation,
-  sendGuest1hReminder,
-  sendGuestPostVisitThankYou,
-  sendRestaurantUnconfirmedAlert,
-} from "@/lib/emails"
+import { sendGuest3hConfirmation } from "@/lib/emails"
 import { getAllReservations, addReminderSent } from "@/lib/reservations-store"
 
 export async function GET(req: NextRequest) {
@@ -45,35 +40,6 @@ export async function GET(req: NextRequest) {
         await addReminderSent(r.id, "3h")
         sent.push({ id: r.id, key: "3h" })
       } catch (err) { console.error(`3h email failed for ${r.id}`, err) }
-    }
-
-    // 1h before — guest reminder (window 30–90 min)
-    if (r.email && !r.remindersSent.includes("1h") && diffMins >= 30 && diffMins <= 90) {
-      try {
-        await sendGuest1hReminder(payload)
-        await addReminderSent(r.id, "1h")
-        sent.push({ id: r.id, key: "1h" })
-      } catch (err) { console.error(`1h email failed for ${r.id}`, err) }
-    }
-
-    // Unconfirmed alert — restaurant (same 1h window, only if guest has not confirmed)
-    if (r.status !== "confirmed"
-      && !r.remindersSent.includes("unconfirmed_alert")
-      && diffMins >= 30 && diffMins <= 90) {
-      try {
-        await sendRestaurantUnconfirmedAlert(payload)
-        await addReminderSent(r.id, "unconfirmed_alert")
-        sent.push({ id: r.id, key: "unconfirmed_alert" })
-      } catch (err) { console.error(`unconfirmed alert failed for ${r.id}`, err) }
-    }
-
-    // Post-visit thank-you — guest (window 60–120 min AFTER reservation start)
-    if (r.email && !r.remindersSent.includes("postvisit") && diffMins >= -120 && diffMins <= -60) {
-      try {
-        await sendGuestPostVisitThankYou(payload)
-        await addReminderSent(r.id, "postvisit")
-        sent.push({ id: r.id, key: "postvisit" })
-      } catch (err) { console.error(`postvisit email failed for ${r.id}`, err) }
     }
   }
 

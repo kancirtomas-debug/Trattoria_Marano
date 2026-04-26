@@ -38,6 +38,7 @@ export default function EventsPage() {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [honeypot, setHoneypot] = useState("")
+  const [lightboxOpen, setLightboxOpen] = useState(false)
 
   const typeOptions = t.events_page.f_type_opt[lang] as readonly string[]
   const otherLabel  = typeOptions[typeOptions.length - 1]   // "Other" / "Anderes"
@@ -191,36 +192,88 @@ export default function EventsPage() {
                 : "Please plan at least four weeks ahead so we can fine-tune the menu with you."}
             </p>
 
-            {/* Restaurant photo - fills the empty space alongside the form */}
-            <div
+            {/* Restaurant photo - editorial frame */}
+            <figure
               style={{
-                position: "relative",
-                marginTop: 28,
-                aspectRatio: "4 / 5",
+                marginTop: 32,
                 width: "100%",
-                maxWidth: 440,
-                overflow: "hidden",
-                border: "1px solid #201515",
-                boxShadow: "8px 8px 0 -1px #6b1535",
+                maxWidth: 468,
+                marginInline: 0,
               }}
             >
-              <Image
-                src="/images/trattoria-logo.webp"
-                alt={lang === "de" ? "Logo der Trattoria Marano" : "Trattoria Marano logo"}
-                fill
-                sizes="(max-width: 768px) 100vw, 440px"
-                style={{ objectFit: "contain", background: "#eadcc4" }}
-              />
-            </div>
-            <p
-              style={{
-                marginTop: 10, fontFamily: "Georgia, serif", fontSize: 11,
-                letterSpacing: "0.18em", textTransform: "uppercase",
-                color: "#6b1535", fontWeight: 700,
-              }}
-            >
-              {lang === "de" ? "Seit 1987 in München" : "In München since 1987"}
-            </p>
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(true)}
+                aria-label={lang === "de" ? "Bild vergrößern" : "Enlarge image"}
+                style={{
+                  position: "relative",
+                  aspectRatio: "4 / 3",
+                  width: "100%",
+                  padding: 12,
+                  background: "#fdfaf3",
+                  border: "1px solid #d8cfb8",
+                  cursor: "zoom-in",
+                  display: "block",
+                  boxShadow:
+                    "0 1px 0 rgba(32,21,21,0.06), 0 16px 36px -18px rgba(32,21,21,0.35)",
+                  transition: "transform 200ms ease, box-shadow 200ms ease",
+                }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.transform = "translateY(-2px)"
+                  e.currentTarget.style.boxShadow = "0 1px 0 rgba(32,21,21,0.08), 0 22px 44px -18px rgba(32,21,21,0.45)"
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.transform = "translateY(0)"
+                  e.currentTarget.style.boxShadow = "0 1px 0 rgba(32,21,21,0.06), 0 16px 36px -18px rgba(32,21,21,0.35)"
+                }}
+              >
+                <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
+                  <Image
+                    src="/images/events-interior.webp"
+                    alt={lang === "de" ? "Trattoria Marano Innenraum" : "Trattoria Marano interior"}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 468px"
+                    style={{ objectFit: "cover" }}
+                  />
+                </div>
+                <span
+                  aria-hidden
+                  style={{
+                    position: "absolute",
+                    right: 18, bottom: 18,
+                    display: "inline-flex", alignItems: "center", gap: 6,
+                    padding: "6px 10px",
+                    background: "rgba(32,21,21,0.78)",
+                    color: "#fdfaf3",
+                    fontFamily: "Georgia, serif",
+                    fontSize: 10,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    fontWeight: 700,
+                    borderRadius: 2,
+                  }}
+                >
+                  ⤢ {lang === "de" ? "Ansehen" : "Inspect"}
+                </span>
+              </button>
+              <figcaption
+                style={{
+                  marginTop: 14,
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  fontFamily: "Georgia, serif",
+                  fontSize: 11,
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#6b1535",
+                  fontWeight: 700,
+                }}
+              >
+                <span aria-hidden style={{ height: 1, width: 28, background: "#6b1535" }} />
+                <span>{lang === "de" ? "Seit 1987 in München" : "In München since 1987"}</span>
+              </figcaption>
+            </figure>
           </div>
           <div className="np-col-rule" />
           <div className="np-box" style={{ padding: 20 }}>
@@ -242,8 +295,8 @@ export default function EventsPage() {
                   </p>
                   <p style={{ margin: 0, fontFamily: "Georgia, serif", fontSize: 13, lineHeight: 1.55, color: "#36342e" }}>
                     {lang === "de"
-                      ? "Sobald Ihr Event bestätigt und terminiert ist, erhalten Sie zwei Erinnerungen per E-Mail - 3 Stunden vor dem Termin (mit Bestätigungs-Button) und 1 Stunde vorher. Bitte bestätigen Sie Ihren Termin über den Button in der ersten E-Mail."
-                      : "Once your event is confirmed and scheduled, you will receive two email reminders - 3 hours before the date (with a confirmation button) and 1 hour before. Please confirm your booking via the button in the first email."}
+                      ? "Sobald Ihr Event bestätigt und terminiert ist, erhalten Sie 3 Stunden vor dem Termin eine Erinnerung per E-Mail mit Bestätigungs-Button. Bitte bestätigen Sie Ihren Termin über den Button in dieser E-Mail."
+                      : "Once your event is confirmed and scheduled, you will receive an email reminder 3 hours before the date with a confirmation button. Please confirm your booking via the button in that email."}
                   </p>
                 </div>
               </div>
@@ -362,6 +415,63 @@ export default function EventsPage() {
           <p className="np-footer-text">{t.newspaper.footer_rule[lang]}</p>
         </div>
       </div>
+
+      {lightboxOpen && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label={lang === "de" ? "Bild vergrößert" : "Enlarged image"}
+          onClick={() => setLightboxOpen(false)}
+          onKeyDown={e => { if (e.key === "Escape") setLightboxOpen(false) }}
+          tabIndex={-1}
+          ref={el => { if (el) el.focus() }}
+          style={{
+            position: "fixed", inset: 0, zIndex: 9999,
+            background: "rgba(20,12,12,0.92)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "clamp(16px, 4vw, 48px)",
+            cursor: "zoom-out",
+            animation: "fadeIn 180ms ease",
+          }}
+        >
+          <button
+            type="button"
+            onClick={e => { e.stopPropagation(); setLightboxOpen(false) }}
+            aria-label={lang === "de" ? "Schließen" : "Close"}
+            style={{
+              position: "absolute", top: 20, right: 24,
+              width: 40, height: 40,
+              background: "transparent",
+              border: "1px solid rgba(253,250,243,0.4)",
+              color: "#fdfaf3",
+              fontSize: 22, lineHeight: 1, cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+            }}
+          >
+            ×
+          </button>
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              position: "relative",
+              width: "min(100%, 1400px)",
+              aspectRatio: "4 / 3",
+              maxHeight: "90vh",
+              cursor: "default",
+            }}
+          >
+            <Image
+              src="/images/events-interior.webp"
+              alt={lang === "de" ? "Trattoria Marano Innenraum" : "Trattoria Marano interior"}
+              fill
+              sizes="100vw"
+              quality={95}
+              priority
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -30,48 +30,51 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-12 gap-y-12 gap-x-6 md:gap-x-10 md:items-start">
 
           {/* Brand block */}
-          <div className="col-span-2 md:col-span-4 flex flex-col gap-4">
-            <div className="flex items-start gap-4">
-              <div
+          <div className="col-span-2 md:col-span-4 flex flex-col gap-5">
+            <div
+              style={{
+                width: "clamp(140px, 28vw, 184px)",
+                aspectRatio: "1 / 1",
+                position: "relative",
+                background: "#e0d8ce",
+                borderRadius: 12,
+                flexShrink: 0,
+              }}
+            >
+              <Image
+                src="/images/trattoria-logo-full.png"
+                alt="Trattoria Marano"
+                fill
+                sizes="(max-width: 768px) 140px, 184px"
+                style={{ objectFit: "contain", padding: 14 }}
+              />
+            </div>
+            <div className="flex flex-col gap-2" style={{ maxWidth: "32ch" }}>
+              <p
                 style={{
-                  width: "clamp(156px, 31.2vw, 208px)",
-                  aspectRatio: "1 / 1",
-                  position: "relative",
-                  background: "#e0d8ce",
-                  borderRadius: 12,
-                  flexShrink: 0,
+                  fontFamily: "Georgia, serif",
+                  fontStyle: "italic",
+                  fontSize: "1.05rem",
+                  color: "rgba(224,216,206,0.92)",
+                  lineHeight: 1.5,
                 }}
               >
-                <Image
-                  src="/images/trattoria-logo-full.png"
-                  alt="Trattoria Marano"
-                  fill
-                  sizes="(max-width: 768px) 156px, 208px"
-                  style={{ objectFit: "contain", padding: 14 }}
-                />
-              </div>
+                {lang === "de"
+                  ? "Authentische italienische Küche im Herzen Münchens — seit 1987."
+                  : "Authentic Italian cuisine in the heart of Munich — since 1987."}
+              </p>
               <p
-                className="section-label mt-1"
+                className="section-label font-heading"
                 style={{
                   color: "rgba(224,216,206,0.55)",
-                  fontSize: "0.7rem",
-                  letterSpacing: "0.12em",
-                  lineHeight: 1.4,
+                  fontSize: "0.72rem",
+                  letterSpacing: "0.24em",
+                  marginTop: 6,
                 }}
               >
-                {lang === "de" ? "München" : "Munich"}
-                <br />
-                <span style={{ color: "rgba(224,216,206,0.4)" }}>
-                  {lang === "de" ? "Seit" : "Since"} 2025
-                </span>
+                Ohlmüllerstr. 22 · München
               </p>
             </div>
-            <p
-              className="text-sm leading-relaxed"
-              style={{ color: "rgba(224,216,206,0.7)", maxWidth: "34ch" }}
-            >
-              {t.welcome.body[lang]}
-            </p>
           </div>
 
           {/* Contact */}
@@ -115,31 +118,6 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
-            <Link
-              href="/datenschutz"
-              className="inline-flex items-center gap-1.5 transition-colors mt-5"
-              style={{
-                color: "#fffefb",
-                fontSize: "0.82rem",
-                fontWeight: 600,
-                letterSpacing: "0.02em",
-                padding: "8px 16px",
-                borderRadius: 999,
-                border: "1px solid rgba(224,216,206,0.3)",
-                background: "rgba(224,216,206,0.08)",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = "rgba(224,216,206,0.22)"
-                e.currentTarget.style.borderColor = "rgba(224,216,206,0.6)"
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.background = "rgba(224,216,206,0.08)"
-                e.currentTarget.style.borderColor = "rgba(224,216,206,0.3)"
-              }}
-            >
-              {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
-              <ArrowUpRight size={13} />
-            </Link>
           </div>
 
           {/* Hours */}
@@ -246,11 +224,36 @@ export default function Footer() {
             paddingBottom: 18,
           }}
         >
-          <p style={{ fontSize: "0.78rem", lineHeight: 1.5 }}>
-            © {year} TOMAR Group s.r.o. Všetky práva vyhradené.
-            <br />
-            IČO: 56449046 | DIČ: 2122311488 | IČ DPH: SK2122311488
-          </p>
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-5">
+            <p style={{ fontSize: "0.78rem", lineHeight: 1.5 }}>
+              © {year} TOMAR Group s.r.o. Všetky práva vyhradené.
+              <br />
+              IČO: 56449046 | DIČ: 2122311488 | IČ DPH: SK2122311488
+            </p>
+            <Link
+              href="/datenschutz"
+              className="inline-flex items-center gap-1 transition-colors self-start md:self-auto"
+              style={{
+                color: "rgba(224,216,206,0.78)",
+                fontSize: "0.78rem",
+                letterSpacing: "0.02em",
+                textDecoration: "underline",
+                textUnderlineOffset: 3,
+                textDecorationColor: "rgba(224,216,206,0.3)",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.color = "#fff"
+                e.currentTarget.style.textDecorationColor = "rgba(255,255,255,0.7)"
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = "rgba(224,216,206,0.78)"
+                e.currentTarget.style.textDecorationColor = "rgba(224,216,206,0.3)"
+              }}
+            >
+              {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
+              <ArrowUpRight size={11} />
+            </Link>
+          </div>
           <a
             href="https://webzatyzden.sk"
             target="_blank"

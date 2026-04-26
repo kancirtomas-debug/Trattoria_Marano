@@ -203,7 +203,7 @@ export default function ReservationCalendar() {
                   <div style={{ flex: 1, height: 1, background: "#e5e0d5" }} />
                 </div>
 
-                {/* Timeline: 3h → 1h */}
+                {/* Timeline: 3h reminder */}
                 <div style={{ display: "flex", gap: 14, marginBottom: 18 }}>
                   <TimelineStep
                     label={lang === "de" ? "3 Std. vorher" : "3 hrs before"}
@@ -212,13 +212,6 @@ export default function ReservationCalendar() {
                       ? "E-Mail mit Bestätigungs-Button - ein Klick genügt."
                       : "Email with confirm button - one click."}
                     highlighted
-                  />
-                  <TimelineStep
-                    label={lang === "de" ? "1 Std. vorher" : "1 hr before"}
-                    title={lang === "de" ? "Kurze Erinnerung" : "Quick reminder"}
-                    body={lang === "de"
-                      ? "Letzte Erinnerung vor Ihrem Besuch."
-                      : "Final reminder before your visit."}
                   />
                 </div>
 
