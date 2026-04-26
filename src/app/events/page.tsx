@@ -31,7 +31,7 @@ export default function EventsPage() {
   const { lang } = useLanguage()
 
   const [form, setForm] = useState({
-    name: "", email: "", phone: "", date: "", guests: "", type: "", location: "", message: "",
+    name: "", email: "", phone: "", date: "", guests: "", type: "", location: "", message: "", allergies: "",
   })
   const [customType, setCustomType] = useState("")
   const [submitting, setSubmitting] = useState(false)
@@ -86,7 +86,7 @@ export default function EventsPage() {
 
         <div className="np-rule-thin" />
 
-        {/* Section kicker — "In Unserem Haus" */}
+        {/* Section kicker - "In Unserem Haus" */}
         <p className="np-kicker" style={{ textAlign: "center", marginBottom: 4 }}>
           {lang === "de" ? "In unserem Haus" : "Inside our house"}
         </p>
@@ -94,7 +94,7 @@ export default function EventsPage() {
           {lang === "de" ? "Intime Feiern" : "Intimate Celebrations"}
         </h2>
 
-        {/* Row 1 — three intimate-event columns (Birthday / Corporate / Private) */}
+        {/* Row 1 - three intimate-event columns (Birthday / Corporate / Private) */}
         <div className="np-grid-3" style={{ marginBottom: 32 }}>
           <div>
             <p className="np-kicker">I. · {t.events_page.cap_small[lang]}</p>
@@ -117,8 +117,8 @@ export default function EventsPage() {
 
         <div className="np-rule-thick" />
 
-        {/* Row 2 — Catering feature (wide, emphasized, asymmetric) */}
-        <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1.4fr) 1px minmax(0, 1fr)", gap: "0 28px", alignItems: "start", marginTop: 8, marginBottom: 36 }}>
+        {/* Row 2 - Catering feature (wide, emphasized, asymmetric) */}
+        <div className="np-catering-asym" style={{ alignItems: "start", marginTop: 8, marginBottom: 36 }}>
           <div>
             <p className="np-kicker" style={{ color: "#6b1535" }}>IV. · {t.events_page.cap_large[lang]}</p>
             <h2 className="np-h1" style={{ fontSize: "clamp(1.8rem, 3.6vw, 2.6rem)", margin: "0 0 10px", lineHeight: 1.02 }}>
@@ -154,7 +154,7 @@ export default function EventsPage() {
         <blockquote className="np-pullquote">
           {lang === "de"
             ? "„Ein gutes Fest beginnt nicht mit der Gästeliste, sondern mit dem ersten Bissen.\""
-            : "\"A good feast does not begin with the guest list — it begins with the first bite.\""}
+            : "\"A good feast does not begin with the guest list - it begins with the first bite.\""}
         </blockquote>
 
         {/* Catering form */}
@@ -191,7 +191,7 @@ export default function EventsPage() {
                 : "Please plan at least four weeks ahead so we can fine-tune the menu with you."}
             </p>
 
-            {/* Restaurant photo — fills the empty space alongside the form */}
+            {/* Restaurant photo - fills the empty space alongside the form */}
             <div
               style={{
                 position: "relative",
@@ -205,11 +205,11 @@ export default function EventsPage() {
               }}
             >
               <Image
-                src="/images/gallery/rest-1.webp"
-                alt={lang === "de" ? "Innenraum der Trattoria Marano" : "Trattoria Marano interior"}
+                src="/images/trattoria-logo.webp"
+                alt={lang === "de" ? "Logo der Trattoria Marano" : "Trattoria Marano logo"}
                 fill
                 sizes="(max-width: 768px) 100vw, 440px"
-                style={{ objectFit: "cover", filter: "saturate(0.95) contrast(1.02)" }}
+                style={{ objectFit: "contain", background: "#eadcc4" }}
               />
             </div>
             <p
@@ -219,7 +219,7 @@ export default function EventsPage() {
                 color: "#6b1535", fontWeight: 700,
               }}
             >
-              ✦ {lang === "de" ? "Seit 1987 in München" : "In München since 1987"} ✦
+              {lang === "de" ? "Seit 1987 in München" : "In München since 1987"}
             </p>
           </div>
           <div className="np-col-rule" />
@@ -242,8 +242,8 @@ export default function EventsPage() {
                   </p>
                   <p style={{ margin: 0, fontFamily: "Georgia, serif", fontSize: 13, lineHeight: 1.55, color: "#36342e" }}>
                     {lang === "de"
-                      ? "Sobald Ihr Event bestätigt und terminiert ist, erhalten Sie zwei Erinnerungen per E-Mail — 3 Stunden vor dem Termin (mit Bestätigungs-Button) und 1 Stunde vorher. Bitte bestätigen Sie Ihren Termin über den Button in der ersten E-Mail."
-                      : "Once your event is confirmed and scheduled, you will receive two email reminders — 3 hours before the date (with a confirmation button) and 1 hour before. Please confirm your booking via the button in the first email."}
+                      ? "Sobald Ihr Event bestätigt und terminiert ist, erhalten Sie zwei Erinnerungen per E-Mail - 3 Stunden vor dem Termin (mit Bestätigungs-Button) und 1 Stunde vorher. Bitte bestätigen Sie Ihren Termin über den Button in der ersten E-Mail."
+                      : "Once your event is confirmed and scheduled, you will receive two email reminders - 3 hours before the date (with a confirmation button) and 1 hour before. Please confirm your booking via the button in the first email."}
                   </p>
                 </div>
               </div>
@@ -277,7 +277,7 @@ export default function EventsPage() {
                   <div>
                     <label htmlFor="cf-type" style={npLabel}>{t.events_page.f_type[lang]}</label>
                     <select id="cf-type" style={{ ...npInput, paddingRight: 18 }} value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}>
-                      <option value="">—</option>
+                      <option value="">-</option>
                       {typeOptions.map(o => <option key={o} value={o}>{o}</option>)}
                     </select>
                   </div>
@@ -301,6 +301,21 @@ export default function EventsPage() {
                 <div>
                   <label htmlFor="cf-location" style={npLabel}>{t.events_page.f_location[lang]}</label>
                   <input id="cf-location" style={npInput} value={form.location} onChange={e => setForm(f => ({ ...f, location: e.target.value }))} />
+                </div>
+                <div>
+                  <label htmlFor="cf-allergies" style={npLabel}>
+                    {lang === "de" ? "Allergien / Unverträglichkeiten / Diät" : "Allergies / Intolerances / Diet"}
+                  </label>
+                  <textarea
+                    id="cf-allergies"
+                    rows={3}
+                    style={{ ...npInput, borderBottom: "1px solid #201515", border: "1px solid #201515", padding: 8, resize: "vertical", fontFamily: "Georgia, serif" }}
+                    value={form.allergies}
+                    onChange={e => setForm(f => ({ ...f, allergies: e.target.value }))}
+                    placeholder={lang === "de"
+                      ? "z. B. Gluten, Laktose, Nüsse, vegetarisch, vegan…"
+                      : "e.g. gluten, lactose, nuts, vegetarian, vegan…"}
+                  />
                 </div>
                 <div>
                   <label htmlFor="cf-msg" style={npLabel}>{t.events_page.f_msg[lang]}</label>

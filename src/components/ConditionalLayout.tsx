@@ -11,7 +11,7 @@ export default function ConditionalLayout({ children }: { children: React.ReactN
   const pathname = usePathname()
   const isAdmin = pathname.startsWith("/admin")
 
-  // Mobile build (port 3001) — hand off entirely to MobileLayout
+  // Mobile build (port 3001) - hand off entirely to MobileLayout
   if (IS_MOBILE) return <MobileLayout>{children}</MobileLayout>
 
   // Desktop build (port 3000)

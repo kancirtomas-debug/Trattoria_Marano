@@ -13,7 +13,7 @@ export const reviews: Review[] = [
     name: "Natália Miramá Vendelová",
     rating: 5,
     timeAgo: "pred 3 mesiacmi",
-    text: "Oľga je úžasná terapeutka, už 9 rokov sprevádza mňa a mojich blízkych cez rozmanité ťažkosti dospelých a detí. Ponúka komplexnú liečbu a dôkladné zmapovanie rozhovorom, ktorý nemá obdobu v spôsobe akým sa pýta — ide k jadru prežívania a osobnej ťažkosti. Teda okrem diagnózy klient/ka môže o sebe veľa pochopiť. Oľga mi dodáva vieru v našu schopnosť tela a človeka sa vyliečiť v jemnosti a v porozumení psychosomatiky. Odporúčam všetkým tým, ktorí chcú zmenu zdravia a kvality života!",
+    text: "Oľga je úžasná terapeutka, už 9 rokov sprevádza mňa a mojich blízkych cez rozmanité ťažkosti dospelých a detí. Ponúka komplexnú liečbu a dôkladné zmapovanie rozhovorom, ktorý nemá obdobu v spôsobe akým sa pýta - ide k jadru prežívania a osobnej ťažkosti. Teda okrem diagnózy klient/ka môže o sebe veľa pochopiť. Oľga mi dodáva vieru v našu schopnosť tela a človeka sa vyliečiť v jemnosti a v porozumení psychosomatiky. Odporúčam všetkým tým, ktorí chcú zmenu zdravia a kvality života!",
   },
   {
     id: 2,
@@ -35,14 +35,14 @@ export const reviews: Review[] = [
     rating: 5,
     timeAgo: "pred 10 mesiacmi",
     isLocal: true,
-    text: "Ďakujem Olinke za 6 rokov úžasnej pomoci, trpezlivosti, neuveriteľnej ochoty... aj za to, že ma vždy vie správne povzbudiť. Dcéra dostala vysoké teploty, CRP 185, lekár predpísal antibiotiká. Zavolala som Olinke — poradila Belladonu a iné homeopatiká. Do troch dní bola dcéra zdravá bez ATB. Ľudia, skúste homeopatiu, stojí to naozaj za to! Olinke ešte raz ďakujem.",
+    text: "Ďakujem Olinke za 6 rokov úžasnej pomoci, trpezlivosti, neuveriteľnej ochoty... aj za to, že ma vždy vie správne povzbudiť. Dcéra dostala vysoké teploty, CRP 185, lekár predpísal antibiotiká. Zavolala som Olinke - poradila Belladonu a iné homeopatiká. Do troch dní bola dcéra zdravá bez ATB. Ľudia, skúste homeopatiu, stojí to naozaj za to! Olinke ešte raz ďakujem.",
   },
   {
     id: 5,
     name: "Denisa",
     rating: 5,
     timeAgo: "pred rokom",
-    text: "Ďakujem, že som mohla spoznať takúto krásnu, vedomú, múdru, odvážnu, silnú, veselú a hravú svietiacu Olinku na jej víkendovom pobyte — Telo ako zrkadlo duše. Toto víkendové stretnutie mi otvorilo oči a srdce. Každý jeden moment bol plný inšpirácií a poznania. Vrelo odporúčam všetkým, ktorí hľadajú cestu k sebe.",
+    text: "Ďakujem, že som mohla spoznať takúto krásnu, vedomú, múdru, odvážnu, silnú, veselú a hravú svietiacu Olinku na jej víkendovom pobyte - Telo ako zrkadlo duše. Toto víkendové stretnutie mi otvorilo oči a srdce. Každý jeden moment bol plný inšpirácií a poznania. Vrelo odporúčam všetkým, ktorí hľadajú cestu k sebe.",
   },
   {
     id: 6,

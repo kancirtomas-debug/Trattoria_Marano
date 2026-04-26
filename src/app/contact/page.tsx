@@ -94,8 +94,8 @@ export default function ContactPage() {
             <p className="np-kicker">{lang === "de" ? "Anreise" : "Getting here"}</p>
             <p className="np-body" style={{ marginBottom: 0 }}>
               {lang === "de"
-                ? "Tram 16/18 — Haltestelle Reichenbachplatz. U-Bahn U1/U2 — Fraunhoferstraße. Parkplätze rund ums Haus."
-                : "Tram 16/18 — Reichenbachplatz stop. U-Bahn U1/U2 — Fraunhoferstraße. Parking available around the building."}
+                ? "Tram 16/18 - Haltestelle Reichenbachplatz. U-Bahn U1/U2 - Fraunhoferstraße. Parkplätze rund ums Haus."
+                : "Tram 16/18 - Reichenbachplatz stop. U-Bahn U1/U2 - Fraunhoferstraße. Parking available around the building."}
             </p>
           </div>
           <div className="np-col-rule" />

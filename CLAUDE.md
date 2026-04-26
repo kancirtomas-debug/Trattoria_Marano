@@ -12,7 +12,7 @@ Full catalog of all Claude Code files on this PC:
 |------|--------|
 | **Purpose** | Generate production-ready client websites for the webzatyzden.sk web agency |
 | **Generation prompt** | `C:\Users\kanci\Desktop\Claude web gen prompt\WEBSITE-GENERATION-PROMPT.md` |
-| **Stack** | Next.js 14, TypeScript, Tailwind CSS, Framer Motion, next-themes |
+| **Stack** | Next.js 14, TypeScript, Tailwind CSS |
 | **Deploy flow** | GitHub repo → import at klienti.webzatyzden.sk → auto-deploy to Vercel |
 | **CRM integration** | Lead forms POST to `https://klienti.webzatyzden.sk/api/leads/submit` |
 | **Blog system** | Reads `content/blog/*.{md,mdx}` via gray-matter |

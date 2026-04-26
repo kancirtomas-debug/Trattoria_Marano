@@ -21,21 +21,30 @@ export default function PrintedMenuSection() {
   const de = lang === "de"
 
   const filtered = useMemo(() => {
-    return menuCategories.map(cat => ({
-      ...cat,
-      items: cat.items.filter(item => {
-        const matchesFilter =
-          filter === "none" ||
-          (filter === "vegetarian" && item.vegetarian) ||
-          (filter === "spicy" && item.spicy)
-        const q = query.trim().toLowerCase()
-        const matchesQuery = !q ||
-          item.name.toLowerCase().includes(q) ||
-          item.description.de.toLowerCase().includes(q) ||
-          item.description.en.toLowerCase().includes(q)
-        return matchesFilter && matchesQuery
-      }),
-    })).filter(cat => cat.items.length > 0)
+    return menuCategories.map(cat => {
+      const q = query.trim().toLowerCase()
+      const catMatches = !q ||
+        cat.label.de.toLowerCase().includes(q) ||
+        cat.label.en.toLowerCase().includes(q) ||
+        cat.id.toLowerCase().includes(q)
+      return {
+        ...cat,
+        items: cat.items.filter(item => {
+          const matchesFilter =
+            filter === "none" ||
+            (filter === "vegetarian" && item.vegetarian) ||
+            (filter === "spicy" && item.spicy)
+          const matchesQuery = !q ||
+            catMatches ||
+            item.name.toLowerCase().includes(q) ||
+            item.description.de.toLowerCase().includes(q) ||
+            item.description.en.toLowerCase().includes(q) ||
+            (item.detailedDescription?.de?.toLowerCase().includes(q) ?? false) ||
+            (item.detailedDescription?.en?.toLowerCase().includes(q) ?? false)
+          return matchesFilter && matchesQuery
+        }),
+      }
+    }).filter(cat => cat.items.length > 0)
   }, [filter, query, lang])
 
   return (
@@ -144,57 +153,59 @@ export default function PrintedMenuSection() {
                   <div
                     key={item.id}
                     style={{
-                      display: "flex", alignItems: "flex-start", gap: 20,
                       paddingTop: "1rem", paddingBottom: "1rem",
                       borderBottom: idx < cat.items.length - 1 ? "1px solid #f0ede6" : "none",
                     }}
                   >
-                    {/* Text */}
-                    <div style={{ flex: 1, minWidth: 0 }}>
-                      <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 4 }}>
-                        <span style={{ fontWeight: 700, fontSize: "1.02rem", color: "#201515", letterSpacing: "-0.005em", whiteSpace: "nowrap" }}>
-                          {item.name}
-                        </span>
-                        {item.vegetarian && <Leaf size={11} style={{ color: "#4a7c59", flexShrink: 0, marginBottom: -1 }} />}
-                        {item.spicy      && <Flame size={11} style={{ color: "#b91c1c", flexShrink: 0, marginBottom: -1 }} />}
-                        <span style={{ flex: 1, borderBottom: "1px dotted #c5c0b1", minWidth: 20, marginBottom: 4 }} />
-                        <span style={{ fontWeight: 700, fontSize: "1.02rem", color: "#201515", whiteSpace: "nowrap", fontFamily: "system-ui", fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em", flexShrink: 0 }}>
-                          {item.price.toFixed(2)} €
-                        </span>
-                      </div>
-                      <p style={{ fontStyle: "italic", fontSize: "0.88rem", color: "#939084", lineHeight: 1.6, fontFamily: "system-ui", maxWidth: "56ch" }}>
-                        {item.description[lang]}
-                      </p>
-                      {item.allergens && (
-                        <p style={{ fontSize: "0.74rem", color: "#c5c0b1", marginTop: 3, fontFamily: "system-ui" }}>
-                          {de ? "Allergene" : "Allergens"}: {item.allergens}
-                        </p>
-                      )}
+                    {/* Name + price on right — dotted leader between */}
+                    <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 8 }}>
+                      <span style={{ fontWeight: 700, fontSize: "1.02rem", color: "#201515", letterSpacing: "-0.005em", minWidth: 0, overflowWrap: "anywhere" }}>
+                        {item.name}
+                      </span>
+                      {item.vegetarian && <Leaf size={11} style={{ color: "#4a7c59", flexShrink: 0, marginBottom: -1 }} />}
+                      {item.spicy      && <Flame size={11} style={{ color: "#b91c1c", flexShrink: 0, marginBottom: -1 }} />}
+                      <span style={{ flex: 1, borderBottom: "1px dotted #c5c0b1", minWidth: 20, marginBottom: 4 }} />
+                      <span style={{ fontWeight: 700, fontSize: "1.02rem", color: "#201515", whiteSpace: "nowrap", fontFamily: "system-ui", fontVariantNumeric: "tabular-nums", letterSpacing: "-0.01em", flexShrink: 0 }}>
+                        {item.price.toFixed(2)} €
+                      </span>
                     </div>
 
-                    {/* Clickable photo */}
-                    {imgSrc && (
-                      <div
-                        onClick={() => setLightbox({ src: imgSrc, name: item.name })}
-                        className="menu-photo"
-                        style={{
-                          position: "relative", width: 88, height: 66,
-                          borderRadius: 6, overflow: "hidden", flexShrink: 0,
-                          border: "1px solid rgba(107,21,53,0.08)",
-                          cursor: "zoom-in", transition: "transform 200ms, box-shadow 200ms",
-                        }}
-                        onMouseEnter={e => {
-                          (e.currentTarget as HTMLDivElement).style.transform = "scale(1.03)"
-                          ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 6px 20px rgba(32,21,21,0.15)"
-                        }}
-                        onMouseLeave={e => {
-                          (e.currentTarget as HTMLDivElement).style.transform = "scale(1)"
-                          ;(e.currentTarget as HTMLDivElement).style.boxShadow = "none"
-                        }}
-                      >
-                        <Image src={imgSrc} alt={item.name} fill unoptimized className="object-cover" sizes="120px" />
+                    {/* Description + photo — image below price, next to description */}
+                    <div style={{ display: "flex", alignItems: "flex-start", gap: 20 }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <p style={{ fontStyle: "italic", fontSize: "0.88rem", color: "#939084", lineHeight: 1.6, fontFamily: "system-ui", maxWidth: "56ch" }}>
+                          {item.description[lang]}
+                        </p>
+                        {item.allergens && (
+                          <p style={{ fontSize: "0.74rem", color: "#c5c0b1", marginTop: 3, fontFamily: "system-ui" }}>
+                            {de ? "Allergene" : "Allergens"}: {item.allergens}
+                          </p>
+                        )}
                       </div>
-                    )}
+
+                      {imgSrc && (
+                        <div
+                          onClick={() => setLightbox({ src: imgSrc, name: item.name })}
+                          className="menu-photo"
+                          style={{
+                            position: "relative", width: 88, height: 66,
+                            borderRadius: 6, overflow: "hidden", flexShrink: 0,
+                            border: "1px solid rgba(107,21,53,0.08)",
+                            cursor: "zoom-in", transition: "transform 200ms, box-shadow 200ms",
+                          }}
+                          onMouseEnter={e => {
+                            (e.currentTarget as HTMLDivElement).style.transform = "scale(1.03)"
+                            ;(e.currentTarget as HTMLDivElement).style.boxShadow = "0 6px 20px rgba(32,21,21,0.15)"
+                          }}
+                          onMouseLeave={e => {
+                            (e.currentTarget as HTMLDivElement).style.transform = "scale(1)"
+                            ;(e.currentTarget as HTMLDivElement).style.boxShadow = "none"
+                          }}
+                        >
+                          <Image src={imgSrc} alt={item.name} fill unoptimized className="object-cover" sizes="120px" />
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )
               })}

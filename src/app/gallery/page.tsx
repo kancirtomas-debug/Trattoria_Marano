@@ -55,7 +55,7 @@ export default function GalleryPage() {
   const [lightbox, setLightbox] = useState<number | null>(null)
 
   const photos: GalleryPhoto[] = [
-    { src: "/images/gallery/rest-1.webp", caption: t.gallery.caption1[lang] },
+    { src: "/images/trattoria-logo.webp", caption: t.gallery.caption1[lang] },
     { src: "/images/gallery/rest-7.webp", caption: t.gallery.caption2[lang] },
     { src: "/images/gallery/rest-5.jpg",  caption: t.gallery.caption3[lang] },
     { src: "/images/gallery/rest-3.webp", caption: t.gallery.caption4[lang] },
@@ -106,7 +106,7 @@ export default function GalleryPage() {
 
         <div className="np-rule-thin" />
 
-        {/* Editorial spread 1 — two columns of text over photo bands */}
+        {/* Editorial spread 1 - two columns of text over photo bands */}
         <div className="np-grid-even-2" style={{ marginBottom: 16 }}>
           <div>
             <p className="np-kicker">{lang === "de" ? "Handwerk" : "Craft"}</p>
@@ -156,11 +156,11 @@ export default function GalleryPage() {
           <Photo src={photos[6].src} caption={photos[6].caption!} height={320} objPos="center top" onClick={() => open(6)} />
           <div className="np-col-rule" />
           <div>
-            <p className="np-kicker">{lang === "de" ? "Galerie — Fortsetzung" : "Gallery — Continued"}</p>
+            <p className="np-kicker">{lang === "de" ? "Galerie - Fortsetzung" : "Gallery - Continued"}</p>
             <p className="np-body">
               {lang === "de"
-                ? "Jede Wand unseres Hauses trägt Erinnerungen — schwarzweisse Fotografien aus den 1960er Jahren, Urkunden, Postkarten aus der alten Heimat. Das Marano ist nicht nur ein Restaurant; es ist ein Archiv einer Familie, die Neapel nach München mitgenommen hat. Schauen Sie ruhig zweimal hin."
-                : "Every wall of our house carries memories — black-and-white photographs from the 1960s, certificates, postcards from the old country. Marano is not merely a restaurant; it is an archive of a family who carried Naples to Munich. Look twice — there is much to find."}
+                ? "Jede Wand unseres Hauses trägt Erinnerungen - schwarzweisse Fotografien aus den 1960er Jahren, Urkunden, Postkarten aus der alten Heimat. Das Marano ist nicht nur ein Restaurant; es ist ein Archiv einer Familie, die Neapel nach München mitgenommen hat. Schauen Sie ruhig zweimal hin."
+                : "Every wall of our house carries memories - black-and-white photographs from the 1960s, certificates, postcards from the old country. Marano is not merely a restaurant; it is an archive of a family who carried Naples to Munich. Look twice - there is much to find."}
             </p>
           </div>
         </div>

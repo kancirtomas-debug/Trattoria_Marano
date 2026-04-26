@@ -1,7 +1,7 @@
 "use client"
 import Image from "next/image"
 import Link from "next/link"
-import { MapPin, Phone, Mail, Navigation, ExternalLink } from "lucide-react"
+import { MapPin, Phone, Mail, Navigation, ExternalLink, ArrowUpRight } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
 
@@ -20,171 +20,265 @@ export default function Footer() {
       }}
     >
       <div
-        className="container-wide grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12"
-        style={{ paddingTop: "clamp(2.5rem, 4vw, 4rem)", paddingBottom: "clamp(2.5rem, 4vw, 4rem)" }}
+        className="container-wide"
+        style={{
+          paddingTop: "clamp(2.25rem, 4vw, 4rem)",
+          paddingBottom: "clamp(1.5rem, 3vw, 3rem)",
+        }}
       >
+        {/* Master grid — 2 cols mobile, 12 cols desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-y-12 gap-x-6 md:gap-x-10 md:items-start">
 
-        {/* Brand */}
-        <div>
-          <div
-            style={{
-              width: "100%",
-              maxWidth: 220,
-              aspectRatio: "1 / 1",
-              position: "relative",
-              marginBottom: "1.25rem",
-              background: "#e0d8ce",
-              borderRadius: 12,
-              padding: 12,
-            }}
-          >
-            <Image
-              src="/images/trattoria-logo-full.png"
-              alt="Trattoria Marano"
-              fill
-              sizes="220px"
-              style={{ objectFit: "contain", padding: 12 }}
-            />
-          </div>
-          <p className="text-sm leading-relaxed" style={{ color: "rgba(224,216,206,0.65)" }}>
-            {t.welcome.body[lang]}
-          </p>
-        </div>
-
-        {/* Contact */}
-        <div>
-          <p className="section-label mb-5" style={{ color: "rgba(224,216,206,0.5)" }}>
-            {t.contact.title[lang]}
-          </p>
-          <ul className="space-y-3" style={{ color: "#e0d8ce", fontSize: "0.921rem" }}>
-            <li className="flex gap-3">
-              <MapPin size={15} className="mt-0.5 shrink-0" style={{ color: "rgba(224,216,206,0.6)" }} />
-              <span>Ohlmüllerstr. 22<br />81541 München</span>
-            </li>
-            <li className="flex gap-3">
-              <Phone size={15} className="mt-0.5 shrink-0" style={{ color: "rgba(224,216,206,0.6)" }} />
-              <a
-                href="tel:+4989209281230"
-                className="transition-colors"
-                style={{ color: "#e0d8ce" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                onMouseLeave={e => (e.currentTarget.style.color = "#e0d8ce")}
+          {/* Brand block */}
+          <div className="col-span-2 md:col-span-4 flex flex-col gap-4">
+            <div className="flex items-start gap-4">
+              <div
+                style={{
+                  width: "clamp(156px, 31.2vw, 208px)",
+                  aspectRatio: "1 / 1",
+                  position: "relative",
+                  background: "#e0d8ce",
+                  borderRadius: 12,
+                  flexShrink: 0,
+                }}
               >
-                089 / 209 28 123
-              </a>
-            </li>
-            <li className="flex gap-3">
-              <Mail size={15} className="mt-0.5 shrink-0" style={{ color: "rgba(224,216,206,0.6)" }} />
-              <a
-                href="mailto:maranotrattoria@gmail.com"
-                className="transition-colors"
-                style={{ color: "#e0d8ce" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
-                onMouseLeave={e => (e.currentTarget.style.color = "#e0d8ce")}
+                <Image
+                  src="/images/trattoria-logo-full.png"
+                  alt="Trattoria Marano"
+                  fill
+                  sizes="(max-width: 768px) 156px, 208px"
+                  style={{ objectFit: "contain", padding: 14 }}
+                />
+              </div>
+              <p
+                className="section-label mt-1"
+                style={{
+                  color: "rgba(224,216,206,0.55)",
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.12em",
+                  lineHeight: 1.4,
+                }}
               >
-                maranotrattoria@gmail.com
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* Hours */}
-        <div>
-          <p className="section-label mb-5" style={{ color: "rgba(224,216,206,0.5)" }}>
-            {t.hours.title[lang]}
-          </p>
-          <ul className="space-y-2" style={{ color: "#e0d8ce", fontSize: "0.921rem" }}>
-            <li style={{ color: "rgba(224,216,206,0.5)" }}>{t.hours.monday[lang]}</li>
-            <li>
-              <span style={{ color: "#e0d8ce", fontWeight: 600 }}>{t.hours.tue_sun[lang]}</span>
-              <br /><span style={{ color: "rgba(224,216,206,0.8)" }}>{t.hours.lunch[lang]}</span>
-              <br /><span style={{ color: "rgba(224,216,206,0.8)" }}>{t.hours.dinner[lang]}</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Sister Restaurant */}
-        <div>
-          <p className="section-label mb-5" style={{ color: "rgba(224,216,206,0.5)" }}>
-            {t.footer_extra.sister_label[lang]}
-          </p>
-          <p className="leading-relaxed mb-5" style={{ color: "rgba(224,216,206,0.7)", fontSize: "0.921rem" }}>
-            {t.footer_extra.sister_body[lang]}
-          </p>
-          <div className="flex flex-wrap gap-2">
-            <a
-              href="https://solopizza.de"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-colors"
-              style={{ border: "1px solid rgba(224,216,206,0.25)", color: "#e0d8ce", background: "rgba(224,216,206,0.08)" }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.6)"
-                ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.18)"
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.25)"
-                ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.08)"
-              }}
+                {lang === "de" ? "München" : "Munich"}
+                <br />
+                <span style={{ color: "rgba(224,216,206,0.4)" }}>
+                  {lang === "de" ? "Seit" : "Since"} 2025
+                </span>
+              </p>
+            </div>
+            <p
+              className="text-sm leading-relaxed"
+              style={{ color: "rgba(224,216,206,0.7)", maxWidth: "34ch" }}
             >
-              <ExternalLink size={12} />
-              {t.footer_extra.sister_website[lang]}
-            </a>
-            <a
-              href="https://maps.google.com/?q=Bereiterangerstr.+18,+81451+München"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-colors"
-              style={{ border: "1px solid rgba(224,216,206,0.25)", color: "#e0d8ce", background: "rgba(224,216,206,0.08)" }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.6)"
-                ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.18)"
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.25)"
-                ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.08)"
-              }}
-            >
-              <Navigation size={12} />
-              {t.footer_extra.sister_directions[lang]}
-            </a>
+              {t.welcome.body[lang]}
+            </p>
           </div>
-        </div>
-      </div>
 
-      {/* Bottom bar */}
-      <div style={{ borderTop: "1px solid rgba(224,216,206,0.15)", position: "relative" }}>
-        <div
-          className="container-wide py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs"
-          style={{ color: "rgba(224,216,206,0.45)" }}
-        >
-          <span>© {year} Trattoria Marano München</span>
-          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          {/* Contact */}
+          <div className="col-span-1 md:col-span-3 md:pl-8 md:border-l md:border-[rgba(224,216,206,0.14)]">
+            <p
+              className="section-label font-heading"
+              style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
+            >
+              {t.contact.title[lang]}
+            </p>
+            <ul
+              className="flex flex-col gap-3"
+              style={{ color: "#e0d8ce", fontSize: "0.9rem" }}
+            >
+              <li className="flex gap-2.5">
+                <MapPin size={14} className="mt-0.5 shrink-0" style={{ color: "rgba(224,216,206,0.55)" }} />
+                <span>Ohlmüllerstr. 22<br />81541 München</span>
+              </li>
+              <li className="flex gap-2.5">
+                <Phone size={14} className="mt-0.5 shrink-0" style={{ color: "rgba(224,216,206,0.55)" }} />
+                <a
+                  href="tel:+4989209281230"
+                  className="transition-colors"
+                  style={{ color: "#e0d8ce" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#e0d8ce")}
+                >
+                  089 / 209 28 123
+                </a>
+              </li>
+              <li className="flex gap-2.5">
+                <Mail size={14} className="mt-0.5 shrink-0" style={{ color: "rgba(224,216,206,0.55)" }} />
+                <a
+                  href="mailto:maranotrattoria@gmail.com"
+                  className="transition-colors"
+                  style={{ color: "#e0d8ce", wordBreak: "break-word" }}
+                  onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                  onMouseLeave={e => (e.currentTarget.style.color = "#e0d8ce")}
+                >
+                  maranotrattoria@gmail.com
+                </a>
+              </li>
+            </ul>
             <Link
               href="/datenschutz"
-              className="transition-colors"
-              style={{ color: "rgba(224,216,206,0.55)" }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#e0d8ce")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(224,216,206,0.55)")}
+              className="inline-flex items-center gap-1.5 transition-colors mt-5"
+              style={{
+                color: "#fffefb",
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                letterSpacing: "0.02em",
+                padding: "8px 16px",
+                borderRadius: 999,
+                border: "1px solid rgba(224,216,206,0.3)",
+                background: "rgba(224,216,206,0.08)",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "rgba(224,216,206,0.22)"
+                e.currentTarget.style.borderColor = "rgba(224,216,206,0.6)"
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = "rgba(224,216,206,0.08)"
+                e.currentTarget.style.borderColor = "rgba(224,216,206,0.3)"
+              }}
             >
               {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
+              <ArrowUpRight size={13} />
             </Link>
-            <span style={{ opacity: 0.35 }}>·</span>
-            <span>
-              {t.footer_extra.sister_short[lang]}{" "}
+          </div>
+
+          {/* Hours */}
+          <div className="col-span-1 md:col-span-2 md:pl-8 md:border-l md:border-[rgba(224,216,206,0.14)]">
+            <p
+              className="section-label font-heading"
+              style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
+            >
+              {t.hours.title[lang]}
+            </p>
+            <ul
+              className="flex flex-col"
+              style={{ color: "#e0d8ce", fontSize: "0.9rem" }}
+            >
+              <li style={{ color: "rgba(224,216,206,0.5)", marginBottom: 14 }}>{t.hours.monday[lang]}</li>
+              <li className="flex flex-col gap-1">
+                <span style={{ color: "#e0d8ce", fontWeight: 600 }}>{t.hours.tue_sun[lang]}</span>
+                <span style={{ color: "rgba(224,216,206,0.78)" }}>{t.hours.lunch[lang]}</span>
+                <span style={{ color: "rgba(224,216,206,0.78)" }}>{t.hours.dinner[lang]}</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Sister Restaurant */}
+          <div className="col-span-2 md:col-span-3 md:pl-8 md:border-l md:border-[rgba(224,216,206,0.14)]">
+            <p
+              className="section-label font-heading"
+              style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
+            >
+              {t.footer_extra.sister_label[lang]}
+            </p>
+            <p
+              className="leading-relaxed"
+              style={{
+                color: "rgba(224,216,206,0.7)",
+                fontSize: "0.9rem",
+                marginBottom: 14,
+                maxWidth: "36ch",
+              }}
+            >
+              {t.footer_extra.sister_body[lang]}
+            </p>
+            <div className="flex flex-col sm:flex-row gap-2">
               <a
                 href="https://solopizza.de"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="transition-colors"
-                style={{ color: "rgba(224,216,206,0.45)" }}
-                onMouseEnter={e => (e.currentTarget.style.color = "#e0d8ce")}
-                onMouseLeave={e => (e.currentTarget.style.color = "rgba(224,216,206,0.45)")}
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-colors"
+                style={{
+                  border: "1px solid rgba(224,216,206,0.25)",
+                  color: "#e0d8ce",
+                  background: "rgba(224,216,206,0.08)",
+                  flex: "1 1 auto",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.6)"
+                  ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.18)"
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.25)"
+                  ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.08)"
+                }}
               >
-                Solo Pizza · Bereiterangerstr. 18
+                <ExternalLink size={12} />
+                {t.footer_extra.sister_website[lang]}
               </a>
-            </span>
+              <a
+                href="https://maps.google.com/?q=Bereiterangerstr.+18,+81451+München"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-colors"
+                style={{
+                  border: "1px solid rgba(224,216,206,0.25)",
+                  color: "#e0d8ce",
+                  background: "rgba(224,216,206,0.08)",
+                  flex: "1 1 auto",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.6)"
+                  ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.18)"
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.25)"
+                  ;(e.currentTarget as HTMLAnchorElement).style.background = "rgba(224,216,206,0.08)"
+                }}
+              >
+                <Navigation size={12} />
+                {t.footer_extra.sister_directions[lang]}
+              </a>
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Bottom bar — agency credit */}
+      <div style={{ borderTop: "1px solid rgba(224,216,206,0.18)" }}>
+        <div
+          className="container-wide flex flex-col md:flex-row items-center md:justify-between gap-4 text-center md:text-left"
+          style={{
+            color: "rgba(224,216,206,0.6)",
+            paddingTop: 18,
+            paddingBottom: 18,
+          }}
+        >
+          <p style={{ fontSize: "0.78rem", lineHeight: 1.5 }}>
+            © {year} TOMAR Group s.r.o. Všetky práva vyhradené.
+            <br />
+            IČO: 56449046 | DIČ: 2122311488 | IČ DPH: SK2122311488
+          </p>
+          <a
+            href="https://webzatyzden.sk"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Web za týždeň"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 8,
+              flexShrink: 0,
+              transition: "transform 160ms ease",
+              textDecoration: "none",
+            }}
+            onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.transform = "scale(1.04)")}
+            onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.transform = "scale(1)")}
+          >
+            <Image
+              src="/images/webzatyzden-icon.png"
+              alt=""
+              width={56}
+              height={56}
+              style={{ height: 31, width: 31, objectFit: "contain" }}
+              unoptimized
+            />
+            <span style={{ color: "#e0d8ce", fontFamily: "var(--font-heading), sans-serif", fontWeight: 700, fontSize: "0.875rem", letterSpacing: "-0.01em", whiteSpace: "nowrap" }}>
+              Web za týždeň
+            </span>
+          </a>
         </div>
       </div>
     </footer>

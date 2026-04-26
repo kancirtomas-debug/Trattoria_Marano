@@ -27,20 +27,13 @@ export default function HomePage() {
             alt=""
             fill
             priority
+            quality={95}
             unoptimized
             className="object-cover"
             style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
-          {/* Desktop: soft fade from cream on left to transparent near center so pizzas stay visible */}
-          <div
-            className="absolute inset-0 hidden md:block"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(255,254,251,0.95) 0%, rgba(255,254,251,0.85) 22%, rgba(255,254,251,0.45) 42%, rgba(255,254,251,0) 58%)",
-            }}
-          />
-          {/* Mobile: stronger fade — tiny screen needs more legibility */}
+          {/* Mobile only: stronger fade — tiny screen needs more legibility */}
           <div
             className="absolute inset-0 md:hidden"
             style={{
@@ -228,7 +221,7 @@ export default function HomePage() {
               >
                 <div>
                   <p className="section-label font-heading mb-1" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Schwesterpizzeria" : "Sister Restaurant"}</p>
-                  <p className="font-heading font-semibold text-lg" style={{ color: "#201515", letterSpacing: "-0.01em" }}>
+                  <p className="font-sans text-lg" style={{ color: "rgba(32,21,21,0.7)", fontWeight: 400, letterSpacing: "-0.01em" }}>
                     Solo Pizza · Bereiterangerstr. 18, München
                   </p>
                 </div>

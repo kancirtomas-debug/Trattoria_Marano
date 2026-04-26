@@ -6,7 +6,7 @@ import { getAllPosts, formatDate } from "@/lib/blog"
 import Reveal from "@/components/ui/reveal"
 
 export const metadata: Metadata = {
-  title: "Blog – Olinka Kancirová",
+  title: "Blog - Olinka Kancirová",
   description: "Články o komunikácii, emóciách, vzťahoch a sebarozvoji od Olinky Kancirowej.",
 }
 

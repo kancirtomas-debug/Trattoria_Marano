@@ -23,46 +23,39 @@ const features = {
   ],
 }
 
-const PIZZA_ANIM = [
-  { dur: "9s",  del: "0s"    },
-  { dur: "12s", del: "-4.5s" },
-  { dur: "8s",  del: "-1.5s" },
-  { dur: "11s", del: "-6s"   },
-  { dur: "10s", del: "-3s"   },
-  { dur: "7s",  del: "-5s"   },
-]
-
-function PizzaInBox({ dur, del }: { dur: string; del: string }) {
+function PizzaSlice() {
+  // single pizza slice (triangle wedge), tip up-left, crust on outer arc
   return (
-    <svg width="32" height="32" viewBox="0 0 56 56" aria-hidden style={{ flexShrink: 0 }}>
-      {/* box depth */}
-      <rect x="6" y="11" width="46" height="38" rx="2" fill="#b07428" />
-      {/* box face */}
-      <rect x="4" y="8" width="46" height="38" rx="2" fill="#d4974e" stroke="#a06c25" strokeWidth="1.5" />
-      {/* inner base */}
-      <rect x="10" y="14" width="34" height="26" rx="1" fill="#dba35a" />
-      {/* corner fold marks */}
-      <line x1="4"  y1="8"  x2="10" y2="14" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
-      <line x1="50" y1="8"  x2="44" y2="14" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
-      <line x1="4"  y1="46" x2="10" y2="40" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
-      <line x1="50" y1="46" x2="44" y2="40" stroke="#a06c25" strokeWidth="1" opacity="0.65" />
-      {/* spinning pizza slice — tip anchored at box centre (27,27) */}
-      <g style={{ transformOrigin: "27px 27px", animation: `pizza-tumble ${dur} linear infinite ${del}` }}>
+    <svg width="39" height="39" viewBox="0 0 56 56" aria-hidden style={{ flexShrink: 0 }}>
+      <g style={{ transformOrigin: "28px 28px", transform: "rotate(135deg)" }}>
+        {/* slice body: tip at center (28,28), arc from 10.5,28 to 28,10.5 */}
         <path
-          d="M 27 27 L 15 14 A 18 18 0 0 1 39 14 Z"
+          d="M 28 28 L 10.5 28 A 22 22 0 0 1 28 10.5 Z"
           fill="#f0ebe0"
-          stroke="#201515"
+          stroke="#6b1535"
           strokeWidth="1.8"
           strokeLinejoin="round"
+        />
+        {/* crust along outer arc */}
+        <path
+          d="M 10.5 28 A 22 22 0 0 1 28 10.5"
+          fill="none"
+          stroke="#d9c5a0"
+          strokeWidth="4"
           strokeLinecap="round"
         />
         <path
-          d="M 15 14 A 18 18 0 0 1 39 14"
+          d="M 10.5 28 A 22 22 0 0 1 28 10.5"
           fill="none"
-          stroke="#201515"
-          strokeWidth="3.5"
+          stroke="#6b1535"
+          strokeWidth="1.4"
           strokeLinecap="round"
         />
+        {/* pepperoni — 2 dots inside wedge */}
+        <circle cx="18" cy="20" r="2.4" fill="#6b1535" />
+        <circle cx="22" cy="15.5" r="2" fill="#6b1535" />
+        {/* basil accent */}
+        <circle cx="15" cy="24" r="1.4" fill="#6b1535" opacity="0.7" />
       </g>
     </svg>
   )
@@ -75,7 +68,7 @@ export default function AboutPage() {
     <div className="np-page">
       <div className="np-wrap">
 
-        {/* Masthead — section title as headline */}
+        {/* Masthead - section title as headline */}
         <div className="np-masthead">
           <div className="np-dateline">
             <span>{t.newspaper.dateline_l[lang]}</span>
@@ -129,7 +122,7 @@ export default function AboutPage() {
             <p className="np-kicker">{lang === "de" ? "Das Haus im Überblick" : "The house at a glance"}</p>
             <h3 className="np-h3">{lang === "de" ? "Merkmale" : "Highlights"}</h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-              {features[lang].map((f, i) => (
+              {features[lang].map((f) => (
                 <li
                   key={f}
                   style={{
@@ -144,7 +137,7 @@ export default function AboutPage() {
                     borderBottom: "1px dotted #c5c0b1",
                   }}
                 >
-                  <PizzaInBox dur={PIZZA_ANIM[i].dur} del={PIZZA_ANIM[i].del} />
+                  <PizzaSlice />
                   {f}
                 </li>
               ))}
@@ -160,8 +153,8 @@ export default function AboutPage() {
             <p className="np-body" style={{ marginBottom: 10 }}>{t.about.sister[lang]}</p>
             <p style={{ fontFamily: "Georgia, serif", fontSize: 12, color: "#36342e", marginBottom: 12 }}>
               {lang === "de"
-                ? "Mo–Fr: ab 17:00 Uhr · Sa, So & Feiertag: ab 12:00 Uhr"
-                : "Mon–Fri: from 17:00 · Sat, Sun & Holidays: from 12:00"}
+                ? "Mo-Fr: ab 17:00 Uhr · Sa, So & Feiertag: ab 12:00 Uhr"
+                : "Mon-Fri: from 17:00 · Sat, Sun & Holidays: from 12:00"}
             </p>
             <a
               href="https://solopizza.de"

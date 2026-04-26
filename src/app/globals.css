@@ -6,6 +6,7 @@
   to { transform: rotate(360deg); }
 }
 
+
 @font-face {
   font-family: "PointPanther";
   src: url("/fonts/PointPanther.otf") format("opentype");
@@ -102,6 +103,7 @@
 .np-grid-2 { display: grid; grid-template-columns: 3fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
 .np-grid-even-2 { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
 .np-grid-3 { display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
+.np-catering-asym { display: grid; grid-template-columns: minmax(0, 1.4fr) 1px minmax(0, 1fr); gap: 0 28px; }
 .np-box { border: 1px solid #201515; padding: 14px; background: rgba(255,253,245,0.55); }
 .np-label-red { color: #6b1535; font-family: Georgia, serif; font-weight: 700; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; }
 
@@ -109,18 +111,28 @@
   .np-grid-2 { grid-template-columns: 1fr !important; }
   .np-grid-even-2 { grid-template-columns: 1fr !important; }
   .np-grid-3 { grid-template-columns: 1fr !important; }
+  .np-catering-asym { grid-template-columns: 1fr !important; gap: 20px 0 !important; }
   .np-grid-2 > .np-col-rule,
   .np-grid-even-2 > .np-col-rule,
-  .np-grid-3 > .np-col-rule { display: none; }
+  .np-grid-3 > .np-col-rule,
+  .np-catering-asym > .np-col-rule { display: none; }
   .np-wrap { padding: 28px 16px 60px; }
   .np-title { font-size: clamp(2rem, 9vw, 3rem); }
+  .np-title-section { font-size: clamp(2rem, 8vw, 3rem) !important; }
+  /* Admin FullCalendar: shrink toolbar + event text on phones */
+  .fc .fc-toolbar { flex-wrap: wrap; gap: 6px; }
+  .fc .fc-toolbar-title { font-size: 0.95rem !important; }
+  .fc .fc-button { padding: 0.25rem 0.55rem !important; font-size: 0.7rem !important; }
+  .fc .fc-daygrid-day-number { font-size: 0.7rem; }
+  .fc-event { font-size: 0.62rem !important; }
+  .fc .fc-timegrid-slot { height: 2rem; }
 }
 @media (min-width: 701px) and (max-width: 960px) {
   .np-grid-3 { grid-template-columns: 1fr 1px 1fr !important; }
   .np-grid-3 > .np-col-rule:nth-of-type(2) { display: none; }
 }
 
-/* ── Motion — editorial, restrained ─────────────── */
+/* ── Motion - editorial, restrained ─────────────── */
 @keyframes np-fade-up {
   from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -311,7 +323,7 @@
   .btn-ghost:hover  { background: #c5c0b1; }
   .btn-ghost:active { transform: scale(0.97); }
 
-  /* Section label — uppercase tracked */
+  /* Section label - uppercase tracked */
   .section-label {
     font-size: 0.75rem;
     font-weight: 600;
@@ -361,7 +373,7 @@
   .mono-label-light { @apply text-xs font-semibold tracking-widest uppercase text-warmgray-500; }
 }
 
-/* Grain noise overlay — used on dark page headers */
+/* Grain noise overlay - used on dark page headers */
 .grain {
   position: relative;
   isolation: isolate;
@@ -424,7 +436,7 @@ h1, h2, h3 { text-wrap: balance; }
 .testimonials-col-medium { animation: scrollUp 34s linear infinite; }
 .testimonials-col-fast   { animation: scrollUp 38s linear infinite; }
 
-/* Menu columns — static on mobile, animated on desktop */
+/* Menu columns - static on mobile, animated on desktop */
 .menu-col-slow, .menu-col-medium, .menu-col-fast { animation: none; }
 @media (min-width: 768px) {
   .menu-col-slow   { animation: scrollUp 50s linear infinite; }
@@ -443,24 +455,24 @@ body[data-mobile] .container-wide {
   max-width: 100%;
 }
 
-/* Hero — stack vertically, remove negative margins */
+/* Hero - stack vertically, remove negative margins */
 body[data-mobile] .-ml-20,
 body[data-mobile] .lg\:-ml-32 {
   margin-left: 0 !important;
 }
 
-/* Cards — always single column on mobile build */
+/* Cards - always single column on mobile build */
 body[data-mobile] .md\:grid-cols-3 {
   grid-template-columns: 1fr !important;
 }
 
-/* Feature strip — stack vertically */
+/* Feature strip - stack vertically */
 body[data-mobile] .md\:divide-x {
   border-left: none !important;
   border-right: none !important;
 }
 
-/* Testimonials — single column */
+/* Testimonials - single column */
 body[data-mobile] .hidden.md\:block,
 body[data-mobile] .hidden.lg\:block {
   display: block !important;

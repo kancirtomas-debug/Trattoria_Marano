@@ -17,9 +17,23 @@ function getFirstDayOfMonth(year: number, month: number) {
   return d === 0 ? 6 : d - 1
 }
 
+// Current "today" in Europe/Berlin, regardless of the visitor's timezone.
+// Returns a Date whose Y/M/D/H/M fields mirror Berlin wall-clock time so that
+// calendar + slot filtering reflect the restaurant's local hours.
+function nowInBerlin(): Date {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/Berlin",
+    year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", second: "2-digit",
+    hour12: false,
+  }).formatToParts(new Date())
+  const g = (k: string) => Number(parts.find(p => p.type === k)?.value ?? 0)
+  return new Date(g("year"), g("month") - 1, g("day"), g("hour"), g("minute"), g("second"))
+}
+
 export default function ReservationCalendar() {
   const { lang } = useLanguage()
-  const today = new Date()
+  const today = nowInBerlin()
   const [viewYear, setViewYear]     = useState(today.getFullYear())
   const [viewMonth, setViewMonth]   = useState(today.getMonth())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
@@ -101,7 +115,7 @@ export default function ReservationCalendar() {
   const allSlots = [...t.reservation.lunch_slots, ...t.reservation.dinner_slots] as string[]
   const isSameDay = (a: Date, b: Date) =>
     a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
-  const nowPlusLead = new Date(Date.now() + LEAD_MINUTES * 60_000)
+  const nowPlusLead = new Date(today.getTime() + LEAD_MINUTES * 60_000)
   const timeSlots = selectedDate
     ? allSlots.filter(slot => {
         if (!isSameDay(selectedDate, today)) return true
@@ -144,7 +158,7 @@ export default function ReservationCalendar() {
             boxShadow: "0 20px 50px -20px rgba(107,21,53,0.12), 0 4px 12px -4px rgba(0,0,0,0.04)",
           }}
         >
-          {/* Hero band — terracotta */}
+          {/* Hero band - terracotta */}
           <div style={{ background: "#6b1535", padding: "32px 20px 28px", textAlign: "center" }}>
             <div
               className="mx-auto flex items-center justify-center"
@@ -195,8 +209,8 @@ export default function ReservationCalendar() {
                     label={lang === "de" ? "3 Std. vorher" : "3 hrs before"}
                     title={lang === "de" ? "Bitte bestätigen" : "Please confirm"}
                     body={lang === "de"
-                      ? "E-Mail mit Bestätigungs-Button — ein Klick genügt."
-                      : "Email with confirm button — one click."}
+                      ? "E-Mail mit Bestätigungs-Button - ein Klick genügt."
+                      : "Email with confirm button - one click."}
                     highlighted
                   />
                   <TimelineStep
@@ -265,8 +279,8 @@ export default function ReservationCalendar() {
         </p>
         <p style={{ fontSize: 14, color: "#36342e", margin: "0 0 12px" }}>
           {lang === "de"
-            ? "Wir nehmen zurzeit keine neuen Online-Reservierungen an. Bitte rufen Sie uns an — wir tun unser Bestes, einen Tisch für Sie zu finden."
-            : "We are not accepting new online reservations at the moment. Please give us a call — we will do our best to find you a table."}
+            ? "Wir nehmen zurzeit keine neuen Online-Reservierungen an. Bitte rufen Sie uns an - wir tun unser Bestes, einen Tisch für Sie zu finden."
+            : "We are not accepting new online reservations at the moment. Please give us a call - we will do our best to find you a table."}
         </p>
         <a href="tel:+4989209281230" style={{ fontSize: 18, fontWeight: 900, color: "#201515", textDecoration: "underline", textUnderlineOffset: 3 }}>
           089 / 209 28 123
@@ -453,7 +467,7 @@ export default function ReservationCalendar() {
             </div>
           </div>
 
-          {/* honeypot — hidden from real users, caught server-side */}
+          {/* honeypot - hidden from real users, caught server-side */}
           <input
             type="text"
             name="fax"
