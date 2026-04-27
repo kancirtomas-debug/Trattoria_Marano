@@ -30,7 +30,7 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-12 gap-y-12 gap-x-6 md:gap-x-10 md:items-start">
 
           {/* Brand block */}
-          <div className="col-span-2 md:col-span-4 flex flex-col gap-5">
+          <div className="col-span-2 md:col-span-4 flex flex-col">
             <div
               style={{
                 width: "clamp(140px, 28vw, 184px)",
@@ -48,32 +48,6 @@ export default function Footer() {
                 sizes="(max-width: 768px) 140px, 184px"
                 style={{ objectFit: "contain", padding: 14 }}
               />
-            </div>
-            <div className="flex flex-col gap-2" style={{ maxWidth: "32ch" }}>
-              <p
-                style={{
-                  fontFamily: "Georgia, serif",
-                  fontStyle: "italic",
-                  fontSize: "1.05rem",
-                  color: "rgba(224,216,206,0.92)",
-                  lineHeight: 1.5,
-                }}
-              >
-                {lang === "de"
-                  ? "Authentische italienische Küche im Herzen Münchens — seit 1987."
-                  : "Authentic Italian cuisine in the heart of Munich — since 1987."}
-              </p>
-              <p
-                className="section-label font-heading"
-                style={{
-                  color: "rgba(224,216,206,0.55)",
-                  fontSize: "0.72rem",
-                  letterSpacing: "0.24em",
-                  marginTop: 6,
-                }}
-              >
-                Ohlmüllerstr. 22 · München
-              </p>
             </div>
           </div>
 
