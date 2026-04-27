@@ -92,6 +92,31 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+            <Link
+              href="/datenschutz"
+              className="inline-flex items-center gap-1.5 transition-colors mt-5"
+              style={{
+                color: "#fffefb",
+                fontSize: "0.82rem",
+                fontWeight: 600,
+                letterSpacing: "0.02em",
+                padding: "8px 16px",
+                borderRadius: 999,
+                border: "1px solid rgba(224,216,206,0.3)",
+                background: "rgba(224,216,206,0.08)",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = "rgba(224,216,206,0.22)"
+                e.currentTarget.style.borderColor = "rgba(224,216,206,0.6)"
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = "rgba(224,216,206,0.08)"
+                e.currentTarget.style.borderColor = "rgba(224,216,206,0.3)"
+              }}
+            >
+              {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
+              <ArrowUpRight size={13} />
+            </Link>
           </div>
 
           {/* Hours */}
@@ -198,36 +223,11 @@ export default function Footer() {
             paddingBottom: 18,
           }}
         >
-          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-5">
-            <p style={{ fontSize: "0.78rem", lineHeight: 1.5 }}>
-              © {year} TOMAR Group s.r.o. Všetky práva vyhradené.
-              <br />
-              IČO: 56449046 | DIČ: 2122311488 | IČ DPH: SK2122311488
-            </p>
-            <Link
-              href="/datenschutz"
-              className="inline-flex items-center gap-1 transition-colors self-start md:self-auto"
-              style={{
-                color: "rgba(224,216,206,0.78)",
-                fontSize: "0.78rem",
-                letterSpacing: "0.02em",
-                textDecoration: "underline",
-                textUnderlineOffset: 3,
-                textDecorationColor: "rgba(224,216,206,0.3)",
-              }}
-              onMouseEnter={e => {
-                e.currentTarget.style.color = "#fff"
-                e.currentTarget.style.textDecorationColor = "rgba(255,255,255,0.7)"
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = "rgba(224,216,206,0.78)"
-                e.currentTarget.style.textDecorationColor = "rgba(224,216,206,0.3)"
-              }}
-            >
-              {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
-              <ArrowUpRight size={11} />
-            </Link>
-          </div>
+          <p style={{ fontSize: "0.78rem", lineHeight: 1.5 }}>
+            © {year} TOMAR Group s.r.o. Všetky práva vyhradené.
+            <br />
+            IČO: 56449046 | DIČ: 2122311488 | IČ DPH: SK2122311488
+          </p>
           <a
             href="https://webzatyzden.sk"
             target="_blank"
