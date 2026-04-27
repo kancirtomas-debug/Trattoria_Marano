@@ -33,11 +33,11 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-4 flex flex-col">
             <div
               style={{
-                width: "clamp(140px, 28vw, 184px)",
+                width: "clamp(200px, 38vw, 280px)",
                 aspectRatio: "1 / 1",
                 position: "relative",
                 background: "#e0d8ce",
-                borderRadius: 12,
+                borderRadius: 14,
                 flexShrink: 0,
               }}
             >
@@ -45,8 +45,8 @@ export default function Footer() {
                 src="/images/trattoria-logo-full.png"
                 alt="Trattoria Marano"
                 fill
-                sizes="(max-width: 768px) 140px, 184px"
-                style={{ objectFit: "contain", padding: 14 }}
+                sizes="(max-width: 768px) 200px, 280px"
+                style={{ objectFit: "contain", padding: 18 }}
               />
             </div>
           </div>
