@@ -22,22 +22,22 @@ export default function Footer() {
       <div
         className="container-wide"
         style={{
-          paddingTop: "clamp(2.25rem, 4vw, 4rem)",
-          paddingBottom: "clamp(1.5rem, 3vw, 3rem)",
+          paddingTop: "clamp(1.5rem, 2.6vw, 2.5rem)",
+          paddingBottom: "clamp(1rem, 2vw, 1.75rem)",
         }}
       >
         {/* Master grid — 2 cols mobile, 12 cols desktop */}
-        <div className="grid grid-cols-2 md:grid-cols-12 gap-y-12 gap-x-6 md:gap-x-10 md:items-start">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-y-8 gap-x-6 md:gap-x-10 md:items-start">
 
           {/* Brand block */}
-          <div className="col-span-2 md:col-span-4 flex flex-col">
+          <div className="col-span-2 md:col-span-3 flex flex-col">
             <div
               style={{
-                width: "clamp(200px, 38vw, 280px)",
+                width: "77.1%",
                 aspectRatio: "1 / 1",
                 position: "relative",
                 background: "#e0d8ce",
-                borderRadius: 14,
+                borderRadius: 11,
                 flexShrink: 0,
               }}
             >
@@ -45,14 +45,14 @@ export default function Footer() {
                 src="/images/trattoria-logo-full.png"
                 alt="Trattoria Marano"
                 fill
-                sizes="(max-width: 768px) 200px, 280px"
-                style={{ objectFit: "contain", padding: 18 }}
+                sizes="(max-width: 768px) 39vw, 19vw"
+                style={{ objectFit: "contain", padding: 13 }}
               />
             </div>
           </div>
 
           {/* Contact */}
-          <div className="col-span-1 md:col-span-3 md:pl-8 md:border-l md:border-[rgba(224,216,206,0.14)]">
+          <div className="col-span-1 md:col-span-3 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
               style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
@@ -114,13 +114,13 @@ export default function Footer() {
                 e.currentTarget.style.borderColor = "rgba(224,216,206,0.3)"
               }}
             >
-              {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
+              {lang === "de" ? "Datenschutz & Impressum" : lang === "it" ? "Privacy & Imprint" : "Privacy & Imprint"}
               <ArrowUpRight size={13} />
             </Link>
           </div>
 
           {/* Hours */}
-          <div className="col-span-1 md:col-span-2 md:pl-8 md:border-l md:border-[rgba(224,216,206,0.14)]">
+          <div className="col-span-1 md:col-span-2 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
               style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
@@ -141,7 +141,7 @@ export default function Footer() {
           </div>
 
           {/* Sister Restaurant */}
-          <div className="col-span-2 md:col-span-3 md:pl-8 md:border-l md:border-[rgba(224,216,206,0.14)]">
+          <div className="col-span-2 md:col-span-4 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
               style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
@@ -216,17 +216,15 @@ export default function Footer() {
       {/* Bottom bar — agency credit */}
       <div style={{ borderTop: "1px solid rgba(224,216,206,0.18)" }}>
         <div
-          className="container-wide flex flex-col md:flex-row items-center md:justify-between gap-4 text-center md:text-left"
+          className="container-wide flex flex-col md:flex-row items-center md:justify-between gap-3 text-center md:text-left"
           style={{
             color: "rgba(224,216,206,0.6)",
-            paddingTop: 18,
-            paddingBottom: 18,
+            paddingTop: 12,
+            paddingBottom: 12,
           }}
         >
           <p style={{ fontSize: "0.78rem", lineHeight: 1.5 }}>
-            © {year} TOMAR Group s.r.o. Všetky práva vyhradené.
-            <br />
-            IČO: 56449046 | DIČ: 2122311488 | IČ DPH: SK2122311488
+            © {year} Trattoria Marano München · Ohlmüllerstr. 22, 81541 München
           </p>
           <a
             href="https://webzatyzden.sk"

@@ -1,6 +1,6 @@
 import { supabaseAdmin } from "./supabase"
 
-export type Lang = "de" | "en"
+export type Lang = "de" | "en" | "it"
 export type ReservationStatus = "pending" | "confirmed" | "cancelled"
 
 export type Reservation = {

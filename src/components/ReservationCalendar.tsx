@@ -6,8 +6,10 @@ import { t } from "@/lib/translations"
 
 const DAYS_DE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
 const DAYS_EN = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+const DAYS_IT = ["Lu", "Ma", "Me", "Gi", "Ve", "Sa", "Do"]
 const MONTHS_DE = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]
 const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+const MONTHS_IT = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"]
 
 function getDaysInMonth(year: number, month: number) {
   return new Date(year, month + 1, 0).getDate()
@@ -78,8 +80,8 @@ export default function ReservationCalendar() {
 
   const daysInMonth = getDaysInMonth(viewYear, viewMonth)
   const firstDay    = getFirstDayOfMonth(viewYear, viewMonth)
-  const dayLabels   = lang === "de" ? DAYS_DE : DAYS_EN
-  const months      = lang === "de" ? MONTHS_DE : MONTHS_EN
+  const dayLabels   = lang === "de" ? DAYS_DE : lang === "it" ? DAYS_IT : DAYS_EN
+  const months      = lang === "de" ? MONTHS_DE : lang === "it" ? MONTHS_IT : MONTHS_EN
 
   function prevMonth() {
     if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1) }
@@ -129,8 +131,8 @@ export default function ReservationCalendar() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const newErrors: Record<string, string> = {}
-    if (!name.trim()) newErrors.name = lang === "de" ? "Name ist erforderlich" : "Name is required"
-    if (!phone.trim()) newErrors.phone = lang === "de" ? "Telefonnummer ist erforderlich" : "Phone number is required"
+    if (!name.trim()) newErrors.name = lang === "de" ? "Name ist erforderlich" : lang === "it" ? "Il nome è obbligatorio" : "Name is required"
+    if (!phone.trim()) newErrors.phone = lang === "de" ? "Telefonnummer ist erforderlich" : lang === "it" ? "Il numero di telefono è obbligatorio" : "Phone number is required"
     if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return }
     setErrors({})
     setSubmitting(true)
@@ -198,7 +200,7 @@ export default function ReservationCalendar() {
                       textTransform: "uppercase", color: "#939084", fontWeight: 700,
                     }}
                   >
-                    {lang === "de" ? "Was als Nächstes" : "What's next"}
+                    {lang === "de" ? "Was als Nächstes" : lang === "it" ? "Cosa succede ora" : "What's next"}
                   </span>
                   <div style={{ flex: 1, height: 1, background: "#e5e0d5" }} />
                 </div>
@@ -206,10 +208,12 @@ export default function ReservationCalendar() {
                 {/* Timeline: 3h reminder */}
                 <div style={{ display: "flex", gap: 14, marginBottom: 18 }}>
                   <TimelineStep
-                    label={lang === "de" ? "3 Std. vorher" : "3 hrs before"}
-                    title={lang === "de" ? "Bitte bestätigen" : "Please confirm"}
+                    label={lang === "de" ? "3 Std. vorher" : lang === "it" ? "3 ore prima" : "3 hrs before"}
+                    title={lang === "de" ? "Bitte bestätigen" : lang === "it" ? "Si prega di confermare" : "Please confirm"}
                     body={lang === "de"
                       ? "E-Mail mit Bestätigungs-Button - ein Klick genügt."
+                      : lang === "it"
+                      ? "E-mail con pulsante di conferma - basta un clic."
                       : "Email with confirm button - one click."}
                     highlighted
                   />
@@ -223,6 +227,8 @@ export default function ReservationCalendar() {
                 >
                   {lang === "de"
                     ? "Bitte bestätigen Sie Ihre Reservierung, damit wir Ihren Tisch sicher bereithalten."
+                    : lang === "it"
+                    ? "Si prega di confermare la prenotazione così possiamo tenere il vostro tavolo."
                     : "Please confirm so we can reliably hold your table."}
                 </p>
               </>
@@ -246,7 +252,7 @@ export default function ReservationCalendar() {
             onMouseEnter={e => (e.currentTarget.style.background = "#f5ede6")}
             onMouseLeave={e => (e.currentTarget.style.background = "#fdf8f5")}
           >
-            {lang === "de" ? "Neue Anfrage" : "New request"}
+            {lang === "de" ? "Neue Anfrage" : lang === "it" ? "Nuova richiesta" : "New request"}
           </button>
         </div>
       </div>
@@ -265,14 +271,16 @@ export default function ReservationCalendar() {
         }}
       >
         <p style={{ fontSize: 11, letterSpacing: "0.24em", textTransform: "uppercase", color: "#6b1535", fontWeight: 700, margin: "0 0 8px" }}>
-          {lang === "de" ? "Hinweis" : "Notice"}
+          {lang === "de" ? "Hinweis" : lang === "it" ? "Avviso" : "Notice"}
         </p>
         <p style={{ fontSize: 18, color: "#201515", fontWeight: 700, margin: "0 0 8px" }}>
-          {lang === "de" ? "Nicht genügend freie Plätze verfügbar" : "Not enough slots available"}
+          {lang === "de" ? "Nicht genügend freie Plätze verfügbar" : lang === "it" ? "Posti non sufficienti disponibili" : "Not enough slots available"}
         </p>
         <p style={{ fontSize: 14, color: "#36342e", margin: "0 0 12px" }}>
           {lang === "de"
             ? "Wir nehmen zurzeit keine neuen Online-Reservierungen an. Bitte rufen Sie uns an - wir tun unser Bestes, einen Tisch für Sie zu finden."
+            : lang === "it"
+            ? "Al momento non accettiamo nuove prenotazioni online. Vi preghiamo di chiamarci - faremo del nostro meglio per trovarvi un tavolo."
             : "We are not accepting new online reservations at the moment. Please give us a call - we will do our best to find you a table."}
         </p>
         <a href="tel:+4989209281230" style={{ fontSize: 18, fontWeight: 900, color: "#201515", textDecoration: "underline", textUnderlineOffset: 3 }}>
@@ -389,6 +397,8 @@ export default function ReservationCalendar() {
             <p className="text-sm" style={{ color: "#939084", fontFamily: "Georgia, serif" }}>
               {lang === "de"
                 ? "Für heute sind keine freien Zeiten mehr verfügbar. Bitte wählen Sie einen anderen Tag oder rufen Sie uns an."
+                : lang === "it"
+                ? "Non ci sono più orari disponibili per oggi. Scegliete un altro giorno o chiamateci."
                 : "No more slots available today. Please choose another day or give us a call."}
             </p>
           )}
@@ -455,7 +465,7 @@ export default function ReservationCalendar() {
                 +
               </button>
               <span className="text-sm ml-1" style={{ color: "#939084" }}>
-                {lang === "de" ? "Personen" : "guests"}
+                {lang === "de" ? "Personen" : lang === "it" ? "ospiti" : "guests"}
               </span>
             </div>
           </div>
@@ -477,7 +487,7 @@ export default function ReservationCalendar() {
             <input
               value={name} onChange={e => { setName(e.target.value); setErrors(er => ({ ...er, name: "" })) }}
               className="input-underline"
-              placeholder={lang === "de" ? "Ihr Name" : "Your name"}
+              placeholder={lang === "de" ? "Ihr Name" : lang === "it" ? "Il tuo nome" : "Your name"}
             />
             {errors.name && <p className="text-xs mt-1.5" style={{ color: "#6b1535", fontFamily: "Georgia, serif" }}>{errors.name}</p>}
           </div>
@@ -493,9 +503,9 @@ export default function ReservationCalendar() {
 
           <div>
             <label className="mono-label block mb-2">
-              {lang === "de" ? "E-Mail" : "Email"}
+              {lang === "de" ? "E-Mail" : lang === "it" ? "E-mail" : "Email"}
               <span className="ml-1 normal-case font-normal" style={{ color: "#c5c0b1" }}>
-                {lang === "de" ? "(für Bestätigung & Erinnerung)" : "(for confirmation & reminder)"}
+                {lang === "de" ? "(für Bestätigung & Erinnerung)" : lang === "it" ? "(per conferma & promemoria)" : "(for confirmation & reminder)"}
               </span>
             </label>
             <input
@@ -506,16 +516,16 @@ export default function ReservationCalendar() {
 
           <div>
             <label className="mono-label block mb-2">
-              {lang === "de" ? "Allergien / Unverträglichkeiten" : "Allergies / Intolerances"}
+              {lang === "de" ? "Allergien / Unverträglichkeiten" : lang === "it" ? "Allergie / Intolleranze" : "Allergies / Intolerances"}
               <span className="ml-1 normal-case font-normal" style={{ color: "#c5c0b1" }}>
-                {lang === "de" ? "(optional)" : "(optional)"}
+                {lang === "de" ? "(optional)" : lang === "it" ? "(facoltativo)" : "(optional)"}
               </span>
             </label>
             <textarea
               value={allergies}
               onChange={e => setAllergies(e.target.value)}
               className="input-underline"
-              placeholder={lang === "de" ? "z.B. Gluten, Laktose, Nüsse…" : "e.g. gluten, lactose, nuts…"}
+              placeholder={lang === "de" ? "z.B. Gluten, Laktose, Nüsse…" : lang === "it" ? "es. glutine, lattosio, frutta secca…" : "e.g. gluten, lactose, nuts…"}
               rows={2}
               style={{ resize: "vertical", display: "block", width: "100%" }}
             />
@@ -528,7 +538,7 @@ export default function ReservationCalendar() {
             style={{ opacity: submitting ? 0.7 : 1 }}
           >
             {submitting
-              ? (lang === "de" ? "Wird gesendet…" : "Sending…")
+              ? (lang === "de" ? "Wird gesendet…" : lang === "it" ? "Invio in corso…" : "Sending…")
               : t.reservation.submit[lang]}
           </button>
         </>

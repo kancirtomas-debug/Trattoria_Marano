@@ -74,7 +74,7 @@ export default function Header() {
             }}
             aria-label="Toggle language"
           >
-            {lang === "de" ? "EN" : "DE"}
+            {lang === "de" ? "EN" : lang === "en" ? "IT" : "DE"}
           </button>
           <Link
             href="/reserve"

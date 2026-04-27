@@ -56,7 +56,7 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
               className="text-xs font-semibold px-2 py-1 rounded"
               style={{ border: "1px solid #c5c0b1", color: "#36342e" }}
             >
-              {lang === "de" ? "EN" : "DE"}
+              {lang === "de" ? "EN" : lang === "en" ? "IT" : "DE"}
             </button>
             {/* Hamburger */}
             <button
@@ -116,7 +116,7 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
             href="/datenschutz"
             style={{ fontSize: 13, fontWeight: 600, color: "#6b1535" }}
           >
-            {lang === "de" ? "Datenschutz & Impressum" : "Privacy & Imprint"}
+            {lang === "de" ? "Datenschutz & Impressum" : lang === "it" ? "Privacy & Imprint" : "Privacy & Imprint"}
           </Link>
           <span style={{ fontSize: 11, color: "rgba(32,21,21,0.5)" }}>
             © {new Date().getFullYear()} Trattoria Marano München
@@ -139,7 +139,7 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
           style={{ color: "#36342e", fontSize: 11, fontWeight: 600, letterSpacing: "0.04em" }}
         >
           <Phone size={20} style={{ color: "#6b1535" }} />
-          {lang === "de" ? "ANRUFEN" : "CALL"}
+          {lang === "de" ? "ANRUFEN" : lang === "it" ? "CHIAMA" : "CALL"}
         </a>
 
         <Link
@@ -154,7 +154,7 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
           }}
         >
           <UtensilsCrossed size={20} />
-          {lang === "de" ? "SPEISEKARTE" : "MENU"}
+          {lang === "de" ? "SPEISEKARTE" : lang === "it" ? "MENU" : "MENU"}
         </Link>
 
         <Link
@@ -163,7 +163,7 @@ export default function MobileLayout({ children }: { children: React.ReactNode }
           style={{ color: "#36342e", fontSize: 11, fontWeight: 600, letterSpacing: "0.04em" }}
         >
           <CalendarDays size={20} style={{ color: "#6b1535" }} />
-          {lang === "de" ? "RESERVIEREN" : "RESERVE"}
+          {lang === "de" ? "RESERVIEREN" : lang === "it" ? "PRENOTA" : "RESERVE"}
         </Link>
 
         <a

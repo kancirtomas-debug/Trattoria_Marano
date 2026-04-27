@@ -32,7 +32,7 @@ export default function ReservePage() {
         {/* Calendar + side column */}
         <div className="np-grid-2">
           <div className="np-box" style={{ padding: 20 }}>
-            <p className="np-kicker">{lang === "de" ? "Online-Reservierung" : "Online reservation"}</p>
+            <p className="np-kicker">{lang === "de" ? "Online-Reservierung" : lang === "it" ? "Prenotazione online" : "Online reservation"}</p>
             <h2 className="np-h2" style={{ marginBottom: 12 }}>{t.reservation.title[lang]}</h2>
             <ReservationCalendar />
           </div>
@@ -51,25 +51,29 @@ export default function ReservePage() {
 
             <div className="np-rule-thin" />
 
-            <p className="np-kicker" style={{ marginBottom: 8 }}>{lang === "de" ? "Telefon" : "By Phone"}</p>
+            <p className="np-kicker" style={{ marginBottom: 8 }}>{lang === "de" ? "Telefon" : lang === "it" ? "Telefono" : "By Phone"}</p>
             <a href="tel:+4989209281230" style={{ fontFamily: "Georgia, serif", fontSize: 22, fontWeight: 900, color: "#201515", textDecoration: "none", display: "block", lineHeight: 1.2 }}>
               089 / 209 28 123
             </a>
             <p className="np-body" style={{ marginTop: 10, lineHeight: 1.55, maxWidth: 280, textAlign: "left" }}>
               {lang === "de"
                 ? "Für Gruppen ab 8 Personen oder besondere Wünsche."
+                : lang === "it"
+                ? "Per gruppi di 8 o più persone o richieste speciali."
                 : "For groups of 8+ or special requests."}
             </p>
 
             <div className="np-rule-thin" />
 
-            <p className="np-kicker" style={{ marginBottom: 8 }}>{lang === "de" ? "E-Mail" : "By Email"}</p>
+            <p className="np-kicker" style={{ marginBottom: 8 }}>{lang === "de" ? "E-Mail" : lang === "it" ? "E-mail" : "By Email"}</p>
             <a href="mailto:maranotrattoria@gmail.com" style={{ fontFamily: "Georgia, serif", fontSize: 17, fontWeight: 700, color: "#201515", textDecoration: "none", display: "block", lineHeight: 1.3, wordBreak: "break-all" }}>
               maranotrattoria@gmail.com
             </a>
             <p className="np-body" style={{ marginTop: 10, lineHeight: 1.55, maxWidth: 280, textAlign: "left" }}>
               {lang === "de"
                 ? "Für schriftliche Anfragen und Sonderwünsche."
+                : lang === "it"
+                ? "Per richieste scritte e desideri particolari."
                 : "For written inquiries and special requests."}
             </p>
           </div>

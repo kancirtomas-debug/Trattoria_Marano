@@ -138,20 +138,22 @@ export default function HomePage() {
                   }}
                 >
                   <div className="flex flex-col justify-between p-8">
-                    <p className="section-label font-heading mb-3" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Veranstaltungen" : "Events"}</p>
+                    <p className="section-label font-heading mb-3" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Veranstaltungen" : lang === "it" ? "Eventi" : "Events"}</p>
                     <p className="text-sm leading-relaxed mb-6" style={{ color: "#36342e" }}>
                       {lang === "de"
                         ? "Feste, Geburtstage, Firmenevents und besondere Anlässe — wir kümmern uns um alles, damit Ihr Abend unvergesslich wird."
+                        : lang === "it"
+                        ? "Feste, compleanni, eventi aziendali e occasioni speciali — pensiamo a tutto noi, perché la vostra serata sia indimenticabile."
                         : "Parties, birthdays, corporate events and special occasions — we take care of everything so your evening is unforgettable."}
                     </p>
                     <span className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ color: "#6b1535" }}>
-                      {lang === "de" ? "Mehr erfahren" : "Learn more"} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                      {lang === "de" ? "Mehr erfahren" : lang === "it" ? "Scopri di più" : "Learn more"} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                     </span>
                   </div>
                   <div className="relative hidden md:block">
                     <Image
-                      src="/images/events-interior.webp"
-                      alt={lang === "de" ? "Trattoria Marano Innenraum" : "Trattoria Marano interior"}
+                      src="/images/events-catering.webp"
+                      alt={lang === "de" ? "Trattoria Marano Innenraum" : lang === "it" ? "Trattoria Marano interno" : "Trattoria Marano interior"}
                       fill
                       sizes="30vw"
                       style={{ objectFit: "cover", objectPosition: "center" }}
@@ -165,11 +167,13 @@ export default function HomePage() {
                   style={{ borderRadius: 12, minHeight: 220, background: "#201515" }}
                 >
                   <p className="section-label font-heading mb-3" style={{ color: "rgba(255,254,251,0.6)", fontSize: "1.05rem", letterSpacing: "0.08em" }}>
-                    {lang === "de" ? "Zum Mitnehmen" : "Take Away"}
+                    {lang === "de" ? "Zum Mitnehmen" : lang === "it" ? "Da asporto" : "Take Away"}
                   </p>
                   <p className="text-sm leading-relaxed mb-6" style={{ color: "rgba(255,254,251,0.65)" }}>
                     {lang === "de"
                       ? "Fast alle Speisen auch zum Mitnehmen — frisch zubereitet, verpackt zum Genuss zuhause."
+                      : lang === "it"
+                      ? "Quasi tutti i piatti anche da asporto — preparati al momento, confezionati per gustarli a casa."
                       : "Almost all dishes available to take away — freshly prepared for you to enjoy at home."}
                   </p>
                   <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -231,13 +235,13 @@ export default function HomePage() {
                 }}
               >
                 <div>
-                  <p className="section-label font-heading mb-1" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Schwesterpizzeria" : "Sister Restaurant"}</p>
+                  <p className="section-label font-heading mb-1" style={{ fontSize: "1.05rem", letterSpacing: "0.08em" }}>{lang === "de" ? "Schwesterpizzeria" : lang === "it" ? "Pizzeria gemella" : "Sister Restaurant"}</p>
                   <p className="font-sans text-lg" style={{ color: "rgba(32,21,21,0.7)", fontWeight: 400, letterSpacing: "-0.01em" }}>
                     Solo Pizza · Bereiterangerstr. 18, München
                   </p>
                 </div>
                 <span className="inline-flex items-center gap-1.5 text-sm font-semibold shrink-0" style={{ color: "#6b1535" }}>
-                  {lang === "de" ? "Route planen" : "Get directions"} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
+                  {lang === "de" ? "Route planen" : lang === "it" ? "Indicazioni" : "Get directions"} <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" />
                 </span>
               </a>
             </div>

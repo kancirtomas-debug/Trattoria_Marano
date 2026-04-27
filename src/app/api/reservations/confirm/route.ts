@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getByCancelToken, setStatus } from "@/lib/reservations-store"
 
-type Lang = "de" | "en"
+type Lang = "de" | "en" | "it"
 
 export async function GET(req: NextRequest) {
   const token = req.nextUrl.searchParams.get("token")
@@ -10,7 +10,8 @@ export async function GET(req: NextRequest) {
   const reservation = await getByCancelToken(token)
   if (!reservation) return new NextResponse("Reservation not found.", { status: 404 })
 
-  const lang: Lang = reservation.lang === "en" ? "en" : "de"
+  const lang: Lang =
+    reservation.lang === "en" ? "en" : reservation.lang === "it" ? "it" : "de"
 
   if (reservation.status === "cancelled") {
     return new NextResponse(resultHtml(lang, "cancelled"), { headers: { "Content-Type": "text/html" } })
@@ -35,6 +36,11 @@ function resultHtml(lang: Lang, state: "success" | "already" | "cancelled"): str
       success:   { title: "Confirmed · Grazie!",       body: "We're looking forward to seeing you — your table is held." },
       already:   { title: "Already confirmed",         body: "Your reservation is already confirmed. See you soon!" },
       cancelled: { title: "Reservation cancelled",     body: "This reservation has been cancelled and can no longer be confirmed." },
+    },
+    it: {
+      success:   { title: "Confermato · Grazie!",      body: "Siamo felici di accogliervi - il vostro tavolo è riservato." },
+      already:   { title: "Già confermata",            body: "La vostra prenotazione è già confermata. A presto!" },
+      cancelled: { title: "Prenotazione annullata",    body: "Questa prenotazione è stata annullata e non può più essere confermata." },
     },
   } as const
   const msg = copy[lang][state]
@@ -67,7 +73,7 @@ function resultHtml(lang: Lang, state: "success" | "already" | "cancelled"): str
     <p class="brand">Trattoria Marano</p>
     <h1>${msg.title}</h1>
     <p>${msg.body}</p>
-    <a class="back" href="/">${lang === "de" ? "Zur Website" : "Back to site"}</a>
+    <a class="back" href="/">${lang === "de" ? "Zur Website" : lang === "it" ? "Al sito" : "Back to site"}</a>
   </div>
 </body>
 </html>`

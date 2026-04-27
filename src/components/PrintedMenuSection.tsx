@@ -141,7 +141,7 @@ export default function PrintedMenuSection() {
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: "1.5rem" }}>
               <div style={{ flex: 1, height: 1, background: "#c5c0b1" }} />
               <h2 style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.22em", textTransform: "uppercase", color: "#6b1535", fontFamily: "system-ui", whiteSpace: "nowrap" }}>
-                {cat.label[lang]}
+                {cat.label[lang === "it" ? "en" : lang]}
               </h2>
               <div style={{ flex: 1, height: 1, background: "#c5c0b1" }} />
             </div>
@@ -174,7 +174,7 @@ export default function PrintedMenuSection() {
                     <div style={{ display: "flex", alignItems: "flex-start", gap: 20 }}>
                       <div style={{ flex: 1, minWidth: 0 }}>
                         <p style={{ fontStyle: "italic", fontSize: "0.88rem", color: "#939084", lineHeight: 1.6, fontFamily: "system-ui", maxWidth: "56ch" }}>
-                          {item.description[lang]}
+                          {item.description[lang === "it" ? "en" : lang]}
                         </p>
                         {item.allergens && (
                           <p style={{ fontSize: "0.74rem", color: "#c5c0b1", marginTop: 3, fontFamily: "system-ui" }}>

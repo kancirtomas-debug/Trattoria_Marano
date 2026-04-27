@@ -109,13 +109,13 @@ export default function GalleryPage() {
         {/* Editorial spread 1 - two columns of text over photo bands */}
         <div className="np-grid-even-2" style={{ marginBottom: 16 }}>
           <div>
-            <p className="np-kicker">{lang === "de" ? "Handwerk" : "Craft"}</p>
+            <p className="np-kicker">{lang === "de" ? "Handwerk" : lang === "it" ? "Mestiere" : "Craft"}</p>
             <h2 className="np-h2">{t.gallery.article2_title[lang]}</h2>
             <p className="np-body">{t.gallery.article2_body[lang]}</p>
           </div>
           <div className="np-col-rule" />
           <div>
-            <p className="np-kicker">{lang === "de" ? "Die Cantina" : "The Cantina"}</p>
+            <p className="np-kicker">{lang === "de" ? "Die Cantina" : lang === "it" ? "La Cantina" : "The Cantina"}</p>
             <h2 className="np-h2">{t.gallery.article3_title[lang]}</h2>
             <p className="np-body">{t.gallery.article3_body[lang]}</p>
           </div>
@@ -136,6 +136,8 @@ export default function GalleryPage() {
         <blockquote className="np-pullquote">
           {lang === "de"
             ? "„Die Zeit schmeckt anders, wenn ein Holzofen nebenan atmet.\""
+            : lang === "it"
+            ? "«Il tempo ha un altro sapore quando un forno a legna respira accanto.»"
             : "\"Time tastes different when a wood-fired oven breathes nearby.\""}
         </blockquote>
 
@@ -144,7 +146,7 @@ export default function GalleryPage() {
         {/* Final editorial + two wide photos */}
         <div className="np-grid-even-2">
           <div>
-            <p className="np-kicker">{lang === "de" ? "Atmosphäre" : "Atmosphere"}</p>
+            <p className="np-kicker">{lang === "de" ? "Atmosphäre" : lang === "it" ? "Atmosfera" : "Atmosphere"}</p>
             <h2 className="np-h2">{t.gallery.article4_title[lang]}</h2>
             <p className="np-body">{t.gallery.article4_body[lang]}</p>
           </div>
@@ -156,10 +158,12 @@ export default function GalleryPage() {
           <Photo src={photos[6].src} caption={photos[6].caption!} height={320} objPos="center top" onClick={() => open(6)} />
           <div className="np-col-rule" />
           <div>
-            <p className="np-kicker">{lang === "de" ? "Galerie - Fortsetzung" : "Gallery - Continued"}</p>
+            <p className="np-kicker">{lang === "de" ? "Galerie - Fortsetzung" : lang === "it" ? "Galleria - Continua" : "Gallery - Continued"}</p>
             <p className="np-body">
               {lang === "de"
                 ? "Jede Wand unseres Hauses trägt Erinnerungen - schwarzweisse Fotografien aus den 1960er Jahren, Urkunden, Postkarten aus der alten Heimat. Das Marano ist nicht nur ein Restaurant; es ist ein Archiv einer Familie, die Neapel nach München mitgenommen hat. Schauen Sie ruhig zweimal hin."
+                : lang === "it"
+                ? "Ogni parete della nostra casa porta ricordi - fotografie in bianco e nero degli anni '60, attestati, cartoline dalla vecchia patria. Il Marano non è solo un ristorante; è l'archivio di una famiglia che ha portato Napoli a Monaco. Guardate due volte - c'è molto da scoprire."
                 : "Every wall of our house carries memories - black-and-white photographs from the 1960s, certificates, postcards from the old country. Marano is not merely a restaurant; it is an archive of a family who carried Naples to Munich. Look twice - there is much to find."}
             </p>
           </div>

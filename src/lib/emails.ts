@@ -67,12 +67,18 @@ function restaurantEmail(): string {
   return process.env.RESTAURANT_EMAIL ?? "maranotrattoria@gmail.com"
 }
 function fmtDate(date: string, lang: Lang): string {
-  return new Date(date + "T12:00:00").toLocaleDateString(lang === "de" ? "de-DE" : "en-GB", {
+  const locale = lang === "de" ? "de-DE" : lang === "it" ? "it-IT" : "en-GB"
+  return new Date(date + "T12:00:00").toLocaleDateString(locale, {
     weekday: "long", day: "numeric", month: "long", year: "numeric",
   })
 }
 function normalizeLang(lang?: string): Lang {
-  return lang === "en" ? "en" : "de"
+  return lang === "en" ? "en" : lang === "it" ? "it" : "de"
+}
+
+// Translation helper for 3-way email copy
+function tr(lang: Lang, de: string, en: string, it: string): string {
+  return lang === "de" ? de : lang === "it" ? it : en
 }
 
 // Thin wrapper - Resend returns `{ data, error }` instead of throwing, so
@@ -162,31 +168,34 @@ export async function sendRestaurantNewReservation(data: ReservationData): Promi
   const to   = restaurantEmail()
   if (!to) return
 
+  const hourSuffix = tr(lang, "Uhr", "", "")
   const body = `
-    ${heading(lang === "de" ? "Neue Tischreservierung" : "New reservation")}
-    ${lead(lang === "de" ? "Soeben über das Online-Formular eingegangen." : "Just received via the website form.")}
+    ${heading(tr(lang, "Neue Tischreservierung", "New reservation", "Nuova prenotazione tavolo"))}
+    ${lead(tr(lang, "Soeben über das Online-Formular eingegangen.", "Just received via the website form.", "Appena ricevuta tramite il modulo online."))}
     ${detailsTable([
-      [lang === "de" ? "Name"     : "Name",    data.name],
-      [lang === "de" ? "Datum"    : "Date",    fmtDate(data.date, lang)],
-      [lang === "de" ? "Uhrzeit"  : "Time",    `${data.time} ${lang === "de" ? "Uhr" : ""}`],
-      [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
-      [lang === "de" ? "Telefon"  : "Phone",   `<a href="tel:${data.phone}" style="color:${C.terra};text-decoration:none">${data.phone}</a>`],
-      ...(data.email   ? [[lang === "de" ? "E-Mail"    : "Email",   data.email]     as [string, string]] : []),
-      ...(data.message ? [[lang === "de" ? "Nachricht" : "Message", `<em>${data.message}</em>`] as [string, string]] : []),
+      [tr(lang, "Name", "Name", "Nome"), data.name],
+      [tr(lang, "Datum", "Date", "Data"), fmtDate(data.date, lang)],
+      [tr(lang, "Uhrzeit", "Time", "Ora"), `${data.time} ${hourSuffix}`.trim()],
+      [tr(lang, "Personen", "Guests", "Ospiti"), String(data.guests)],
+      [tr(lang, "Telefon", "Phone", "Telefono"), `<a href="tel:${data.phone}" style="color:${C.terra};text-decoration:none">${data.phone}</a>`],
+      ...(data.email   ? [[tr(lang, "E-Mail", "Email", "E-mail"), data.email] as [string, string]] : []),
+      ...(data.message ? [[tr(lang, "Nachricht", "Message", "Messaggio"), `<em>${data.message}</em>`] as [string, string]] : []),
     ])}
     ${divider()}
     <p style="margin:0;font-size:12px;color:${C.muted};font-style:italic">
-      ${lang === "de"
-        ? "Automatische Benachrichtigung vom Reservierungssystem."
-        : "Automatic notification from the reservation system."}
+      ${tr(lang,
+        "Automatische Benachrichtigung vom Reservierungssystem.",
+        "Automatic notification from the reservation system.",
+        "Notifica automatica dal sistema di prenotazione.")}
     </p>`
 
   await send({
     from:    fromAddr(),
     to,
-    subject: lang === "de"
-      ? `Neue Reservierung: ${data.name} - ${fmtDate(data.date, "de")} ${data.time}`
-      : `New reservation: ${data.name} - ${fmtDate(data.date, "en")} ${data.time}`,
+    subject: tr(lang,
+      `Neue Reservierung: ${data.name} - ${fmtDate(data.date, "de")} ${data.time}`,
+      `New reservation: ${data.name} - ${fmtDate(data.date, "en")} ${data.time}`,
+      `Nuova prenotazione: ${data.name} - ${fmtDate(data.date, "it")} ${data.time}`),
     html: baseLayout({
       preheader: `${data.name} · ${data.guests} · ${data.time}`,
       body,
@@ -207,46 +216,52 @@ export async function sendGuestReservationConfirmation(data: ReservationData): P
   const endIso   = endDate.toISOString().split(".")[0]
   const icsContent = generateICS({
     uid:         `res-${data.id}@trattoriamarano.de`,
-    title:       lang === "de" ? "Tischreservierung - Trattoria Marano" : "Table reservation - Trattoria Marano",
-    description: `Name: ${data.name}\n${lang === "de" ? "Personen" : "Guests"}: ${data.guests}\n${lang === "de" ? "Telefon" : "Phone"}: ${data.phone}${data.message ? `\n${lang === "de" ? "Nachricht" : "Note"}: ${data.message}` : ""}`,
+    title:       tr(lang, "Tischreservierung - Trattoria Marano", "Table reservation - Trattoria Marano", "Prenotazione tavolo - Trattoria Marano"),
+    description: `Name: ${data.name}\n${tr(lang, "Personen", "Guests", "Ospiti")}: ${data.guests}\n${tr(lang, "Telefon", "Phone", "Telefono")}: ${data.phone}${data.message ? `\n${tr(lang, "Nachricht", "Note", "Nota")}: ${data.message}` : ""}`,
     location:    "Trattoria Marano, Ohlmüllerstr. 22, 81541 München",
     startIso,
     endIso,
   })
 
+  const hourSuffix = tr(lang, "Uhr", "", "")
   const body = `
-    ${heading(lang === "de" ? "Ihre Reservierung ist eingegangen" : "Your reservation is in")}
-    ${lead(lang === "de"
-      ? `Wir freuen uns auf Ihren Besuch, ${data.name}.`
-      : `We're looking forward to seeing you, ${data.name}.`)}
+    ${heading(tr(lang, "Ihre Reservierung ist eingegangen", "Your reservation is in", "La vostra prenotazione è arrivata"))}
+    ${lead(tr(lang,
+      `Wir freuen uns auf Ihren Besuch, ${data.name}.`,
+      `We're looking forward to seeing you, ${data.name}.`,
+      `Siamo felici di accogliervi, ${data.name}.`))}
     ${detailsTable([
-      [lang === "de" ? "Datum"    : "Date",    fmtDate(data.date, lang)],
-      [lang === "de" ? "Uhrzeit"  : "Time",    `${data.time} ${lang === "de" ? "Uhr" : ""}`],
-      [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
+      [tr(lang, "Datum", "Date", "Data"), fmtDate(data.date, lang)],
+      [tr(lang, "Uhrzeit", "Time", "Ora"), `${data.time} ${hourSuffix}`.trim()],
+      [tr(lang, "Personen", "Guests", "Ospiti"), String(data.guests)],
     ])}
-    ${noticeBox(lang === "de"
-      ? "<strong>Wichtig:</strong> Sie erhalten <strong>3 Stunden</strong> vor Ihrem Besuch eine Erinnerung per E-Mail. Bitte bestätigen Sie Ihre Reservierung über den Button in dieser E-Mail."
-      : "<strong>Important:</strong> You will receive an email reminder <strong>3 hours</strong> before your visit. Please confirm your reservation via the button in that email.")}
+    ${noticeBox(tr(lang,
+      "<strong>Wichtig:</strong> Sie erhalten <strong>3 Stunden</strong> vor Ihrem Besuch eine Erinnerung per E-Mail. Bitte bestätigen Sie Ihre Reservierung über den Button in dieser E-Mail.",
+      "<strong>Important:</strong> You will receive an email reminder <strong>3 hours</strong> before your visit. Please confirm your reservation via the button in that email.",
+      "<strong>Importante:</strong> Riceverete un promemoria via e-mail <strong>3 ore</strong> prima della vostra visita. Si prega di confermare la prenotazione tramite il pulsante in quell'e-mail."))}
     ${divider()}
     <p style="margin:0 0 14px;font-size:13px;color:${C.muted}">
-      ${lang === "de" ? "Pläne geändert?" : "Plans changed?"}
+      ${tr(lang, "Pläne geändert?", "Plans changed?", "Piani cambiati?")}
     </p>
-    ${ctaGhost(cancelUrl, lang === "de" ? "Reservierung stornieren" : "Cancel reservation")}
-    ${paragraph(lang === "de"
-      ? `Der Kalendertermin mit Erinnerung ist als Anhang (<code>.ics</code>) beigefügt.`
-      : `The calendar event (<code>.ics</code>) is attached - add it to your calendar with one click.`)}
+    ${ctaGhost(cancelUrl, tr(lang, "Reservierung stornieren", "Cancel reservation", "Annulla prenotazione"))}
+    ${paragraph(tr(lang,
+      `Der Kalendertermin mit Erinnerung ist als Anhang (<code>.ics</code>) beigefügt.`,
+      `The calendar event (<code>.ics</code>) is attached - add it to your calendar with one click.`,
+      `L'evento del calendario (<code>.ics</code>) è allegato - aggiungetelo al vostro calendario con un clic.`))}
   `
 
   await send({
     from:    fromAddr(),
     to:      data.email,
-    subject: lang === "de"
-      ? "Reservierungsbestätigung - Trattoria Marano"
-      : "Reservation received - Trattoria Marano",
+    subject: tr(lang,
+      "Reservierungsbestätigung - Trattoria Marano",
+      "Reservation received - Trattoria Marano",
+      "Conferma prenotazione - Trattoria Marano"),
     html: baseLayout({
-      preheader: lang === "de"
-        ? `${fmtDate(data.date, "de")} um ${data.time} · ${data.guests} Personen`
-        : `${fmtDate(data.date, "en")} at ${data.time} · ${data.guests} guests`,
+      preheader: tr(lang,
+        `${fmtDate(data.date, "de")} um ${data.time} · ${data.guests} Personen`,
+        `${fmtDate(data.date, "en")} at ${data.time} · ${data.guests} guests`,
+        `${fmtDate(data.date, "it")} alle ${data.time} · ${data.guests} ospiti`),
       body,
     }),
     attachments: [{
@@ -263,42 +278,49 @@ export async function sendGuest3hConfirmation(data: ReservationData): Promise<vo
   const confirmUrl = `${appUrl()}/api/reservations/confirm?token=${data.cancelToken}`
   const cancelUrl  = `${appUrl()}/api/reservations/cancel?token=${data.cancelToken}`
 
+  const hourSuffix = tr(lang, "Uhr", "", "")
+  const phoneLink = `<a href="tel:${data.phone}" style="color:${C.terra};text-decoration:none">${data.phone}</a>`
   const body = `
-    ${heading(lang === "de" ? "Kommen Sie heute Abend?" : "Still joining us tonight?")}
-    ${lead(lang === "de"
-      ? `Ihr Tisch ist in etwa 3 Stunden reserviert, ${data.name}.`
-      : `Your table is booked in about 3 hours, ${data.name}.`)}
+    ${heading(tr(lang, "Kommen Sie heute Abend?", "Still joining us tonight?", "Ci raggiungerete stasera?"))}
+    ${lead(tr(lang,
+      `Ihr Tisch ist in etwa 3 Stunden reserviert, ${data.name}.`,
+      `Your table is booked in about 3 hours, ${data.name}.`,
+      `Il vostro tavolo è prenotato tra circa 3 ore, ${data.name}.`))}
     ${detailsTable([
-      [lang === "de" ? "Datum"    : "Date",    fmtDate(data.date, lang)],
-      [lang === "de" ? "Uhrzeit"  : "Time",    `${data.time} ${lang === "de" ? "Uhr" : ""}`],
-      [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
+      [tr(lang, "Datum", "Date", "Data"), fmtDate(data.date, lang)],
+      [tr(lang, "Uhrzeit", "Time", "Ora"), `${data.time} ${hourSuffix}`.trim()],
+      [tr(lang, "Personen", "Guests", "Ospiti"), String(data.guests)],
     ])}
-    ${paragraph(lang === "de"
-      ? "Bitte bestätigen Sie Ihre Reservierung mit einem Klick, damit wir den Tisch sicher für Sie bereithalten."
-      : "Please confirm your reservation with one click so we can reliably hold the table for you.")}
+    ${paragraph(tr(lang,
+      "Bitte bestätigen Sie Ihre Reservierung mit einem Klick, damit wir den Tisch sicher für Sie bereithalten.",
+      "Please confirm your reservation with one click so we can reliably hold the table for you.",
+      "Si prega di confermare la prenotazione con un clic, così possiamo tenere il tavolo per voi."))}
     <div style="margin:24px 0 0">
       <table role="presentation" cellpadding="0" cellspacing="0"><tr>
-        <td style="padding-right:10px">${ctaPrimary(confirmUrl, lang === "de" ? "Ja, ich komme" : "Yes, I'm coming")}</td>
-        <td>${ctaGhost(cancelUrl, lang === "de" ? "Stornieren" : "Cancel")}</td>
+        <td style="padding-right:10px">${ctaPrimary(confirmUrl, tr(lang, "Ja, ich komme", "Yes, I'm coming", "Sì, vengo"))}</td>
+        <td>${ctaGhost(cancelUrl, tr(lang, "Stornieren", "Cancel", "Annulla"))}</td>
       </tr></table>
     </div>
     ${divider()}
     <p style="margin:0;font-size:12px;color:${C.muted}">
-      ${lang === "de"
-        ? `Falls Sie nicht bestätigen, rufen wir Sie eventuell unter <a href="tel:${data.phone}" style="color:${C.terra};text-decoration:none">${data.phone}</a> an.`
-        : `If you don't confirm, we may call you at <a href="tel:${data.phone}" style="color:${C.terra};text-decoration:none">${data.phone}</a>.`}
+      ${tr(lang,
+        `Falls Sie nicht bestätigen, rufen wir Sie eventuell unter ${phoneLink} an.`,
+        `If you don't confirm, we may call you at ${phoneLink}.`,
+        `Se non confermate, potremmo chiamarvi al ${phoneLink}.`)}
     </p>`
 
   await send({
     from:    fromAddr(),
     to:      data.email,
-    subject: lang === "de"
-      ? "Bitte bestätigen - Ihre Reservierung in 3 Stunden"
-      : "Please confirm - your table in 3 hours",
+    subject: tr(lang,
+      "Bitte bestätigen - Ihre Reservierung in 3 Stunden",
+      "Please confirm - your table in 3 hours",
+      "Conferma richiesta - prenotazione tra 3 ore"),
     html: baseLayout({
-      preheader: lang === "de"
-        ? "Ein Klick genügt, um Ihren Tisch zu sichern."
-        : "One click to secure your table.",
+      preheader: tr(lang,
+        "Ein Klick genügt, um Ihren Tisch zu sichern.",
+        "One click to secure your table.",
+        "Basta un clic per assicurare il tavolo."),
       body,
     }),
   }, "guest-3h-confirmation")
@@ -308,24 +330,28 @@ export async function sendGuest3hConfirmation(data: ReservationData): Promise<vo
 export async function sendGuestCateringThankYou(data: CateringData): Promise<void> {
   const lang = normalizeLang(data.lang)
 
+  const phoneLink = `<a href="tel:${PHONE_TEL}" style="color:${C.terra};text-decoration:none;font-weight:600">${PHONE_DISPLAY}</a>`
   const body = `
-    ${heading(lang === "de" ? "Grazie für Ihre Anfrage" : "Grazie for your inquiry")}
-    ${lead(lang === "de"
-      ? `Wir haben Ihre Event-Anfrage erhalten, ${data.name}.`
-      : `We've received your event inquiry, ${data.name}.`)}
-    ${paragraph(lang === "de"
-      ? "Wir melden uns innerhalb von 24 Stunden mit einem persönlichen Vorschlag - per E-Mail oder telefonisch unter der von Ihnen angegebenen Nummer."
-      : "We'll get back to you within 24 hours with a personal proposal - by email or by phone on the number you provided.")}
+    ${heading(tr(lang, "Grazie für Ihre Anfrage", "Grazie for your inquiry", "Grazie per la vostra richiesta"))}
+    ${lead(tr(lang,
+      `Wir haben Ihre Event-Anfrage erhalten, ${data.name}.`,
+      `We've received your event inquiry, ${data.name}.`,
+      `Abbiamo ricevuto la vostra richiesta evento, ${data.name}.`))}
+    ${paragraph(tr(lang,
+      "Wir melden uns innerhalb von 24 Stunden mit einem persönlichen Vorschlag - per E-Mail oder telefonisch unter der von Ihnen angegebenen Nummer.",
+      "We'll get back to you within 24 hours with a personal proposal - by email or by phone on the number you provided.",
+      "Vi ricontatteremo entro 24 ore con una proposta personalizzata - via e-mail o telefonicamente al numero indicato."))}
     ${detailsTable([
-      [lang === "de" ? "Datum"    : "Date",    fmtDate(data.date, lang)],
-      [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
-      ...(data.type     ? [[lang === "de" ? "Anlass"    : "Occasion", data.type] as [string, string]]        : []),
-      ...(data.location ? [[lang === "de" ? "Ort"       : "Location", data.location] as [string, string]]    : []),
+      [tr(lang, "Datum", "Date", "Data"), fmtDate(data.date, lang)],
+      [tr(lang, "Personen", "Guests", "Ospiti"), String(data.guests)],
+      ...(data.type     ? [[tr(lang, "Anlass", "Occasion", "Occasione"), data.type] as [string, string]] : []),
+      ...(data.location ? [[tr(lang, "Ort", "Location", "Luogo"), data.location] as [string, string]] : []),
     ])}
     ${divider()}
-    ${paragraph(lang === "de"
-      ? `Für dringende Fragen erreichen Sie uns unter <a href="tel:${PHONE_TEL}" style="color:${C.terra};text-decoration:none;font-weight:600">${PHONE_DISPLAY}</a>.`
-      : `For urgent questions call us at <a href="tel:${PHONE_TEL}" style="color:${C.terra};text-decoration:none;font-weight:600">${PHONE_DISPLAY}</a>.`)}
+    ${paragraph(tr(lang,
+      `Für dringende Fragen erreichen Sie uns unter ${phoneLink}.`,
+      `For urgent questions call us at ${phoneLink}.`,
+      `Per domande urgenti chiamateci al ${phoneLink}.`))}
     <p style="margin:22px 0 0;font-family:Georgia,serif;font-style:italic;color:${C.terra};font-size:15px">
       - Famiglia Marano
     </p>`
@@ -333,13 +359,15 @@ export async function sendGuestCateringThankYou(data: CateringData): Promise<voi
   await send({
     from:    fromAddr(),
     to:      data.email,
-    subject: lang === "de"
-      ? "Anfrage erhalten - Trattoria Marano"
-      : "Inquiry received - Trattoria Marano",
+    subject: tr(lang,
+      "Anfrage erhalten - Trattoria Marano",
+      "Inquiry received - Trattoria Marano",
+      "Richiesta ricevuta - Trattoria Marano"),
     html: baseLayout({
-      preheader: lang === "de"
-        ? "Wir melden uns innerhalb von 24 Stunden."
-        : "We'll get back within 24 hours.",
+      preheader: tr(lang,
+        "Wir melden uns innerhalb von 24 Stunden.",
+        "We'll get back within 24 hours.",
+        "Vi rispondiamo entro 24 ore."),
       body,
     }),
   }, "guest-catering-thankyou")
@@ -351,40 +379,46 @@ export async function sendRestaurantCateringInquiry(data: CateringData): Promise
   const to   = restaurantEmail()
   if (!to) return
 
+  const guestsLabel = lang === "de"
+    ? (data.guests === 1 ? "Person" : "Personen")
+    : lang === "it"
+      ? (data.guests === 1 ? "ospite" : "ospiti")
+      : (data.guests === 1 ? "guest" : "guests")
   const body = `
-    ${heading(lang === "de" ? "Neue Event-Anfrage" : "New event inquiry")}
-    ${lead(lang === "de" ? "Über das Online-Formular eingegangen." : "Received via the website form.")}
+    ${heading(tr(lang, "Neue Event-Anfrage", "New event inquiry", "Nuova richiesta evento"))}
+    ${lead(tr(lang, "Über das Online-Formular eingegangen.", "Received via the website form.", "Ricevuta tramite il modulo online."))}
     ${detailsTable([
-      [lang === "de" ? "Name"     : "Name",    data.name],
-      [lang === "de" ? "E-Mail"   : "Email",   `<a href="mailto:${data.email}" style="color:${C.terra};text-decoration:none">${data.email}</a>`],
-      ...(data.phone    ? [[lang === "de" ? "Telefon"  : "Phone",    `<a href="tel:${data.phone}" style="color:${C.terra};text-decoration:none">${data.phone}</a>`] as [string, string]] : []),
-      [lang === "de" ? "Datum"    : "Date",    data.date],
-      [lang === "de" ? "Personen" : "Guests",  String(data.guests)],
-      ...(data.type     ? [[lang === "de" ? "Anlass"   : "Type",     data.type] as [string, string]]        : []),
-      ...(data.location ? [[lang === "de" ? "Ort"      : "Location", data.location] as [string, string]]    : []),
+      [tr(lang, "Name", "Name", "Nome"), data.name],
+      [tr(lang, "E-Mail", "Email", "E-mail"), `<a href="mailto:${data.email}" style="color:${C.terra};text-decoration:none">${data.email}</a>`],
+      ...(data.phone    ? [[tr(lang, "Telefon", "Phone", "Telefono"), `<a href="tel:${data.phone}" style="color:${C.terra};text-decoration:none">${data.phone}</a>`] as [string, string]] : []),
+      [tr(lang, "Datum", "Date", "Data"), data.date],
+      [tr(lang, "Personen", "Guests", "Ospiti"), String(data.guests)],
+      ...(data.type     ? [[tr(lang, "Anlass", "Type", "Tipo"), data.type] as [string, string]] : []),
+      ...(data.location ? [[tr(lang, "Ort", "Location", "Luogo"), data.location] as [string, string]] : []),
     ])}
     ${data.allergies ? `
       <div style="margin:20px 0 0;padding:14px 16px;background:${C.creamAlt};border-left:3px solid ${C.terra};border-radius:2px">
-        <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:${C.terra};font-family:Georgia,serif">${lang === "de" ? "Allergien / Unverträglichkeiten / Diät" : "Allergies / Intolerances / Diet"}</p>
+        <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:${C.terra};font-family:Georgia,serif">${tr(lang, "Allergien / Unverträglichkeiten / Diät", "Allergies / Intolerances / Diet", "Allergie / Intolleranze / Dieta")}</p>
         <p style="margin:0;font-size:14px;line-height:1.55;color:${C.inkLight}">${data.allergies}</p>
       </div>` : ""}
     ${data.message ? `
       <div style="margin:20px 0 0;padding:14px 16px;background:${C.creamAlt};border-left:3px solid ${C.sandLight};border-radius:2px">
-        <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:${C.muted};font-family:Georgia,serif">${lang === "de" ? "Nachricht" : "Message"}</p>
+        <p style="margin:0 0 4px;font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:${C.muted};font-family:Georgia,serif">${tr(lang, "Nachricht", "Message", "Messaggio")}</p>
         <p style="margin:0;font-size:14px;line-height:1.55;color:${C.inkLight};font-style:italic">${data.message}</p>
       </div>` : ""}
     ${divider()}
     <p style="margin:0;font-size:12px;color:${C.muted};font-style:italic">
-      ${lang === "de" ? "Automatische Benachrichtigung vom Event-Formular." : "Automatic notification from the event form."}
+      ${tr(lang, "Automatische Benachrichtigung vom Event-Formular.", "Automatic notification from the event form.", "Notifica automatica dal modulo eventi.")}
     </p>`
 
   await send({
     from:    fromAddr(),
     to,
     replyTo: data.email,
-    subject: lang === "de"
-      ? `Event-Anfrage: ${data.name} (${data.guests} ${data.guests === 1 ? "Person" : "Personen"})`
-      : `Event inquiry: ${data.name} (${data.guests} ${data.guests === 1 ? "guest" : "guests"})`,
+    subject: tr(lang,
+      `Event-Anfrage: ${data.name} (${data.guests} ${guestsLabel})`,
+      `Event inquiry: ${data.name} (${data.guests} ${guestsLabel})`,
+      `Richiesta evento: ${data.name} (${data.guests} ${guestsLabel})`),
     html: baseLayout({
       preheader: `${data.name} · ${data.guests} · ${data.date}`,
       body,

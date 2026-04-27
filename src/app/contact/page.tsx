@@ -91,16 +91,18 @@ export default function ContactPage() {
           </div>
           <div className="np-col-rule" />
           <div>
-            <p className="np-kicker">{lang === "de" ? "Anreise" : "Getting here"}</p>
+            <p className="np-kicker">{lang === "de" ? "Anreise" : lang === "it" ? "Come arrivare" : "Getting here"}</p>
             <p className="np-body" style={{ marginBottom: 0 }}>
               {lang === "de"
                 ? "Tram 16/18 - Haltestelle Reichenbachplatz. U-Bahn U1/U2 - Fraunhoferstraße. Parkplätze rund ums Haus."
+                : lang === "it"
+                ? "Tram 16/18 - fermata Reichenbachplatz. Metropolitana U1/U2 - Fraunhoferstraße. Parcheggi intorno all'edificio."
                 : "Tram 16/18 - Reichenbachplatz stop. U-Bahn U1/U2 - Fraunhoferstraße. Parking available around the building."}
             </p>
           </div>
           <div className="np-col-rule" />
           <div>
-            <p className="np-kicker">{lang === "de" ? "Schwesterpizzeria" : "Sister Restaurant"}</p>
+            <p className="np-kicker">{lang === "de" ? "Schwesterpizzeria" : lang === "it" ? "Pizzeria gemella" : "Sister Restaurant"}</p>
             <p className="np-body" style={{ marginBottom: 6 }}>
               Solo Pizza<br />Bereiterangerstr. 18, 81451 München
             </p>

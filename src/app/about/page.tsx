@@ -1,4 +1,5 @@
 "use client"
+import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
@@ -21,43 +22,27 @@ const features = {
     "Vegan options available",
     "Take-away for almost all dishes",
   ],
+  it: [
+    "Autentica pizza napoletana",
+    "Pasta & gnocchi fatti in casa",
+    "Caffè Saquella 1856, Pescara",
+    "Pizza con farina di farro su richiesta",
+    "Opzioni vegane disponibili",
+    "Asporto per quasi tutti i piatti",
+  ],
 }
 
-function PizzaSlice() {
-  // single pizza slice (triangle wedge), tip up-left, crust on outer arc
+function PizzaIcon() {
   return (
-    <svg width="39" height="39" viewBox="0 0 56 56" aria-hidden style={{ flexShrink: 0 }}>
-      <g style={{ transformOrigin: "28px 28px", transform: "rotate(135deg)" }}>
-        {/* slice body: tip at center (28,28), arc from 10.5,28 to 28,10.5 */}
-        <path
-          d="M 28 28 L 10.5 28 A 22 22 0 0 1 28 10.5 Z"
-          fill="#f0ebe0"
-          stroke="#6b1535"
-          strokeWidth="1.8"
-          strokeLinejoin="round"
-        />
-        {/* crust along outer arc */}
-        <path
-          d="M 10.5 28 A 22 22 0 0 1 28 10.5"
-          fill="none"
-          stroke="#d9c5a0"
-          strokeWidth="4"
-          strokeLinecap="round"
-        />
-        <path
-          d="M 10.5 28 A 22 22 0 0 1 28 10.5"
-          fill="none"
-          stroke="#6b1535"
-          strokeWidth="1.4"
-          strokeLinecap="round"
-        />
-        {/* pepperoni — 2 dots inside wedge */}
-        <circle cx="18" cy="20" r="2.4" fill="#6b1535" />
-        <circle cx="22" cy="15.5" r="2" fill="#6b1535" />
-        {/* basil accent */}
-        <circle cx="15" cy="24" r="1.4" fill="#6b1535" opacity="0.7" />
-      </g>
-    </svg>
+    <Image
+      src="/images/pizza-icon.png"
+      alt=""
+      width={192}
+      height={192}
+      sizes="32px"
+      aria-hidden
+      style={{ width: 32, height: 32, flexShrink: 0, objectFit: "contain" }}
+    />
   )
 }
 
@@ -119,8 +104,8 @@ export default function AboutPage() {
         {/* Features + sister restaurant box */}
         <div className="np-grid-even-2">
           <div>
-            <p className="np-kicker">{lang === "de" ? "Das Haus im Überblick" : "The house at a glance"}</p>
-            <h3 className="np-h3">{lang === "de" ? "Merkmale" : "Highlights"}</h3>
+            <p className="np-kicker">{lang === "de" ? "Das Haus im Überblick" : lang === "it" ? "La casa in sintesi" : "The house at a glance"}</p>
+            <h3 className="np-h3">{lang === "de" ? "Merkmale" : lang === "it" ? "Caratteristiche" : "Highlights"}</h3>
             <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
               {features[lang].map((f) => (
                 <li
@@ -137,7 +122,7 @@ export default function AboutPage() {
                     borderBottom: "1px dotted #c5c0b1",
                   }}
                 >
-                  <PizzaSlice />
+                  <PizzaIcon />
                   {f}
                 </li>
               ))}
@@ -145,7 +130,7 @@ export default function AboutPage() {
           </div>
           <div className="np-col-rule" />
           <div className="np-box">
-            <p className="np-label-red">{lang === "de" ? "Schwesterpizzeria" : "Sister Restaurant"}</p>
+            <p className="np-label-red">{lang === "de" ? "Schwesterpizzeria" : lang === "it" ? "Pizzeria gemella" : "Sister Restaurant"}</p>
             <h3 className="np-h2" style={{ fontSize: 26, margin: "6px 0 4px" }}>Solo Pizza</h3>
             <p style={{ fontFamily: "Georgia, serif", fontSize: 12, color: "#939084", margin: "0 0 10px", letterSpacing: "0.05em" }}>
               Bereiterangerstraße 18 · 81451 München
@@ -154,6 +139,8 @@ export default function AboutPage() {
             <p style={{ fontFamily: "Georgia, serif", fontSize: 12, color: "#36342e", marginBottom: 12 }}>
               {lang === "de"
                 ? "Mo-Fr: ab 17:00 Uhr · Sa, So & Feiertag: ab 12:00 Uhr"
+                : lang === "it"
+                ? "Lun-Ven: dalle 17:00 · Sab, Dom & festivi: dalle 12:00"
                 : "Mon-Fri: from 17:00 · Sat, Sun & Holidays: from 12:00"}
             </p>
             <a

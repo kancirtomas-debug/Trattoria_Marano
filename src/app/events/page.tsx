@@ -58,7 +58,7 @@ export default function EventsPage() {
       if (!res.ok) throw new Error(String(res.status))
       setSubmitted(true)
     } catch (err) {
-      setError(lang === "de" ? "Senden fehlgeschlagen. Bitte später erneut versuchen." : "Sending failed. Please try again later.")
+      setError(lang === "de" ? "Senden fehlgeschlagen. Bitte später erneut versuchen." : lang === "it" ? "Invio non riuscito. Riprovate più tardi." : "Sending failed. Please try again later.")
     } finally {
       setSubmitting(false)
     }
@@ -89,10 +89,10 @@ export default function EventsPage() {
 
         {/* Section kicker - "In Unserem Haus" */}
         <p className="np-kicker" style={{ textAlign: "center", marginBottom: 4 }}>
-          {lang === "de" ? "In unserem Haus" : "Inside our house"}
+          {lang === "de" ? "In unserem Haus" : lang === "it" ? "Nella nostra casa" : "Inside our house"}
         </p>
         <h2 className="np-h2" style={{ textAlign: "center", marginBottom: 18 }}>
-          {lang === "de" ? "Intime Feiern" : "Intimate Celebrations"}
+          {lang === "de" ? "Intime Feiern" : lang === "it" ? "Feste intime" : "Intimate Celebrations"}
         </h2>
 
         {/* Row 1 - three intimate-event columns (Birthday / Corporate / Private) */}
@@ -129,23 +129,23 @@ export default function EventsPage() {
           </div>
           <div className="np-col-rule" />
           <aside style={{ fontFamily: "Georgia, serif" }}>
-            <p className="np-kicker">{lang === "de" ? "Die Eckdaten" : "At a glance"}</p>
+            <p className="np-kicker">{lang === "de" ? "Die Eckdaten" : lang === "it" ? "In sintesi" : "At a glance"}</p>
             <dl style={{ margin: 0, fontSize: 13.5, lineHeight: 1.55 }}>
               <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px dotted #c5c0b1" }}>
-                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Kapazität" : "Capacity"}</dt>
-                <dd style={{ margin: 0, color: "#201515", fontWeight: 700 }}>{lang === "de" ? "bis 400 Gäste" : "up to 400 guests"}</dd>
+                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Kapazität" : lang === "it" ? "Capienza" : "Capacity"}</dt>
+                <dd style={{ margin: 0, color: "#201515", fontWeight: 700 }}>{lang === "de" ? "bis 400 Gäste" : lang === "it" ? "fino a 400 ospiti" : "up to 400 guests"}</dd>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px dotted #c5c0b1" }}>
-                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Menüs ab" : "Menus from"}</dt>
+                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Menüs ab" : lang === "it" ? "Menù da" : "Menus from"}</dt>
                 <dd style={{ margin: 0, color: "#201515", fontWeight: 700 }}>35 €</dd>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0", borderBottom: "1px dotted #c5c0b1" }}>
-                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Mobiler Holzofen" : "Mobile oven"}</dt>
-                <dd style={{ margin: 0, color: "#201515", fontWeight: 700 }}>{lang === "de" ? "inklusive" : "included"}</dd>
+                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Mobiler Holzofen" : lang === "it" ? "Forno mobile a legna" : "Mobile oven"}</dt>
+                <dd style={{ margin: 0, color: "#201515", fontWeight: 700 }}>{lang === "de" ? "inklusive" : lang === "it" ? "incluso" : "included"}</dd>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", padding: "6px 0" }}>
-                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Antwortzeit" : "Response"}</dt>
-                <dd style={{ margin: 0, color: "#201515", fontWeight: 700 }}>{lang === "de" ? "24 Std." : "24 hrs"}</dd>
+                <dt style={{ color: "#36342e" }}>{lang === "de" ? "Antwortzeit" : lang === "it" ? "Tempo di risposta" : "Response"}</dt>
+                <dd style={{ margin: 0, color: "#201515", fontWeight: 700 }}>{lang === "de" ? "24 Std." : lang === "it" ? "24 ore" : "24 hrs"}</dd>
               </div>
             </dl>
           </aside>
@@ -155,131 +155,89 @@ export default function EventsPage() {
         <blockquote className="np-pullquote">
           {lang === "de"
             ? "„Ein gutes Fest beginnt nicht mit der Gästeliste, sondern mit dem ersten Bissen.\""
+            : lang === "it"
+            ? "«Una buona festa non inizia con la lista degli ospiti - inizia con il primo boccone.»"
             : "\"A good feast does not begin with the guest list - it begins with the first bite.\""}
         </blockquote>
 
         {/* Catering form */}
         <div className="np-grid-even-2" style={{ marginBottom: 12 }}>
           <div>
-            <p className="np-kicker">{lang === "de" ? "Anfragen" : "Inquire"}</p>
+            <p className="np-kicker">{lang === "de" ? "Anfragen" : lang === "it" ? "Richiedi" : "Inquire"}</p>
             <h2 className="np-h2">{t.events_page.form_title[lang]}</h2>
             <p className="np-body">{t.events_page.form_sub[lang]}</p>
 
             <div style={{ marginTop: 18, display: "grid", gap: 10 }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, fontFamily: "Georgia, serif" }}>
                 <span style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b1535", fontWeight: 700, minWidth: 80 }}>
-                  {lang === "de" ? "Telefon" : "Phone"}
+                  {lang === "de" ? "Telefon" : lang === "it" ? "Telefono" : "Phone"}
                 </span>
                 <a href="tel:+4989209281230" style={{ color: "#201515", fontSize: 15, fontWeight: 700, textDecoration: "none" }}>089 / 209 28 123</a>
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, fontFamily: "Georgia, serif" }}>
                 <span style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b1535", fontWeight: 700, minWidth: 80 }}>
-                  {lang === "de" ? "E-Mail" : "Email"}
+                  {lang === "de" ? "E-Mail" : lang === "it" ? "E-mail" : "Email"}
                 </span>
                 <a href="mailto:maranotrattoria@gmail.com" style={{ color: "#201515", fontSize: 14, fontWeight: 700, textDecoration: "none", wordBreak: "break-all" }}>maranotrattoria@gmail.com</a>
               </div>
               <div style={{ display: "flex", alignItems: "baseline", gap: 10, fontFamily: "Georgia, serif" }}>
                 <span style={{ fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b1535", fontWeight: 700, minWidth: 80 }}>
-                  {lang === "de" ? "Antwort" : "Response"}
+                  {lang === "de" ? "Antwort" : lang === "it" ? "Risposta" : "Response"}
                 </span>
-                <span style={{ color: "#36342e", fontSize: 14 }}>{lang === "de" ? "Innerhalb von 24 Stunden" : "Within 24 hours"}</span>
+                <span style={{ color: "#36342e", fontSize: 14 }}>{lang === "de" ? "Innerhalb von 24 Stunden" : lang === "it" ? "Entro 24 ore" : "Within 24 hours"}</span>
               </div>
             </div>
 
             <p className="np-body" style={{ marginTop: 22, fontStyle: "italic", color: "#939084", fontSize: 12.5 }}>
               {lang === "de"
                 ? "Planen Sie mindestens vier Wochen im Voraus, damit wir das Menü mit Ihnen feinabstimmen können."
+                : lang === "it"
+                ? "Pianificate almeno quattro settimane in anticipo, così possiamo perfezionare il menù con voi."
                 : "Please plan at least four weeks ahead so we can fine-tune the menu with you."}
             </p>
 
-            {/* Restaurant photo - editorial frame */}
-            <figure
+            {/* Restaurant photo - menu-style inspect */}
+            <div
+              onClick={() => setLightboxOpen(true)}
+              role="button"
+              tabIndex={0}
+              aria-label={lang === "de" ? "Bild vergrößern" : lang === "it" ? "Ingrandisci immagine" : "Enlarge image"}
+              onKeyDown={e => { if (e.key === "Enter" || e.key === " ") setLightboxOpen(true) }}
+              className="np-event-photo"
               style={{
                 marginTop: 32,
+                position: "relative",
                 width: "100%",
                 maxWidth: 468,
-                marginInline: 0,
+                aspectRatio: "4 / 3",
+                borderRadius: 10,
+                overflow: "hidden",
+                border: "1px solid rgba(107,21,53,0.08)",
+                cursor: "zoom-in",
+                transition: "box-shadow 300ms ease",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 12px 36px rgba(32,21,21,0.18)"
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "none"
               }}
             >
-              <button
-                type="button"
-                onClick={() => setLightboxOpen(true)}
-                aria-label={lang === "de" ? "Bild vergrößern" : "Enlarge image"}
-                style={{
-                  position: "relative",
-                  aspectRatio: "4 / 3",
-                  width: "100%",
-                  padding: 12,
-                  background: "#fdfaf3",
-                  border: "1px solid #d8cfb8",
-                  cursor: "zoom-in",
-                  display: "block",
-                  boxShadow:
-                    "0 1px 0 rgba(32,21,21,0.06), 0 16px 36px -18px rgba(32,21,21,0.35)",
-                  transition: "transform 200ms ease, box-shadow 200ms ease",
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.transform = "translateY(-2px)"
-                  e.currentTarget.style.boxShadow = "0 1px 0 rgba(32,21,21,0.08), 0 22px 44px -18px rgba(32,21,21,0.45)"
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.transform = "translateY(0)"
-                  e.currentTarget.style.boxShadow = "0 1px 0 rgba(32,21,21,0.06), 0 16px 36px -18px rgba(32,21,21,0.35)"
-                }}
-              >
-                <div style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
-                  <Image
-                    src="/images/events-interior.webp"
-                    alt={lang === "de" ? "Trattoria Marano Innenraum" : "Trattoria Marano interior"}
-                    fill
-                    sizes="(max-width: 768px) 100vw, 468px"
-                    style={{ objectFit: "cover" }}
-                  />
-                </div>
-                <span
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    right: 18, bottom: 18,
-                    display: "inline-flex", alignItems: "center", gap: 6,
-                    padding: "6px 10px",
-                    background: "rgba(32,21,21,0.78)",
-                    color: "#fdfaf3",
-                    fontFamily: "Georgia, serif",
-                    fontSize: 10,
-                    letterSpacing: "0.18em",
-                    textTransform: "uppercase",
-                    fontWeight: 700,
-                    borderRadius: 2,
-                  }}
-                >
-                  ⤢ {lang === "de" ? "Ansehen" : "Inspect"}
-                </span>
-              </button>
-              <figcaption
-                style={{
-                  marginTop: 14,
-                  display: "flex",
-                  alignItems: "center",
-                  gap: 12,
-                  fontFamily: "Georgia, serif",
-                  fontSize: 11,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: "#6b1535",
-                  fontWeight: 700,
-                }}
-              >
-                <span aria-hidden style={{ height: 1, width: 28, background: "#6b1535" }} />
-                <span>{lang === "de" ? "Seit 1987 in München" : "In München since 1987"}</span>
-              </figcaption>
-            </figure>
+              <Image
+                src="/images/events-catering.webp"
+                alt={lang === "de" ? "Catering Veranstaltung" : lang === "it" ? "Evento di catering" : "Catering event"}
+                fill
+                sizes="(max-width: 768px) 100vw, 468px"
+                style={{ objectFit: "cover", transition: "transform 600ms cubic-bezier(0.16,1,0.3,1)" }}
+                className="np-event-photo-img"
+              />
+            </div>
           </div>
           <div className="np-col-rule" />
           <div className="np-box" style={{ padding: 20 }}>
             {submitted ? (
               <div style={{ textAlign: "center", padding: "20px 0" }}>
-                <p className="np-label-red" style={{ marginBottom: 8 }}>✦ {lang === "de" ? "Gesendet" : "Sent"} ✦</p>
+                <p className="np-label-red" style={{ marginBottom: 8 }}>✦ {lang === "de" ? "Gesendet" : lang === "it" ? "Inviato" : "Sent"} ✦</p>
                 <p className="np-body" style={{ textAlign: "center" }}>{t.events_page.f_success[lang]}</p>
                 <div
                   style={{
@@ -291,11 +249,13 @@ export default function EventsPage() {
                   }}
                 >
                   <p style={{ margin: "0 0 6px", fontFamily: "Georgia, serif", fontSize: 10, letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b1535", fontWeight: 700 }}>
-                    {lang === "de" ? "Hinweis zur Bestätigung" : "Confirmation note"}
+                    {lang === "de" ? "Hinweis zur Bestätigung" : lang === "it" ? "Nota di conferma" : "Confirmation note"}
                   </p>
                   <p style={{ margin: 0, fontFamily: "Georgia, serif", fontSize: 13, lineHeight: 1.55, color: "#36342e" }}>
                     {lang === "de"
                       ? "Sobald Ihr Event bestätigt und terminiert ist, erhalten Sie 3 Stunden vor dem Termin eine Erinnerung per E-Mail mit Bestätigungs-Button. Bitte bestätigen Sie Ihren Termin über den Button in dieser E-Mail."
+                      : lang === "it"
+                      ? "Una volta confermato e fissato il vostro evento, riceverete un promemoria via e-mail 3 ore prima dell'appuntamento con un pulsante di conferma. Vi preghiamo di confermare la prenotazione tramite il pulsante in quell'e-mail."
                       : "Once your event is confirmed and scheduled, you will receive an email reminder 3 hours before the date with a confirmation button. Please confirm your booking via the button in that email."}
                   </p>
                 </div>
@@ -338,7 +298,7 @@ export default function EventsPage() {
                 {isOther && (
                   <div style={{ marginTop: -4, animation: "reveal-up 0.35s cubic-bezier(0.16,1,0.3,1) both" }}>
                     <label htmlFor="cf-type-custom" style={npLabel}>
-                      {lang === "de" ? "Welche Art von Event?" : "What kind of event?"}
+                      {lang === "de" ? "Welche Art von Event?" : lang === "it" ? "Che tipo di evento?" : "What kind of event?"}
                     </label>
                     <input
                       id="cf-type-custom"
@@ -347,7 +307,7 @@ export default function EventsPage() {
                       style={npInput}
                       value={customType}
                       onChange={e => setCustomType(e.target.value)}
-                      placeholder={lang === "de" ? "z. B. Taufe, Jubiläum, Abschlussfeier…" : "e.g. christening, anniversary, graduation…"}
+                      placeholder={lang === "de" ? "z. B. Taufe, Jubiläum, Abschlussfeier…" : lang === "it" ? "es. battesimo, anniversario, festa di laurea…" : "e.g. christening, anniversary, graduation…"}
                     />
                   </div>
                 )}
@@ -357,7 +317,7 @@ export default function EventsPage() {
                 </div>
                 <div>
                   <label htmlFor="cf-allergies" style={npLabel}>
-                    {lang === "de" ? "Allergien / Unverträglichkeiten / Diät" : "Allergies / Intolerances / Diet"}
+                    {lang === "de" ? "Allergien / Unverträglichkeiten / Diät" : lang === "it" ? "Allergie / Intolleranze / Dieta" : "Allergies / Intolerances / Diet"}
                   </label>
                   <textarea
                     id="cf-allergies"
@@ -367,6 +327,8 @@ export default function EventsPage() {
                     onChange={e => setForm(f => ({ ...f, allergies: e.target.value }))}
                     placeholder={lang === "de"
                       ? "z. B. Gluten, Laktose, Nüsse, vegetarisch, vegan…"
+                      : lang === "it"
+                      ? "es. glutine, lattosio, frutta secca, vegetariano, vegano…"
                       : "e.g. gluten, lactose, nuts, vegetarian, vegan…"}
                   />
                 </div>
@@ -389,7 +351,7 @@ export default function EventsPage() {
                     opacity: submitting ? 0.7 : 1,
                   }}
                 >
-                  {submitting ? (lang === "de" ? "Wird gesendet…" : "Sending…") : t.events_page.f_submit[lang]}
+                  {submitting ? (lang === "de" ? "Wird gesendet…" : lang === "it" ? "Invio in corso…" : "Sending…") : t.events_page.f_submit[lang]}
                 </button>
               </form>
             )}
@@ -418,57 +380,43 @@ export default function EventsPage() {
 
       {lightboxOpen && (
         <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={lang === "de" ? "Bild vergrößert" : "Enlarged image"}
           onClick={() => setLightboxOpen(false)}
           onKeyDown={e => { if (e.key === "Escape") setLightboxOpen(false) }}
           tabIndex={-1}
           ref={el => { if (el) el.focus() }}
           style={{
-            position: "fixed", inset: 0, zIndex: 9999,
-            background: "rgba(20,12,12,0.92)",
+            position: "fixed", inset: 0, zIndex: 50,
+            background: "rgba(32,21,21,0.85)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "clamp(16px, 4vw, 48px)",
-            cursor: "zoom-out",
-            animation: "fadeIn 180ms ease",
+            padding: "1.5rem", cursor: "zoom-out",
+            backdropFilter: "blur(4px)",
           }}
         >
-          <button
-            type="button"
-            onClick={e => { e.stopPropagation(); setLightboxOpen(false) }}
-            aria-label={lang === "de" ? "Schließen" : "Close"}
-            style={{
-              position: "absolute", top: 20, right: 24,
-              width: 40, height: 40,
-              background: "transparent",
-              border: "1px solid rgba(253,250,243,0.4)",
-              color: "#fdfaf3",
-              fontSize: 22, lineHeight: 1, cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-            }}
-          >
-            ×
-          </button>
-          <div
-            onClick={e => e.stopPropagation()}
-            style={{
-              position: "relative",
-              width: "min(100%, 1400px)",
-              aspectRatio: "4 / 3",
-              maxHeight: "90vh",
-              cursor: "default",
-            }}
-          >
-            <Image
-              src="/images/events-interior.webp"
-              alt={lang === "de" ? "Trattoria Marano Innenraum" : "Trattoria Marano interior"}
-              fill
-              sizes="100vw"
-              quality={95}
-              priority
-              style={{ objectFit: "contain" }}
-            />
+          <div onClick={e => e.stopPropagation()} style={{ position: "relative", maxWidth: 1200, width: "100%", cursor: "default" }}>
+            <button
+              onClick={() => setLightboxOpen(false)}
+              aria-label={lang === "de" ? "Schließen" : lang === "it" ? "Chiudi" : "Close"}
+              style={{
+                position: "absolute", top: -14, right: -14, zIndex: 10,
+                width: 32, height: 32, borderRadius: "50%",
+                background: "#201515", border: "1px solid #3d2a2a",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                cursor: "pointer", color: "#fffefb",
+              }}
+            >
+              ✕
+            </button>
+            <div style={{ borderRadius: 10, overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,0.4)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/images/events-catering.webp"
+                alt={lang === "de" ? "Catering Veranstaltung" : lang === "it" ? "Evento di catering" : "Catering event"}
+                style={{ width: "100%", height: "auto", display: "block", maxHeight: "92vh", objectFit: "contain" }}
+              />
+            </div>
+            <p style={{ textAlign: "center", marginTop: 14, fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: "0.99rem", color: "rgba(255,254,251,0.7)" }}>
+              {lang === "de" ? "Catering Veranstaltung" : lang === "it" ? "Evento di catering" : "Catering Event"}
+            </p>
           </div>
         </div>
       )}

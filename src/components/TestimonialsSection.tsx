@@ -132,9 +132,22 @@ const reviewsDe: Testimonial[] = [
   },
 ];
 
+// ── Italian reviews ───────────────────────────────────────────────────────
+const reviewsIt: Testimonial[] = [
+  { text: "Assolutamente di livello mondiale. Uno dei migliori ristoranti italiani di Monaco - ogni piatto era perfetto.", name: "Philip", role: "Recensione Google · ★★★★★", image: avatars.Philip },
+  { text: "Atmosfera meravigliosa - le pareti sono decorate con ritagli di giornali italiani. Le pizze del forno a pietra sono eccezionali!", name: "Vanessa", role: "Recensione Google · ★★★★★", image: avatars.Vanessa },
+  { text: "Personale gentilissimo - tornerò sicuramente! Il team rende ogni visita speciale.", name: "Amelie", role: "Recensione Google · ★★★★★", image: avatars.Amelie },
+  { text: "Eccellente! Autentica cucina italiana nel cuore di Monaco. La pasta è semplicemente imbattibile.", name: "Valentina", role: "Recensione Google · ★★★★★", image: avatars.Valentina },
+  { text: "La miglior pizza di Monaco! Impasto sottile, perfettamente croccante, ingredienti di altissima qualità. Torniamo ogni mese.", name: "Marco R.", role: "Recensione Google · ★★★★★", image: avatars.MarcoR },
+  { text: "Bellissimo ristorante con vera atmosfera italiana. Lo staff è caloroso e attento. Altamente consigliato!", name: "Julia M.", role: "Recensione Google · ★★★★★", image: avatars.JuliaM },
+  { text: "Posto fantastico per una cena in famiglia. La pasta carbonara era divina e la selezione di vini superba. Torneremo di sicuro.", name: "Thomas K.", role: "Recensione Google · ★★★★★", image: avatars.ThomasK },
+  { text: "Vera pizza napoletana dal forno a legna - si sente subito la differenza. Accogliente e calorosa.", name: "Sandra W.", role: "Recensione Google · ★★★★★", image: avatars.SandraW },
+  { text: "Serata perfetta per due. Ingredienti freschi, servizio attento e ottima carta dei vini. Già non vedo l'ora del prossimo ritorno!", name: "David L.", role: "Recensione Google · ★★★★★", image: avatars.DavidL },
+];
+
 export default function TestimonialsSection() {
   const { lang } = useLanguage();
-  const reviews = lang === "de" ? reviewsDe : reviewsEn;
+  const reviews = lang === "de" ? reviewsDe : lang === "it" ? reviewsIt : reviewsEn;
 
   const col1 = reviews.slice(0, 3);
   const col2 = reviews.slice(3, 6);
@@ -154,7 +167,7 @@ export default function TestimonialsSection() {
               textAlign: "center",
             }}
           >
-            {lang === "de" ? "Google Bewertungen · 4,9 ★" : "Google Reviews · 4.9 ★"}
+            {lang === "de" ? "Google Bewertungen · 4,9 ★" : lang === "it" ? "Recensioni Google · 4,9 ★" : "Google Reviews · 4.9 ★"}
           </p>
         </Reveal>
 
@@ -195,7 +208,7 @@ export default function TestimonialsSection() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            {lang === "de" ? "Alle 57 Bewertungen auf Google lesen" : "Read all 57 reviews on Google"}
+            {lang === "de" ? "Alle 57 Bewertungen auf Google lesen" : lang === "it" ? "Leggi tutte le 57 recensioni su Google" : "Read all 57 reviews on Google"}
           </a>
         </div>
       </div>

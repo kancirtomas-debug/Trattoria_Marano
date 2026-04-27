@@ -100,6 +100,8 @@
 .np-footer-rule { border-top: 4px double #201515; padding-top: 10px; text-align: center; }
 .np-footer-text { font-family: Georgia, serif; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: #939084; margin: 0; }
 .np-col-rule { background: #c5c0b1; }
+.np-event-photo:hover .np-event-photo-img { transform: scale(1.06); }
+@media (prefers-reduced-motion: reduce) { .np-event-photo:hover .np-event-photo-img { transform: none; } }
 .np-grid-2 { display: grid; grid-template-columns: 3fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
 .np-grid-even-2 { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
 .np-grid-3 { display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }

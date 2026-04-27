@@ -43,7 +43,9 @@ type CalEvent = {
 export default function AdminDashboard() {
   const router = useRouter()
   const { data: session, status } = useSession()
-  const { lang, toggle } = useLanguage()
+  const { lang: rawLang, toggle } = useLanguage()
+  // Admin UI is DE/EN only; collapse Italian to English for child components
+  const lang: "de" | "en" = rawLang === "de" ? "de" : "en"
   const t = lang === "de"
     ? { signOut: "Abmelden", guests: (n: number) => n === 1 ? "Gast" : "Gäste", submitted: "Eingereicht am", sync: "Synchronisieren", syncing: "Wird sync…" }
     : { signOut: "Sign out",  guests: (n: number) => n === 1 ? "guest" : "guests", submitted: "Submitted", sync: "Sync calendar", syncing: "Syncing…" }
