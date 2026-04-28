@@ -34,9 +34,6 @@ export const metadata: Metadata = {
     images: ["/images/hero.webp"],
   },
   twitter: { card: "summary_large_image", images: ["/images/hero.webp"] },
-  verification: {
-    google: "_NSaEjLw4RtutUYhf-_0DGJIavr8YHw-T0CU920Ndsw",
-  },
 }
 
 const restaurantSchema = {
