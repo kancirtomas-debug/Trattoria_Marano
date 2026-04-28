@@ -53,16 +53,16 @@ export default function HomePage() {
           <div
             className="max-w-xl"
             style={{
-              marginLeft: "clamp(-210px, calc((1024px - 100vw) / 4), 0px)",
-              marginTop: "clamp(-90px, calc((1024px - 100vw) / 8), 0px)",
+              marginLeft: "clamp(-280px, calc((1024px - 100vw) / 3), -16px)",
+              marginTop: "clamp(-140px, calc((1024px - 100vw) / 6), -24px)",
             }}
           >
-            <p className="section-label mb-4 md:mb-6" style={{ fontSize: "0.7em" }}>Ohlmüllerstr. 22 · 81541 München</p>
+            <p className="section-label mb-4 md:mb-6" style={{ fontSize: "0.49em" }}>Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
               className="font-heading font-bold mb-4 md:mb-6"
               style={{
-                fontSize: "clamp(1.96rem, 5.25vw, 3.85rem)",
+                fontSize: "clamp(1.37rem, 3.68vw, 2.7rem)",
                 lineHeight: 0.9,
                 letterSpacing: "-0.02em",
                 color: "#201515",
@@ -74,7 +74,7 @@ export default function HomePage() {
 
             <p
               className="mb-7 md:mb-10 max-w-md leading-snug"
-              style={{ color: "#36342e", fontWeight: 400, fontSize: "clamp(0.7rem, 2.1vw, 0.875rem)" }}
+              style={{ color: "#36342e", fontWeight: 400, fontSize: "clamp(0.6rem, 1.47vw, 0.7rem)" }}
             >
               {t.hero.tagline[lang]}
             </p>
