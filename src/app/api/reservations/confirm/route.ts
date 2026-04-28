@@ -69,7 +69,7 @@ function resultHtml(lang: Lang, state: "success" | "already" | "cancelled"): str
 </head>
 <body>
   <div class="card">
-    <p class="kicker">Since 1987 · München</p>
+    <p class="kicker">Since 2025 · München</p>
     <p class="brand">Trattoria Marano</p>
     <h1>${msg.title}</h1>
     <p>${msg.body}</p>

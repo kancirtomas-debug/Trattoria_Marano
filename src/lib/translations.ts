@@ -92,7 +92,7 @@ export const t = {
       it: "Il nostro ingrediente migliore è il tempo - tempo per parlare, tempo per ridere, tempo tra una portata e l'altra. Qui non si ha fretta, qui si vive. Come a Napoli. Come dovrebbe essere.",
     },
     caption1: { de: "Der Eingang - das Marano-Monogramm begrüßt jeden Gast", en: "The entrance - the Marano monogram greets every guest", it: "L'ingresso - il monogramma Marano accoglie ogni ospite" },
-    caption2: { de: "Unser Pizzabäcker am Steinofen - Handwerk seit 1988", en: "Our pizzaiolo at the stone oven - craftsmanship since 1988", it: "Il nostro pizzaiolo al forno a pietra - artigianato dal 1988" },
+    caption2: { de: "Unser Pizzabäcker am Steinofen - Handwerk seit 2025", en: "Our pizzaiolo at the stone oven - craftsmanship since 2025", it: "Il nostro pizzaiolo al forno a pietra - artigianato dal 2025" },
     caption3: { de: "Abendstimmung im Gastraum - Kerzen, Wein und gute Gesellschaft", en: "Evening mood in the dining room - candles, wine and good company", it: "Atmosfera serale nella sala - candele, vino e buona compagnia" },
     caption4: { de: "La Cantina - über 80 erlesene Weine aus allen Regionen Italiens", en: "La Cantina - more than 80 curated wines from every region of Italy", it: "La Cantina - oltre 80 vini selezionati da tutte le regioni d'Italia" },
     caption5: { de: "Am Tisch - jeder Platz hat seine eigene Geschichte", en: "At the table - every seat carries its own story", it: "Al tavolo - ogni posto porta la propria storia" },
@@ -126,9 +126,9 @@ export const t = {
   about_page: {
     section: { de: "Porträt", en: "Profile", it: "Ritratto" },
     lead: {
-      de: "Willkommen in der Trattoria Marano - einem Stück Italien mitten in München. Seit 1988 servieren wir authentische neapolitanische Pizza, hausgemachte Pasta und klassische Antipasti mit den besten Zutaten aus Italien.",
-      en: "Welcome to Trattoria Marano - a piece of Italy in the heart of Munich. Since 1988 we have served authentic Neapolitan pizza, handmade pasta, and classic antipasti, using only the finest Italian ingredients.",
-      it: "Benvenuti alla Trattoria Marano - un pezzo d'Italia nel cuore di Monaco. Dal 1988 serviamo autentica pizza napoletana, pasta fatta a mano e classici antipasti con i migliori ingredienti italiani.",
+      de: "Willkommen in der Trattoria Marano - einem Stück Italien mitten in München. Seit 2025 servieren wir authentische neapolitanische Pizza, hausgemachte Pasta und klassische Antipasti mit den besten Zutaten aus Italien.",
+      en: "Welcome to Trattoria Marano - a piece of Italy in the heart of Munich. Since 2025 we have served authentic Neapolitan pizza, handmade pasta, and classic antipasti, using only the finest Italian ingredients.",
+      it: "Benvenuti alla Trattoria Marano - un pezzo d'Italia nel cuore di Monaco. Dal 2025 serviamo autentica pizza napoletana, pasta fatta a mano e classici antipasti con i migliori ingredienti italiani.",
     },
     col1_title: { de: "Die Philosophie", en: "The Philosophy", it: "La filosofia" },
     col1_body: {

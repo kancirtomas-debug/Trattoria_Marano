@@ -110,7 +110,7 @@ ${opts.preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacit
 <tr><td align="center" style="padding:32px 16px">
   <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="max-width:560px;width:100%;background:${C.cream};border:1px solid ${C.sandLight};border-radius:4px">
     <tr><td style="padding:28px 32px 20px;border-bottom:1px solid ${C.sandLight};text-align:center">
-      <p style="margin:0;font-family:Georgia,serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:${C.terra};font-weight:700">Since 1987 · München</p>
+      <p style="margin:0;font-family:Georgia,serif;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:${C.terra};font-weight:700">Since 2025 · München</p>
       <h1 style="margin:6px 0 0;font-family:Georgia,serif;font-size:28px;font-weight:700;color:${C.ink};letter-spacing:-0.01em">Trattoria Marano</h1>
     </td></tr>
     <tr><td style="padding:28px 32px">${opts.body}</td></tr>
