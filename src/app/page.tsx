@@ -153,7 +153,7 @@ export default function HomePage() {
                   <div className="relative hidden md:block">
                     <Image
                       src="/images/events-catering.webp"
-                      alt={lang === "de" ? "Trattoria Marano Innenraum" : lang === "it" ? "Trattoria Marano interno" : "Trattoria Marano interior"}
+                      alt={lang === "de" ? "Catering Veranstaltung" : lang === "it" ? "Evento di catering" : "Catering event"}
                       fill
                       sizes="30vw"
                       style={{ objectFit: "cover", objectPosition: "center" }}
