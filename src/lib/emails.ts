@@ -9,8 +9,7 @@ function resendClient(): Resend {
 }
 
 // ── Constants ────────────────────────────────────────────────────────────────
-// TODO: swap to the real trattoriamarano.de URL once the live site launches
-const WEBSITE_URL = "https://trattoriamarano.de"
+const WEBSITE_URL = "https://trattoria-marano.de"
 const RESTAURANT_NAME   = "Trattoria Marano"
 const RESTAURANT_ADDR   = "Ohlmüllerstr. 22, 81541 München"
 const PHONE_DISPLAY     = "089 / 209 28 123"
@@ -121,7 +120,7 @@ ${opts.preheader ? `<div style="display:none;max-height:0;overflow:hidden;opacit
       <p style="margin:8px 0 0;font-size:12px">
         <a href="tel:${PHONE_TEL}" style="color:${C.terra};text-decoration:none;font-weight:600">${PHONE_DISPLAY}</a>
         <span style="color:${C.sand}"> · </span>
-        <a href="${WEBSITE_URL}" style="color:${C.terra};text-decoration:none;font-weight:600">trattoriamarano.de</a>
+        <a href="${WEBSITE_URL}" style="color:${C.terra};text-decoration:none;font-weight:600">trattoria-marano.de</a>
       </p>
     </td></tr>
   </table>
@@ -215,7 +214,7 @@ export async function sendGuestReservationConfirmation(data: ReservationData): P
   endDate.setHours(endDate.getHours() + 1)
   const endIso   = endDate.toISOString().split(".")[0]
   const icsContent = generateICS({
-    uid:         `res-${data.id}@trattoriamarano.de`,
+    uid:         `res-${data.id}@trattoria-marano.de`,
     title:       tr(lang, "Tischreservierung - Trattoria Marano", "Table reservation - Trattoria Marano", "Prenotazione tavolo - Trattoria Marano"),
     description: `Name: ${data.name}\n${tr(lang, "Personen", "Guests", "Ospiti")}: ${data.guests}\n${tr(lang, "Telefon", "Phone", "Telefono")}: ${data.phone}${data.message ? `\n${tr(lang, "Nachricht", "Note", "Nota")}: ${data.message}` : ""}`,
     location:    "Trattoria Marano, Ohlmüllerstr. 22, 81541 München",
