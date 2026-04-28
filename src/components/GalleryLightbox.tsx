@@ -1,5 +1,7 @@
 "use client"
-import { useEffect, useCallback } from "react"
+import { useEffect, useCallback, useState } from "react"
+import { createPortal } from "react-dom"
+import Image from "next/image"
 import { X, ChevronLeft, ChevronRight } from "lucide-react"
 
 export type GalleryPhoto = {
@@ -16,6 +18,7 @@ type Props = {
 }
 
 export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext }: Props) {
+  const [mounted, setMounted] = useState(false)
   const photo = photos[index]
 
   const handleKey = useCallback((e: KeyboardEvent) => {
@@ -25,6 +28,7 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
   }, [onClose, onPrev, onNext])
 
   useEffect(() => {
+    setMounted(true)
     document.addEventListener("keydown", handleKey)
     document.body.style.overflow = "hidden"
     return () => {
@@ -33,7 +37,9 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
     }
   }, [handleKey])
 
-  return (
+  if (!mounted) return null
+
+  const content = (
     <div
       onClick={onClose}
       className="np-lightbox-shell"
@@ -48,7 +54,6 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
         padding: "8px",
       }}
     >
-      {/* Close */}
       <button
         type="button"
         onClick={onClose}
@@ -67,7 +72,6 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
         <X size={20} />
       </button>
 
-      {/* Prev */}
       {photos.length > 1 && (
         <button
           type="button"
@@ -87,7 +91,6 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
         </button>
       )}
 
-      {/* Next */}
       {photos.length > 1 && (
         <button
           type="button"
@@ -107,24 +110,22 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
         </button>
       )}
 
-      {/* Image */}
-      <div onClick={e => e.stopPropagation()} style={{ maxWidth: "98vw", maxHeight: "98vh", display: "flex", flexDirection: "column", alignItems: "center", gap: 10 }}>
-        <img
-          key={photo.src}
-          className="np-lightbox-image"
-          src={photo.src}
-          alt={photo.caption ?? ""}
-          style={{
-            maxWidth: "98vw",
-            maxHeight: "90vh",
-            width: "auto",
-            height: "auto",
-            objectFit: "contain",
-            display: "block",
-            boxShadow: "0 32px 80px rgba(0,0,0,0.8)",
-            imageRendering: "auto",
-          } as React.CSSProperties}
-        />
+      <div onClick={e => e.stopPropagation()} style={{ maxWidth: "98vw", maxHeight: "98vh", display: "flex", flexDirection: "column", alignItems: "center", gap: 10, position: "relative" }}>
+        <div style={{ position: "relative", width: "min(98vw, 1800px)", height: "90vh" }}>
+          <Image
+            key={photo.src}
+            src={photo.src}
+            alt={photo.caption ?? ""}
+            fill
+            quality={95}
+            sizes="100vw"
+            priority
+            style={{
+              objectFit: "contain",
+              filter: "drop-shadow(0 32px 80px rgba(0,0,0,0.8))",
+            }}
+          />
+        </div>
         {photo.caption && (
           <p style={{ color: "rgba(255,255,255,0.65)", fontSize: 13, fontStyle: "italic", textAlign: "center", maxWidth: 600, margin: 0 }}>
             {photo.caption}
@@ -136,4 +137,6 @@ export default function GalleryLightbox({ photos, index, onClose, onPrev, onNext
       </div>
     </div>
   )
+
+  return createPortal(content, document.body)
 }

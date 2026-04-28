@@ -9,8 +9,8 @@ const nextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
     minimumCacheTTL: 86400,
-    deviceSizes: [640, 1080],
-    imageSizes: [260, 520],
+    deviceSizes: [640, 1080, 1920, 2560, 3840],
+    imageSizes: [260, 520, 800],
   },
   async headers() {
     return [
