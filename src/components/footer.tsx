@@ -52,7 +52,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div className="col-span-1 md:col-span-3 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
+          <div className="col-span-2 md:col-span-3 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
               style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
@@ -120,7 +120,7 @@ export default function Footer() {
           </div>
 
           {/* Hours */}
-          <div className="col-span-1 md:col-span-2 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
+          <div className="col-span-2 md:col-span-2 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
               style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
