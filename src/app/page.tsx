@@ -33,14 +33,6 @@ export default function HomePage() {
             style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
-          {/* Mobile only: stronger fade — tiny screen needs more legibility */}
-          <div
-            className="absolute inset-0 md:hidden"
-            style={{
-              background:
-                "linear-gradient(to right, rgba(255,254,251,0.96) 0%, rgba(255,254,251,0.88) 45%, rgba(255,254,251,0.35) 80%, rgba(255,254,251,0) 100%)",
-            }}
-          />
         </div>
 
         {/* Text — directly on image, left side */}
