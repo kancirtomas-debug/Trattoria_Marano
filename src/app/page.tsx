@@ -79,11 +79,11 @@ export default function HomePage() {
               {t.hero.tagline[lang]}
             </p>
 
-            <div className="flex flex-wrap gap-3">
-              <Link href="/#menu" className="btn-orange">
-                {t.hero.cta_menu[lang]} <ArrowRight size={14} />
+            <div className="flex flex-wrap gap-2">
+              <Link href="/#menu" className="btn-orange" style={{ padding: "7px 14px", fontSize: "0.6125rem", gap: 6 }}>
+                {t.hero.cta_menu[lang]} <ArrowRight size={10} />
               </Link>
-              <Link href="/reserve" className="btn-dark">
+              <Link href="/reserve" className="btn-dark" style={{ padding: "7px 14px", fontSize: "0.6125rem", gap: 6 }}>
                 {t.hero.cta_reserve[lang]}
               </Link>
             </div>
