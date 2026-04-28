@@ -22,6 +22,19 @@ export default function HomePage() {
       >
         {/* Background image — 100% visible */}
         <div className="absolute inset-0">
+          {/* Mobile hero */}
+          <Image
+            src="/images/hero-mobile.webp"
+            alt=""
+            fill
+            priority
+            quality={95}
+            unoptimized
+            className="object-cover md:hidden"
+            style={{ objectPosition: "center" }}
+            sizes="100vw"
+          />
+          {/* Desktop hero */}
           <Image
             src="/images/hero.webp"
             alt=""
@@ -29,7 +42,7 @@ export default function HomePage() {
             priority
             quality={95}
             unoptimized
-            className="object-cover"
+            className="object-cover hidden md:block"
             style={{ objectPosition: "70% center" }}
             sizes="100vw"
           />
