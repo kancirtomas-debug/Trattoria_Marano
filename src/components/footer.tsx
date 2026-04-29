@@ -148,20 +148,20 @@ export default function Footer() {
             >
               {t.footer_extra.sister_label[lang]}
             </p>
-            <div className="flex flex-row gap-4 items-stretch">
+            <div className="flex flex-row gap-5 items-center">
               <p
                 className="flex-1 min-w-0"
                 style={{
                   color: "rgba(236,228,216,0.82)",
-                  fontSize: "0.9rem",
+                  fontSize: "0.875rem",
                   fontWeight: 500,
-                  lineHeight: 1.5,
+                  lineHeight: 1.55,
                   margin: 0,
                 }}
               >
                 {t.footer_extra.sister_body[lang]}
               </p>
-              <div className="flex flex-col gap-2 w-[150px] shrink-0">
+              <div className="flex flex-col gap-2.5 w-[140px] shrink-0">
               <a
                 href="https://solopizza.de"
                 target="_blank"
