@@ -51,18 +51,13 @@ export default function HomePage() {
         {/* Text — directly on image, left side */}
         <div className="container-default relative z-10 w-full pt-20 pb-8 md:pt-40 md:pb-16">
           <div
-            className="max-w-xl"
-            style={{
-              marginLeft: "clamp(-210px, calc((1024px - 100vw) / 4), 0px)",
-              marginTop: "clamp(-220px, calc((1024px - 100vw) / 4), -60px)",
-            }}
+            className="max-w-xl ml-[clamp(-210px,calc((1024px-100vw)/4),0px)] mt-[clamp(-220px,calc((1024px-100vw)/4),-60px)] md:!ml-16 md:!mt-8"
           >
-            <p className="section-label mb-4 md:mb-6" style={{ fontSize: "0.7em" }}>Ohlmüllerstr. 22 · 81541 München</p>
+            <p className="section-label mb-4 md:mb-6 text-[0.7em] md:!text-base">Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
-              className="font-heading font-bold mb-4 md:mb-6"
+              className="font-heading font-bold mb-4 md:mb-6 text-[clamp(1.96rem,5.25vw,3.85rem)] md:!text-[clamp(3rem,6.5vw,5rem)]"
               style={{
-                fontSize: "clamp(1.96rem, 5.25vw, 3.85rem)",
                 lineHeight: 0.9,
                 letterSpacing: "-0.02em",
                 color: "#201515",
@@ -73,17 +68,18 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="mb-7 md:mb-10 max-w-md leading-snug"
-              style={{ color: "#36342e", fontWeight: 400, fontSize: "clamp(0.7rem, 2.1vw, 0.875rem)" }}
+              className="mb-7 md:mb-10 max-w-md leading-snug text-[clamp(0.7rem,2.1vw,0.875rem)] md:!text-lg"
+              style={{ color: "#36342e", fontWeight: 400 }}
             >
               {t.hero.tagline[lang]}
             </p>
 
-            <div className="flex flex-wrap gap-2">
-              <Link href="/#menu" className="btn-orange" style={{ padding: "7px 14px", fontSize: "0.6125rem", gap: 6 }}>
-                {t.hero.cta_menu[lang]} <ArrowRight size={10} />
+            <div className="flex flex-wrap gap-2 md:!gap-3">
+              <Link href="/#menu" className="btn-orange px-[14px] py-[7px] text-[0.6125rem] gap-1.5 md:!px-5 md:!py-2.5 md:!text-sm md:!gap-2">
+                {t.hero.cta_menu[lang]} <ArrowRight size={14} className="hidden md:inline" />
+                <ArrowRight size={10} className="md:hidden" />
               </Link>
-              <Link href="/reserve" className="btn-dark" style={{ padding: "7px 14px", fontSize: "0.6125rem", gap: 6 }}>
+              <Link href="/reserve" className="btn-dark px-[14px] py-[7px] text-[0.6125rem] gap-1.5 md:!px-5 md:!py-2.5 md:!text-sm md:!gap-2">
                 {t.hero.cta_reserve[lang]}
               </Link>
             </div>
