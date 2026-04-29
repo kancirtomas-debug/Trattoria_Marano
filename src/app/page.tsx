@@ -54,7 +54,7 @@ export default function HomePage() {
             className="max-w-xl"
             style={{
               marginLeft: "clamp(-210px, calc((1024px - 100vw) / 4), 0px)",
-              marginTop: "clamp(-90px, calc((1024px - 100vw) / 8), 0px)",
+              marginTop: "clamp(-140px, calc((1024px - 100vw) / 6), -24px)",
             }}
           >
             <p className="section-label mb-4 md:mb-6" style={{ fontSize: "0.7em" }}>Ohlmüllerstr. 22 · 81541 München</p>
