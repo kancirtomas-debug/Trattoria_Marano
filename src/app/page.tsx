@@ -53,7 +53,7 @@ export default function HomePage() {
           <div
             className="max-w-xl ml-[clamp(-210px,calc((1024px-100vw)/4),0px)] mt-[clamp(-220px,calc((1024px-100vw)/4),-60px)] md:!-ml-36 md:!-mt-12"
           >
-            <p className="section-label mb-4 md:mb-6 text-[0.7em] md:!text-[0.92rem]">Ohlmüllerstr. 22 · 81541 München</p>
+            <p className="section-label mb-4 md:mb-6 text-[0.7em] md:!text-[0.92rem] hidden md:block">Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
               className="font-heading font-bold mb-4 md:mb-6 text-[clamp(1.96rem,5.25vw,3.85rem)] md:!text-[clamp(2.68rem,5.78vw,4.46rem)]"
@@ -68,7 +68,7 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="mb-7 md:mb-10 max-w-md leading-snug text-[clamp(0.7rem,2.1vw,0.875rem)] md:!text-[1.05rem]"
+              className="mb-7 md:mb-10 max-w-md leading-snug text-[clamp(0.7rem,2.1vw,0.875rem)] md:!text-[1.05rem] hidden md:block"
               style={{ color: "#36342e", fontWeight: 400 }}
             >
               {t.hero.tagline[lang]}
