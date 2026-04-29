@@ -53,10 +53,10 @@ export default function HomePage() {
           <div
             className="max-w-xl ml-[clamp(-210px,calc((1024px-100vw)/4),0px)] mt-[clamp(-220px,calc((1024px-100vw)/4),-60px)] md:!-ml-36 md:!-mt-12"
           >
-            <p className="section-label mb-4 md:mb-6 text-[0.805em] md:!text-[0.92rem] opacity-100">Ohlmüllerstr. 22 · 81541 München</p>
+            <p className="section-label mb-2 md:mb-3 text-[0.805em] md:!text-[0.92rem] opacity-100">Ohlmüllerstr. 22 · 81541 München</p>
 
             <h1
-              className="font-heading font-bold mb-4 md:mb-6 text-[clamp(2.25rem,6.04vw,4.43rem)] md:!text-[clamp(2.68rem,5.78vw,4.46rem)] opacity-100"
+              className="font-heading font-bold mb-3 md:mb-4 text-[clamp(2.36rem,6.34vw,4.65rem)] md:!text-[clamp(2.81rem,6.07vw,4.68rem)] opacity-100"
               style={{
                 lineHeight: 0.9,
                 letterSpacing: "-0.02em",
@@ -68,7 +68,7 @@ export default function HomePage() {
             </h1>
 
             <p
-              className="mb-7 md:mb-10 max-w-md leading-snug text-[clamp(0.81rem,2.42vw,1.01rem)] md:!text-[1.05rem] opacity-100"
+              className="mb-4 md:mb-6 max-w-md leading-snug text-[clamp(0.81rem,2.42vw,1.01rem)] md:!text-[1.05rem] opacity-100"
               style={{ color: "#36342e", fontWeight: 400 }}
             >
               {t.hero.tagline[lang]}
