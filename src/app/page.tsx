@@ -51,7 +51,7 @@ export default function HomePage() {
         {/* Text — directly on image, left side */}
         <div className="container-default relative z-10 w-full pt-20 pb-8 md:pt-40 md:pb-16">
           <div
-            className="max-w-xl ml-[clamp(-210px,calc((1024px-100vw)/4),0px)] mt-[clamp(-220px,calc((1024px-100vw)/4),-60px)] md:!-ml-24 md:!-mt-4"
+            className="max-w-xl ml-[clamp(-210px,calc((1024px-100vw)/4),0px)] mt-[clamp(-220px,calc((1024px-100vw)/4),-60px)] md:!-ml-36 md:!-mt-12"
           >
             <p className="section-label mb-4 md:mb-6 text-[0.7em] md:!text-sm">Ohlmüllerstr. 22 · 81541 München</p>
 
