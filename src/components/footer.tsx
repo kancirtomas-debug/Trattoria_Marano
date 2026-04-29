@@ -33,11 +33,11 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-3 flex flex-col">
             <div
               style={{
-                width: "77.1%",
+                width: "55%",
                 aspectRatio: "1 / 1",
                 position: "relative",
                 background: "#e0d8ce",
-                borderRadius: 11,
+                borderRadius: 10,
                 flexShrink: 0,
               }}
             >
@@ -45,8 +45,8 @@ export default function Footer() {
                 src="/images/trattoria-logo-full.png"
                 alt="Trattoria Marano"
                 fill
-                sizes="(max-width: 768px) 39vw, 19vw"
-                style={{ objectFit: "contain", padding: 13 }}
+                sizes="(max-width: 768px) 28vw, 14vw"
+                style={{ objectFit: "contain", padding: 10 }}
               />
             </div>
           </div>
@@ -55,13 +55,13 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-3 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
-              style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
+              style={{ color: "rgba(224,216,206,0.95)", fontSize: "0.8625rem", fontWeight: 700, letterSpacing: "0.2em", marginBottom: 12 }}
             >
               {t.contact.title[lang]}
             </p>
             <ul
-              className="flex flex-col gap-3"
-              style={{ color: "#e0d8ce", fontSize: "0.9rem" }}
+              className="flex flex-col gap-2.5"
+              style={{ color: "#ece4d8", fontSize: "0.9rem", fontWeight: 500, lineHeight: 1.45 }}
             >
               <li className="flex gap-2.5">
                 <MapPin size={14} className="mt-0.5 shrink-0" style={{ color: "rgba(224,216,206,0.55)" }} />
@@ -98,9 +98,9 @@ export default function Footer() {
               style={{
                 color: "#fffefb",
                 fontSize: "0.82rem",
-                fontWeight: 600,
+                fontWeight: 700,
                 letterSpacing: "0.02em",
-                padding: "8px 16px",
+                padding: "10px 18px",
                 borderRadius: 999,
                 border: "1px solid rgba(224,216,206,0.3)",
                 background: "rgba(224,216,206,0.08)",
@@ -123,19 +123,19 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-2 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
-              style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
+              style={{ color: "rgba(224,216,206,0.95)", fontSize: "0.8625rem", fontWeight: 700, letterSpacing: "0.2em", marginBottom: 12 }}
             >
               {t.hours.title[lang]}
             </p>
             <ul
               className="flex flex-col"
-              style={{ color: "#e0d8ce", fontSize: "0.9rem" }}
+              style={{ color: "#ece4d8", fontSize: "0.9rem", fontWeight: 500, lineHeight: 1.45 }}
             >
-              <li style={{ color: "rgba(224,216,206,0.5)", marginBottom: 14 }}>{t.hours.monday[lang]}</li>
+              <li style={{ color: "rgba(224,216,206,0.55)", marginBottom: 12 }}>{t.hours.monday[lang]}</li>
               <li className="flex flex-col gap-1">
-                <span style={{ color: "#e0d8ce", fontWeight: 600 }}>{t.hours.tue_sun[lang]}</span>
-                <span style={{ color: "rgba(224,216,206,0.78)" }}>{t.hours.lunch[lang]}</span>
-                <span style={{ color: "rgba(224,216,206,0.78)" }}>{t.hours.dinner[lang]}</span>
+                <span style={{ color: "#fffefb", fontWeight: 700 }}>{t.hours.tue_sun[lang]}</span>
+                <span style={{ color: "rgba(224,216,206,0.82)" }}>{t.hours.lunch[lang]}</span>
+                <span style={{ color: "rgba(224,216,206,0.82)" }}>{t.hours.dinner[lang]}</span>
               </li>
             </ul>
           </div>
@@ -144,33 +144,35 @@ export default function Footer() {
           <div className="col-span-2 md:col-span-4 md:pl-6 md:border-l md:border-[rgba(224,216,206,0.14)]">
             <p
               className="section-label font-heading"
-              style={{ color: "rgba(224,216,206,0.85)", fontSize: "0.8625rem", marginBottom: 14 }}
+              style={{ color: "rgba(224,216,206,0.95)", fontSize: "0.8625rem", fontWeight: 700, letterSpacing: "0.2em", marginBottom: 12 }}
             >
               {t.footer_extra.sister_label[lang]}
             </p>
             <p
-              className="leading-relaxed"
               style={{
-                color: "rgba(224,216,206,0.7)",
+                color: "rgba(236,228,216,0.82)",
                 fontSize: "0.9rem",
+                fontWeight: 500,
+                lineHeight: 1.5,
                 marginBottom: 14,
                 maxWidth: "36ch",
               }}
             >
               {t.footer_extra.sister_body[lang]}
             </p>
-            <div className="flex flex-col sm:flex-row gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <a
                 href="https://solopizza.de"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-full text-xs font-bold transition-colors w-full"
                 style={{
-                  border: "1px solid rgba(224,216,206,0.25)",
-                  color: "#e0d8ce",
+                  border: "1px solid rgba(224,216,206,0.3)",
+                  color: "#fffefb",
                   background: "rgba(224,216,206,0.08)",
-                  flex: "1 1 auto",
+                  letterSpacing: "0.02em",
                   whiteSpace: "nowrap",
+                  minWidth: 0,
                 }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.6)"
@@ -188,13 +190,14 @@ export default function Footer() {
                 href="https://maps.google.com/?q=Bereiterangerstr.+18,+81451+München"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-colors"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2.5 rounded-full text-xs font-bold transition-colors w-full"
                 style={{
-                  border: "1px solid rgba(224,216,206,0.25)",
-                  color: "#e0d8ce",
+                  border: "1px solid rgba(224,216,206,0.3)",
+                  color: "#fffefb",
                   background: "rgba(224,216,206,0.08)",
-                  flex: "1 1 auto",
+                  letterSpacing: "0.02em",
                   whiteSpace: "nowrap",
+                  minWidth: 0,
                 }}
                 onMouseEnter={e => {
                   (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(224,216,206,0.6)"
@@ -223,7 +226,7 @@ export default function Footer() {
             paddingBottom: 12,
           }}
         >
-          <p style={{ fontSize: "0.78rem", lineHeight: 1.5 }}>
+          <p style={{ fontSize: "0.78rem", lineHeight: 1.5, fontWeight: 500, color: "rgba(224,216,206,0.7)" }}>
             © {year} Trattoria Marano München · Ohlmüllerstr. 22, 81541 München
           </p>
           <a
