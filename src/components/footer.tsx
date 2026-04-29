@@ -148,19 +148,21 @@ export default function Footer() {
             >
               {t.footer_extra.sister_label[lang]}
             </p>
-            <p
-              style={{
-                color: "rgba(236,228,216,0.82)",
-                fontSize: "0.9rem",
-                fontWeight: 500,
-                lineHeight: 1.5,
-                marginBottom: 14,
-                maxWidth: "36ch",
-              }}
-            >
-              {t.footer_extra.sister_body[lang]}
-            </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="flex flex-col sm:flex-row gap-4 items-stretch">
+              <p
+                className="flex-1"
+                style={{
+                  color: "rgba(236,228,216,0.82)",
+                  fontSize: "0.9rem",
+                  fontWeight: 500,
+                  lineHeight: 1.5,
+                  margin: 0,
+                  maxWidth: "32ch",
+                }}
+              >
+                {t.footer_extra.sister_body[lang]}
+              </p>
+              <div className="flex flex-col gap-2 sm:w-[160px] shrink-0">
               <a
                 href="https://solopizza.de"
                 target="_blank"
@@ -211,6 +213,7 @@ export default function Footer() {
                 <Navigation size={12} />
                 {t.footer_extra.sister_directions[lang]}
               </a>
+              </div>
             </div>
           </div>
         </div>

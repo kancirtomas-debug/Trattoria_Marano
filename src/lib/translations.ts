@@ -222,9 +222,9 @@ export const t = {
   footer_extra: {
     sister_label: { de: "Schwesterpizzeria", en: "Sister Restaurant", it: "Pizzeria gemella" },
     sister_body: {
-      de: "Unsere Schwesterpizzeria Solo Pizza finden Sie in der Bereiterangerstr. 18, 81451 München. Gleiches Herzblut, gleiche Qualität - nur an einem anderen Ort der Stadt.",
-      en: "Our sister pizzeria Solo Pizza is located at Bereiterangerstr. 18, 81451 München. Same passion, same quality - just in another corner of the city.",
-      it: "La nostra pizzeria gemella Solo Pizza si trova in Bereiterangerstr. 18, 81451 Monaco. Stessa passione, stessa qualità - solo in un altro angolo della città.",
+      de: "Solo Pizza · Bereiterangerstr. 18, 81451 München. Gleiches Herzblut, gleiche Qualität.",
+      en: "Solo Pizza · Bereiterangerstr. 18, 81451 München. Same passion, same quality.",
+      it: "Solo Pizza · Bereiterangerstr. 18, 81451 Monaco. Stessa passione, stessa qualità.",
     },
     sister_website: { de: "Website besuchen", en: "Visit website", it: "Visita il sito" },
     sister_directions: { de: "Route planen", en: "Get directions", it: "Indicazioni stradali" },
