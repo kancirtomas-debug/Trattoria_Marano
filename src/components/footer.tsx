@@ -221,7 +221,7 @@ export default function Footer() {
       {/* Bottom bar — agency credit */}
       <div style={{ borderTop: "1px solid rgba(224,216,206,0.18)" }}>
         <div
-          className="container-wide flex flex-col md:flex-row items-center md:justify-between gap-3 text-center md:text-left"
+          className="container-wide flex flex-col-reverse md:flex-row items-center md:justify-between gap-3 text-center md:text-left"
           style={{
             color: "rgba(224,216,206,0.6)",
             paddingTop: 12,
