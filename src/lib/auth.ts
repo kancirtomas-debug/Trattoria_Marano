@@ -16,6 +16,14 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: "jwt" },
   callbacks: {
+    async signIn({ profile }) {
+      const allowed = (process.env.ADMIN_ALLOWED_EMAILS ?? "")
+        .split(",")
+        .map(e => e.trim().toLowerCase())
+        .filter(Boolean)
+      const email = profile?.email?.toLowerCase()
+      return !!email && allowed.includes(email)
+    },
     async session({ session }) {
       return session
     },
