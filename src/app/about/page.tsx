@@ -1,9 +1,10 @@
 "use client"
 import Image from "next/image"
-import Link from "next/link"
+import Link from "@/components/LocaleLink"
 import { ArrowRight } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd"
 
 const features = {
   de: [
@@ -35,7 +36,7 @@ const features = {
 function PizzaIcon() {
   return (
     <Image
-      src="/images/pizza-icon.png"
+      src="/images/pizza-icon.webp"
       alt=""
       width={192}
       height={192}
@@ -51,6 +52,7 @@ export default function AboutPage() {
 
   return (
     <div className="np-page">
+      <BreadcrumbJsonLd items={[{ name: "Über uns", path: "/about" }]} />
       <div className="np-wrap">
 
         {/* Masthead - section title as headline */}
