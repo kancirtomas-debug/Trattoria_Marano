@@ -2,12 +2,14 @@
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
 import ReservationCalendar from "@/components/ReservationCalendar"
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd"
 
 export default function ReservePage() {
   const { lang } = useLanguage()
 
   return (
     <div className="np-page">
+      <BreadcrumbJsonLd items={[{ name: "Reservierung", path: "/reserve" }]} />
       <div className="np-wrap">
 
         {/* Masthead */}

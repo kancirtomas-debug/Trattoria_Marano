@@ -1,13 +1,17 @@
 "use client"
-import Link from "next/link"
+import Link from "@/components/LocaleLink"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
+import ContactFaqJsonLd from "@/components/seo/ContactFaqJsonLd"
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd"
 
 export default function ContactPage() {
   const { lang } = useLanguage()
 
   return (
     <div className="np-page">
+      <ContactFaqJsonLd />
+      <BreadcrumbJsonLd items={[{ name: "Kontakt", path: "/contact" }]} />
       <div className="np-wrap">
 
         {/* Masthead */}

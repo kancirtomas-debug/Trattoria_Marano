@@ -1,6 +1,7 @@
 "use client"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd"
 
 export default function DatenschutzPage() {
   const { lang } = useLanguage()
@@ -8,6 +9,7 @@ export default function DatenschutzPage() {
 
   return (
     <div className="np-page">
+      <BreadcrumbJsonLd items={[{ name: "Datenschutz", path: "/datenschutz" }]} />
       <div className="np-wrap">
 
         <div className="np-masthead">

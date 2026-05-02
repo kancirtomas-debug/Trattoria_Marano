@@ -3,6 +3,7 @@ import { useState } from "react"
 import GalleryLightbox, { type GalleryPhoto } from "@/components/GalleryLightbox"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd"
 
 function Photo({ src, caption, height, objPos, onClick }: { src: string; caption: string; height: number; objPos?: string; onClick: () => void }) {
   return (
@@ -71,6 +72,7 @@ export default function GalleryPage() {
 
   return (
     <div className="np-page">
+      <BreadcrumbJsonLd items={[{ name: "Galerie", path: "/gallery" }]} />
       {lightbox !== null && (
         <GalleryLightbox photos={photos} index={lightbox} onClose={close} onPrev={prev} onNext={next} />
       )}

@@ -1,9 +1,10 @@
 "use client"
-import Link from "next/link"
+import Link from "@/components/LocaleLink"
 import Image from "next/image"
 import { useState } from "react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
+import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd"
 
 const npInput: React.CSSProperties = {
   fontFamily: "Georgia, serif",
@@ -66,6 +67,7 @@ export default function EventsPage() {
 
   return (
     <div className="np-page">
+      <BreadcrumbJsonLd items={[{ name: "Events & Catering", path: "/events" }]} />
       <div className="np-wrap">
 
         {/* Masthead */}

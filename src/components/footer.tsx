@@ -1,6 +1,6 @@
 "use client"
 import Image from "next/image"
-import Link from "next/link"
+import Link from "@/components/LocaleLink"
 import { MapPin, Phone, Mail, Navigation, ExternalLink, ArrowUpRight } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"

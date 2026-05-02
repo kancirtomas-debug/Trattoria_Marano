@@ -1,9 +1,9 @@
 "use client"
-import Link from "next/link"
+import Link from "@/components/LocaleLink"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Menu, X, Phone, CalendarDays, UtensilsCrossed, MapPin } from "lucide-react"
-import { useLanguage } from "@/context/LanguageContext"
+import { useLanguage, stripLocale } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
 import CookieConsent from "./cookie-consent"
 import { useEffect } from "react"
@@ -19,9 +19,10 @@ const navLinks = [
 
 export default function MobileLayout({ children }: { children: React.ReactNode }) {
   const { lang, toggle } = useLanguage()
-  const pathname = usePathname()
+  const rawPathname = usePathname() || "/"
+  const pathname = stripLocale(rawPathname)
   const [open, setOpen] = useState(false)
-  const isAdmin = pathname.startsWith("/admin")
+  const isAdmin = rawPathname.startsWith("/admin")
 
   // Tag <body> so CSS overrides activate
   useEffect(() => {

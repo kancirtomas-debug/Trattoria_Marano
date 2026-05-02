@@ -1,309 +1,380 @@
-# Design System Inspired by Notion
+# Design System: Trattoria Marano
+
+> Production design system as currently shipped on the deployed site.
+> Italian neighborhood trattoria, Ohlmüllerstr. 22, 81541 München.
+> Two coexisting visual modes: **Warm Editorial** (marketing pages) and **Il Giorno Newspaper** (events, gallery, about, catering).
+
+---
 
 ## 1. Visual Theme & Atmosphere
 
-Notion's website embodies the philosophy of the tool itself: a blank canvas that gets out of your way. The design system is built on warm neutrals rather than cold grays, creating a distinctly approachable minimalism that feels like quality paper rather than sterile glass. The page canvas is pure white (`#ffffff`) but the text isn't pure black -- it's a warm near-black (`rgba(0,0,0,0.95)`) that softens the reading experience imperceptibly. The warm gray scale (`#f6f5f4`, `#31302e`, `#615d59`, `#a39e98`) carries subtle yellow-brown undertones, giving the interface a tactile, almost analog warmth.
+The site speaks two voices that share one wardrobe.
 
-The custom NotionInter font (a modified Inter) is the backbone of the system. At display sizes (64px), it uses aggressive negative letter-spacing (-2.125px), creating headlines that feel compressed and precise. The weight range is broader than typical systems: 400 for body, 500 for UI elements, 600 for semi-bold labels, and 700 for display headings. OpenType features `"lnum"` (lining numerals) and `"locl"` (localized forms) are enabled on larger text, adding typographic sophistication that rewards close reading.
+**Warm Editorial mode** runs the home, menu, reserve and contact pages. It feels like a hand-bound trattoria booklet — cream parchment surfaces, a single deep burgundy ink as the only saturated color, PointPanther display type with negative tracking, and ultra-thin sand-colored dividers instead of heavy borders. Imagery dominates the hero (full-bleed, left-aligned headline directly on the photograph, mobile-only gradient fade for legibility). Cards use multi-layer burgundy-tinted shadows that read as embedded, not floating. Restraint is the rule: one accent color, one CTA per zone, generous vertical rhythm.
 
-What makes Notion's visual language distinctive is its border philosophy. Rather than heavy borders or shadows, Notion uses ultra-thin `1px solid rgba(0,0,0,0.1)` borders -- borders that exist as whispers, barely perceptible division lines that create structure without weight. The shadow system is equally restrained: multi-layer stacks with cumulative opacity never exceeding 0.05, creating depth that's felt rather than seen.
+**Il Giorno Newspaper mode** runs editorial sections — events, gallery, about, catering. Built around the `.np-page` system: Georgia serif throughout, justified bodies with hyphenation, double-rule horizontal dividers, kicker labels in burgundy small-caps, vertical hairline column rules between asymmetric grid columns (3fr · 1px · 1fr), pullquotes flanked by 28px sand bars, dropcap-ready leads. Background is aged parchment `#f0ebe0` with a multiplied paper-grain overlay (1px-spaced repeating lines + soft burgundy/charcoal radial blooms at 0.04–0.05 opacity). Reads like a folded broadsheet from 1962.
 
-**Key Characteristics:**
-- NotionInter (modified Inter) with negative letter-spacing at display sizes (-2.125px at 64px)
-- Warm neutral palette: grays carry yellow-brown undertones (`#f6f5f4` warm white, `#31302e` warm dark)
-- Near-black text via `rgba(0,0,0,0.95)` -- not pure black, creating micro-warmth
-- Ultra-thin borders: `1px solid rgba(0,0,0,0.1)` throughout -- whisper-weight division
-- Multi-layer shadow stacks with sub-0.05 opacity for barely-there depth
-- Notion Blue (`#0075de`) as the singular accent color for CTAs and interactive elements
-- Pill badges (9999px radius) with tinted blue backgrounds for status indicators
-- 8px base spacing unit with an organic, non-rigid scale
+Both modes share the same warm palette anchor (`#fffefb`/`#201515`/`#6b1535`/`#c5c0b1`) so transitions between marketing and editorial pages feel like turning a page, not switching brands.
+
+**Atmosphere coordinates:** density 4/10 (marketing) → 7/10 (editorial), variance 6/10, motion 4/10 (restrained, editorial reveals over flashy choreography).
+
+---
 
 ## 2. Color Palette & Roles
 
 ### Primary
-- **Notion Black** (`rgba(0,0,0,0.95)` / `#000000f2`): Primary text, headings, body copy. The 95% opacity softens pure black without sacrificing readability.
-- **Pure White** (`#ffffff`): Page background, card surfaces, button text on blue.
-- **Notion Blue** (`#0075de`): Primary CTA, link color, interactive accent -- the only saturated color in the core UI chrome.
+- **Cream** (`#fffefb`) — Canvas. Page background, card fill, hero overlay haze, dark-section text color.
+- **Cream Light** (`#fffdf9`) — Off-white alternate surface for subtle section alternation.
+- **Ink** (`#201515`) — Primary text, dark sections, masthead rules, double-rules. Near-black with red undertone — never pure `#000`.
+- **Burgundy Marano** (`#6b1535`) — The single brand accent. Primary CTA fill, link color, focus ring, kicker text in newspaper mode, selection highlight, headline accent on the hero word "Marano".
 
-### Brand Secondary
-- **Deep Navy** (`#213183`): Secondary brand color, used sparingly for emphasis and dark feature sections.
-- **Active Blue** (`#005bab`): Button active/pressed state -- darker variant of Notion Blue.
+### Secondary Burgundy Variants
+- **Burgundy Hover** (`#5a1129`) — `btn-orange` hover/active background.
+- **Burgundy Light** (`#ff7a40`) — Reserved variant (token only, rarely used).
+- **Burgundy Dark** (`#cc3e00`) — Reserved variant (token only, rarely used).
 
-### Warm Neutral Scale
-- **Warm White** (`#f6f5f4`): Background surface tint, section alternation, subtle card fill. The yellow undertone is key.
-- **Warm Dark** (`#31302e`): Dark surface background, dark section text. Warmer than standard grays.
-- **Warm Gray 500** (`#615d59`): Secondary text, descriptions, muted labels.
-- **Warm Gray 300** (`#a39e98`): Placeholder text, disabled states, caption text.
+### Warm Neutrals (`warmgray` scale)
+- **100** (`#f5f4f1`) — Lightest tint, background washes.
+- **200 / Sand Light** (`#eceae3`) — `btn-ghost` background, subtle surfaces.
+- **300** (`#dbd9d1`) — Disabled-state surface.
+- **400 / Sand** (`#c5c0b1`) — Borders, dividers, tab underline-rest, column rules in newspaper grids.
+- **500 / Warm Gray** (`#939084`) — Section labels, captions, muted metadata, newspaper bylines.
+- **600** (`#6b6660`)
+- **700** (`#4d4843`) — Dark-mode input border.
+- **800 / Charcoal** (`#36342e`) — Secondary text, body in newspaper mode, dateline copy.
+- **900 / Ink** (`#201515`) — Same as Ink.
 
-### Semantic Accent Colors
-- **Teal** (`#2a9d99`): Success states, positive indicators.
-- **Green** (`#1aae39`): Confirmation, completion badges.
-- **Orange** (`#dd5b00`): Warning states, attention indicators.
-- **Pink** (`#ff64c8`): Decorative accent, feature highlights.
-- **Purple** (`#391c57`): Premium features, deep accents.
-- **Brown** (`#523410`): Earthy accent, warm feature sections.
+### Newspaper-Mode-Only Surfaces
+- **Parchment Page** (`#f0ebe0`) — `.np-page` background.
+- **Box Cream** (`rgba(255,253,245,0.55)`) — `.np-box` translucent card fill.
+- **Caption Rule** (`#c5c0b1`) — Hairline above newspaper captions.
 
-### Interactive
-- **Link Blue** (`#0075de`): Primary link color with underline-on-hover.
-- **Link Light Blue** (`#62aef0`): Lighter link variant for dark backgrounds.
-- **Focus Blue** (`#097fe8`): Focus ring on interactive elements.
-- **Badge Blue Bg** (`#f2f9ff`): Pill badge background, tinted blue surface.
-- **Badge Blue Text** (`#097fe8`): Pill badge text, darker blue for readability.
+### Banned Color Patterns
+- ❌ Pure black `#000000` — use Ink `#201515`
+- ❌ Pure white `#ffffff` — use Cream `#fffefb` (or Parchment `#f0ebe0` in newspaper mode)
+- ❌ Cool/blue-leaning grays — every neutral must lean warm
+- ❌ Saturation above 80% on any hue
+- ❌ Neon, gradient-rainbow, AI-purple-blue-glow
 
-### Shadows & Depth
-- **Card Shadow** (`rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px, rgba(0,0,0,0.02) 0px 0.8px 2.925px, rgba(0,0,0,0.01) 0px 0.175px 1.04062px`): Multi-layer card elevation.
-- **Deep Shadow** (`rgba(0,0,0,0.01) 0px 1px 3px, rgba(0,0,0,0.02) 0px 3px 7px, rgba(0,0,0,0.02) 0px 7px 15px, rgba(0,0,0,0.04) 0px 14px 28px, rgba(0,0,0,0.05) 0px 23px 52px`): Five-layer deep elevation for modals and featured content.
-- **Whisper Border** (`1px solid rgba(0,0,0,0.1)`): Standard division border -- cards, dividers, sections.
+### Selection & Focus
+- Text selection: `rgba(107,21,53,0.15)` background, Ink text
+- Focus-visible: `2px solid #6b1535`, 2px offset, 4px radius
+- Newspaper focus: same color, 3px offset
 
-## 3. Typography Rules
+---
 
-### Font Family
-- **Primary**: `NotionInter`, with fallbacks: `Inter, -apple-system, system-ui, Segoe UI, Helvetica, Apple Color Emoji, Arial, Segoe UI Emoji, Segoe UI Symbol`
-- **OpenType Features**: `"lnum"` (lining numerals) and `"locl"` (localized forms) enabled on display and heading text.
+## 3. Typography
 
-### Hierarchy
+### Font Stack
+- **Display / Heading**: `PointPanther` (custom OTF, weight 400, loaded via `@font-face` from `/fonts/PointPanther.otf`, `font-display: swap`). Fallback to system-ui sans.
+- **Body Sans**: CSS variable `--font-sans` (Next.js `next/font` injection), system-ui fallback.
+- **Editorial / Newspaper Mode**: `Georgia, "Times New Roman", serif` exclusively. No PointPanther on `.np-page`.
+- **Mono**: `JetBrains Mono` — used for code-style labels, dates, metadata.
 
-| Role | Font | Size | Weight | Line Height | Letter Spacing | Notes |
-|------|------|------|--------|-------------|----------------|-------|
-| Display Hero | NotionInter | 64px (4.00rem) | 700 | 1.00 (tight) | -2.125px | Maximum compression, billboard headlines |
-| Display Secondary | NotionInter | 54px (3.38rem) | 700 | 1.04 (tight) | -1.875px | Secondary hero, feature headlines |
-| Section Heading | NotionInter | 48px (3.00rem) | 700 | 1.00 (tight) | -1.5px | Feature section titles, with `"lnum"` |
-| Sub-heading Large | NotionInter | 40px (2.50rem) | 700 | 1.50 | normal | Card headings, feature sub-sections |
-| Sub-heading | NotionInter | 26px (1.63rem) | 700 | 1.23 (tight) | -0.625px | Section sub-titles, content headers |
-| Card Title | NotionInter | 22px (1.38rem) | 700 | 1.27 (tight) | -0.25px | Feature cards, list titles |
-| Body Large | NotionInter | 20px (1.25rem) | 600 | 1.40 | -0.125px | Introductions, feature descriptions |
-| Body | NotionInter | 16px (1.00rem) | 400 | 1.50 | normal | Standard reading text |
-| Body Medium | NotionInter | 16px (1.00rem) | 500 | 1.50 | normal | Navigation, emphasized UI text |
-| Body Semibold | NotionInter | 16px (1.00rem) | 600 | 1.50 | normal | Strong labels, active states |
-| Body Bold | NotionInter | 16px (1.00rem) | 700 | 1.50 | normal | Headlines at body size |
-| Nav / Button | NotionInter | 15px (0.94rem) | 600 | 1.33 | normal | Navigation links, button text |
-| Caption | NotionInter | 14px (0.88rem) | 500 | 1.43 | normal | Metadata, secondary labels |
-| Caption Light | NotionInter | 14px (0.88rem) | 400 | 1.43 | normal | Body captions, descriptions |
-| Badge | NotionInter | 12px (0.75rem) | 600 | 1.33 | 0.125px | Pill badges, tags, status labels |
-| Micro Label | NotionInter | 12px (0.75rem) | 400 | 1.33 | 0.125px | Small metadata, timestamps |
+### Display Scale (clamp-based, fluid)
+| Token | Value | Line-Height | Letter-Spacing | Use |
+|---|---|---|---|---|
+| `display-xl` | `clamp(3.5rem, 8vw, 7rem)` | 0.95 | -0.03em | Hero headline (rare, oversized billboards) |
+| `display-lg` | `clamp(2.5rem, 5.5vw, 4.5rem)` | 1.0 | -0.02em | Standard hero, page H1 |
+| `display-md` | `clamp(1.75rem, 3.5vw, 2.75rem)` | 1.1 | -0.01em | Section heading |
+| `label` | `0.75rem` | 1.5 | 0.2em | All-caps tracked micro-labels |
 
-### Principles
-- **Compression at scale**: NotionInter at display sizes uses -2.125px letter-spacing at 64px, progressively relaxing to -0.625px at 26px and normal at 16px. The compression creates density at headlines while maintaining readability at body sizes.
-- **Four-weight system**: 400 (body/reading), 500 (UI/interactive), 600 (emphasis/navigation), 700 (headings/display). The broader weight range compared to most systems allows nuanced hierarchy.
-- **Warm scaling**: Line height tightens as size increases -- 1.50 at body (16px), 1.23-1.27 at sub-headings, 1.00-1.04 at display. This creates denser, more impactful headlines.
-- **Badge micro-tracking**: The 12px badge text uses positive letter-spacing (0.125px) -- the only positive tracking in the system, creating wider, more legible small text.
+**Hero pattern as shipped:** `clamp(2.8rem, 7.5vw, 5.5rem)`, line-height 0.9, letter-spacing -0.02em, color `#201515`, with the second word ("Marano") rendered in `#6b1535`.
+
+### Newspaper Type System (`.np-*`)
+| Class | Spec |
+|---|---|
+| `.np-title` | Georgia 900, `clamp(2.6rem, 7vw, 5.5rem)`, lh 0.92, -0.025em, uppercase, centered, sandwiched by 1px `#36342e` rules |
+| `.np-title-section` | Georgia 900, `clamp(1.8rem, 4.8vw, 3.6rem)`, lh 1, -0.015em, uppercase |
+| `.np-h1` | Georgia 900, `clamp(2rem, 4.4vw, 3.4rem)`, lh 1.02, -0.015em, mixed case |
+| `.np-h2` | Georgia 900, 22px, lh 1.05, uppercase |
+| `.np-h3` | Georgia 700, 14px, uppercase, +0.02em |
+| `.np-kicker` | Georgia 700, 10px, +0.24em, uppercase, color `#6b1535` |
+| `.np-lead` | Georgia 500, 18px, lh 1.42, justified, ink |
+| `.np-body` | Georgia 400, 14px, lh 1.55, justified, hyphens auto, **color `#6b1535`** |
+| `.np-pullquote` | Georgia italic, `clamp(18px, 2.2vw, 24px)`, lh 1.3, top 3px solid + bottom 1px solid Ink, flanked above/below by 28px × 1px burgundy bars |
+| `.np-caption` | Georgia italic, 10.5px, color `#939084`, top hairline `#c5c0b1` |
+| `.np-subhead` | Georgia italic, 14px, color `#6b1535`, +0.08em, centered |
+| `.np-dateline` | Georgia, 10px, +0.12em, uppercase, justify-between flex |
+
+### Type Principles
+- Headlines use **balanced wrapping** (`text-wrap: balance`) on `h1/h2/h3`.
+- Burgundy is allowed inside headlines as a single colored span (e.g., second word). Never gradient text.
+- Body justification + hyphenation is reserved for `.np-body` only — main marketing copy stays left-aligned.
+- All-caps text always carries tracking (≥ +0.08em). Never all-caps without tracking.
+
+### Banned
+- ❌ `Inter` font in any form
+- ❌ Generic system serif outside `.np-*` scope
+- ❌ Pure black headlines — always Ink `#201515`
+- ❌ Gradient text on display headlines
+
+---
 
 ## 4. Component Stylings
 
 ### Buttons
 
-**Primary Blue**
-- Background: `#0075de` (Notion Blue)
-- Text: `#ffffff`
-- Padding: 8px 16px
-- Radius: 4px (subtle)
-- Border: `1px solid transparent`
-- Hover: background darkens to `#005bab`
-- Active: scale(0.9) transform
-- Focus: `2px solid` focus outline, `var(--shadow-level-200)` shadow
-- Use: Primary CTA ("Get Notion free", "Try it")
+**`.btn-orange` (Primary CTA — actually burgundy despite name)**
+- Background `#6b1535`, text `#fffefb`, 1px border same color
+- Padding `10px 20px`, radius 6px, font 0.875rem weight 600, line-height 1
+- Hover: bg `#5a1129`, shadow `0 4px 12px rgba(107,21,53,0.25)`
+- Active: `transform: scale(0.97)` (tactile press)
+- Transition: 160ms background, 100ms transform, 160ms shadow
 
-**Secondary / Tertiary**
-- Background: `rgba(0,0,0,0.05)` (translucent warm gray)
-- Text: `#000000` (near-black)
-- Padding: 8px 16px
-- Radius: 4px
-- Hover: text color shifts, scale(1.05)
-- Active: scale(0.9) transform
-- Use: Secondary actions, form submissions
+**`.btn-dark`**
+- Background `#201515`, text `#fffefb`
+- Hover: bg flips to sand `#c5c0b1`, text `#201515` — high-contrast inversion
+- Same padding/radius/scale-active treatment
 
-**Ghost / Link Button**
-- Background: transparent
-- Text: `rgba(0,0,0,0.95)`
-- Decoration: underline on hover
-- Use: Tertiary actions, inline links
+**`.btn-ghost`**
+- Background `#eceae3`, text `#36342e`, 1px border `#c5c0b1`
+- Hover: bg `#c5c0b1`
+- Same scale-active treatment
 
-**Pill Badge Button**
-- Background: `#f2f9ff` (tinted blue)
-- Text: `#097fe8`
-- Padding: 4px 8px
-- Radius: 9999px (full pill)
-- Font: 12px weight 600
-- Use: Status badges, feature labels, "New" tags
+### Cards
 
-### Cards & Containers
-- Background: `#ffffff`
-- Border: `1px solid rgba(0,0,0,0.1)` (whisper border)
-- Radius: 12px (standard cards), 16px (featured/hero cards)
-- Shadow: `rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.84688px, rgba(0,0,0,0.02) 0px 0.8px 2.925px, rgba(0,0,0,0.01) 0px 0.175px 1.04062px`
-- Hover: subtle shadow intensification
-- Image cards: 12px top radius, image fills top half
+**`.card-warm` (Notion-derived warmth, burgundy-tinted)**
+- Background `#fffefb`, border `1px solid rgba(107,21,53,0.1)`, radius 12px
+- Multi-layer burgundy-tinted shadow stack (4 layers, max opacity 0.04):
+  - `rgba(107,21,53,0.04) 0px 4px 18px`
+  - `rgba(107,21,53,0.027) 0px 2px 7.8px`
+  - `rgba(107,21,53,0.02) 0px 0.8px 2.9px`
+  - `rgba(107,21,53,0.01) 0px 0.175px 1px`
+- Hover: border ramps to `rgba(107,21,53,0.25)`, shadow intensifies to 3-layer (max opacity 0.07, 32px blur)
+- Transition: 200ms shadow + border-color
 
-### Inputs & Forms
-- Background: `#ffffff`
-- Text: `rgba(0,0,0,0.9)`
-- Border: `1px solid #dddddd`
-- Padding: 6px
-- Radius: 4px
-- Focus: blue outline ring
-- Placeholder: warm gray `#a39e98`
+**`.np-box` (Newspaper card)**
+- 1px solid Ink border, 14px padding, translucent cream fill `rgba(255,253,245,0.55)`. No radius. No shadow.
 
-### Navigation
-- Clean horizontal nav on white, not sticky
-- Brand logo left-aligned (33x34px icon + wordmark)
-- Links: NotionInter 15px weight 500-600, near-black text
-- Hover: color shift to `var(--color-link-primary-text-hover)`
-- CTA: blue pill button ("Get Notion free") right-aligned
-- Mobile: hamburger menu collapse
-- Product dropdowns with multi-level categorized menus
+### Tab System (Zapier-style inset rule)
+- `.tab-item`: 16px/12px padding, text-sm semibold ink, no shadow at rest
+- Hover: `box-shadow: rgb(197,192,177) 0px -3px 0px 0px inset` (sand underline appears inset from below)
+- Active: same technique with `rgb(107,21,53)` burgundy
 
-### Image Treatment
-- Product screenshots with `1px solid rgba(0,0,0,0.1)` border
-- Top-rounded images: `12px 12px 0px 0px` radius
-- Dashboard/workspace preview screenshots dominate feature sections
-- Warm gradient backgrounds behind hero illustrations (decorative character illustrations)
+### Inputs
+- `.input-underline`: transparent bg, no border except 1px bottom in sand `#c5c0b1`, 12px vertical padding, ink text, warm-gray-500 placeholder. Focus shifts bottom border to burgundy `#6b1535`. No focus ring shadow.
+- `.input-underline-dark`: same pattern, darker borders (`#4d4843` rest, `#6b1535` focus), cream text.
 
-### Distinctive Components
+### Dividers
+- `.border-section`: `border-top: 1px solid #c5c0b1` (sand hairline)
+- `.np-rule-thin`: 1px solid charcoal, 22px vertical margin
+- `.np-rule-single`: 1px solid Ink, 14px margin
+- `.np-rule-thick`: **4px double Ink** — signature newspaper section break, 28px top / 14px bottom
+- `.np-footer-rule`: same 4px double Ink + centered footer text
 
-**Feature Cards with Illustrations**
-- Large illustrative headers (The Great Wave, product UI screenshots)
-- 12px radius card with whisper border
-- Title at 22px weight 700, description at 16px weight 400
-- Warm white (`#f6f5f4`) background variant for alternating sections
+### Sections (Background System)
+- `.section-light`: bg `#fffefb`, text `#201515`
+- `.section-warm`: bg `#fffdf9`, text `#201515` (off-white alternation)
+- `.section-dark`: bg `#201515`, text `#fffefb`
 
-**Trust Bar / Logo Grid**
-- Company logos (trusted teams section) in their brand colors
-- Horizontal scroll or grid layout with team counts
-- Metric display: large number + description pattern
+### Grain Overlay (`.grain`)
+- Applied to dark page headers
+- Pseudo-element with embedded SVG turbulence noise (`baseFrequency=0.75`, 4 octaves)
+- 180×180 tile, opacity 0.045, pointer-events none
+- Wrapped content lifted to z-index 2
 
-**Metric Cards**
-- Large number display (e.g., "$4,200 ROI")
-- NotionInter 40px+ weight 700 for the metric
-- Description below in warm gray body text
-- Whisper-bordered card container
+### Links
+- `.link-grow`: animated underline grows left-to-right on hover (1px, scaleX 0→1, 0.4s ease-out). Disabled on touch devices.
+- `.np-link`: background-image gradient underline (1.5px), grows from 0 → 100% width on hover (320ms expo), text shifts to burgundy on hover.
+
+### Section Labels
+- `.section-label`: 0.75rem, weight 600, +0.08em, uppercase, color `#939084` (warm gray 500)
+- `.np-label-red`: same metric pattern but Georgia + burgundy + +0.2em tracking
+- `.mono-label` / `.mono-label-light`: utility variants for tracked uppercase micro-text
+
+---
 
 ## 5. Layout Principles
 
-### Spacing System
-- Base unit: 8px
-- Scale: 2px, 3px, 4px, 5px, 6px, 7px, 8px, 11px, 12px, 14px, 16px, 24px, 32px
-- Non-rigid organic scale with fractional values (5.6px, 6.4px) for micro-adjustments
+### Containers
+- `.container-narrow`: max-w 3xl (768px) + responsive padding
+- `.container-default`: max-w 5xl (1024px) — default page width
+- `.container-wide`: max-w 7xl (1280px)
 
-### Grid & Container
-- Max content width: approximately 1200px
-- Hero: centered single-column with generous top padding (80-120px)
-- Feature sections: 2-3 column grids for cards
-- Full-width warm white (`#f6f5f4`) section backgrounds for alternation
-- Code/dashboard screenshots as contained with whisper border
+### Newspaper Grid System
+- `.np-wrap`: max-w 1140px, padding `clamp(28px, 4vw, 56px)` top, `clamp(48px, 6vw, 88px)` bottom
+- `.np-grid-2`: `grid-template-columns: 3fr 1px 1fr` — asymmetric editorial split with vertical hairline rule (`.np-col-rule` background `#c5c0b1`)
+- `.np-grid-even-2`: `1fr 1px 1fr` — symmetric two-column with hairline
+- `.np-grid-3`: `1fr 1px 1fr 1px 1fr` — three columns, two hairlines
+- `.np-catering-asym`: `minmax(0, 1.4fr) 1px minmax(0, 1fr)` — catering page split
+- All grids collapse to single column at <700px and hide their column rules
+- Tablet (701–960px): `.np-grid-3` collapses to 2-col (drops second rule)
 
-### Whitespace Philosophy
-- **Generous vertical rhythm**: 64-120px between major sections. Notion lets content breathe with vast vertical padding.
-- **Warm alternation**: White sections alternate with warm white (`#f6f5f4`) sections, creating gentle visual rhythm without harsh color breaks.
-- **Content-first density**: Body text blocks are compact (line-height 1.50) but surrounded by ample margin, creating islands of readable content in a sea of white space.
+### Hero Pattern (as shipped on `/`)
+- Full-bleed image, `object-fit: cover`, `object-position: 70% center`
+- Container: `height: calc(100vh - 80px)`, flex column
+- Text block: max-width xl (`max-w-xl`), left-aligned, **negative margin-left via clamp**: `clamp(-210px, calc((1024px - 100vw) / 4), 0px)` — pulls text left of container on wide screens, snaps to flush at narrow widths
+- Mobile-only gradient overlay: `linear-gradient(to right, rgba(255,254,251,0.96) 0%, 0.88 45%, 0.35 80%, 0 100%)` — fades cream-to-transparent left-to-right for headline legibility
+- Headline color: Ink `#201515`, second word burgundy `#6b1535`
+- One primary CTA (`.btn-orange`) per hero zone
+
+### Spacing Philosophy
+- Generous vertical rhythm between marketing sections (64–120px)
+- Editorial pages use `.np-rule-thick` (double 4px) as the main section delineator instead of whitespace
+- 8px base unit, fractional values allowed for micro-alignment
 
 ### Border Radius Scale
-- Micro (4px): Buttons, inputs, functional interactive elements
-- Subtle (5px): Links, list items, menu items
-- Standard (8px): Small cards, containers, inline elements
-- Comfortable (12px): Standard cards, feature containers, image tops
-- Large (16px): Hero cards, featured content, promotional blocks
-- Full Pill (9999px): Badges, pills, status indicators
-- Circle (100%): Tab indicators, avatars
+- 6px — buttons, inputs
+- 12px — `.card-warm` standard
+- 16px — featured/hero cards
+- `oval` (50%) and `pill` (9999px) — utility tokens
+- 0px — newspaper boxes (intentional)
 
-## 6. Depth & Elevation
+---
 
-| Level | Treatment | Use |
-|-------|-----------|-----|
-| Flat (Level 0) | No shadow, no border | Page background, text blocks |
-| Whisper (Level 1) | `1px solid rgba(0,0,0,0.1)` | Standard borders, card outlines, dividers |
-| Soft Card (Level 2) | 4-layer shadow stack (max opacity 0.04) | Content cards, feature blocks |
-| Deep Card (Level 3) | 5-layer shadow stack (max opacity 0.05, 52px blur) | Modals, featured panels, hero elements |
-| Focus (Accessibility) | `2px solid var(--focus-color)` outline | Keyboard focus on all interactive elements |
+## 6. Motion & Interaction
 
-**Shadow Philosophy**: Notion's shadow system uses multiple layers with extremely low individual opacity (0.01 to 0.05) that accumulate into soft, natural-looking elevation. The 4-layer card shadow spans from 1.04px to 18px blur, creating a gradient of depth rather than a single hard shadow. The 5-layer deep shadow extends to 52px blur at 0.05 opacity, producing ambient occlusion that feels like natural light rather than computer-generated depth. This layered approach makes elements feel embedded in the page rather than floating above it.
+### Easing Tokens
+- `--ease-out-expo`: `cubic-bezier(0.16, 1, 0.3, 1)` — primary reveal motion
+- `--ease-out`: `cubic-bezier(0.23, 1, 0.32, 1)` — secondary, link underlines
+- Newspaper: `cubic-bezier(0.22, 1, 0.36, 1)` — slightly punchier for editorial feel
 
-### Decorative Depth
-- Hero section: decorative character illustrations (playful, hand-drawn style)
-- Section alternation: white to warm white (`#f6f5f4`) background shifts
-- No hard section borders -- separation comes from background color changes and spacing
+### Reveal System
+- `.reveal`: opacity 0 → 1, translateY 28px → 0, 0.7s expo
+- Stagger: `.reveal-delay-{1..5}` with 0.1s, 0.22s, 0.38s, 0.52s, 0.68s delays
+- Triggered via IntersectionObserver `.visible` class toggle
+
+### Tailwind Animation Keyframes
+- `reveal-up`: opacity 0/+32px → 1/0, 0.7s expo
+- `reveal-left`: opacity 0/+32px X → 1/0, 0.7s expo
+- `grow-line`: scaleX 0 → 1, 1s expo
+- `pulse-soft`: opacity 0.4 ↔ 0.8, 3s ease-in-out infinite
+
+### Newspaper Animations
+- `np-fade-in` (page mount, 420ms)
+- `np-title-reveal` (masthead + title, 620–720ms with letter-spacing animation from -0.01em → -0.025em)
+- `np-fade-up` (subhead, grids, pullquote, 520–640ms with stagger 180–340ms)
+- `np-rule-sweep` (all `.np-rule-*` lines, scaleX 0 → 1 from left, 520ms, delay 240ms)
+- `np-lightbox-in` / `np-lightbox-image` (gallery modal, 220ms / 320ms)
+
+### Infinite Loops
+- `scrollUp`: `translateY(0 → -50%)`, linear infinite
+  - Testimonials columns: 42s slow, 34s medium, 38s fast (parallax illusion)
+  - Menu columns: 50s/40s/45s, **desktop only** (≥768px) — static on mobile
+- `pizza-tumble`: rotate 0 → 360deg, used for decorative pizza icon
+- `pulse-soft` (above)
+
+### Interaction Feedback
+- Buttons: scale(0.97) on `:active` — subtle tactile press
+- Newspaper `a[href]` and `button`: `translateY(1px)` on `:active` — letterpress feel
+- Cards: shadow + border-color intensify on hover (200ms)
+- Gallery image (`.np-event-photo`): scale(1.06) on parent hover
+
+### Reduced Motion
+- All `.reveal`, `.accent-line`, `np-*` animations, `.np-link` transitions disabled under `prefers-reduced-motion: reduce`
+- Smooth scroll disabled
+- Hover scale on event photos disabled
+
+### Hardware Acceleration
+- All animations restricted to `transform` and `opacity` — never `top`, `left`, `width`, `height`
+
+---
 
 ## 7. Responsive Behavior
 
-### Breakpoints
-| Name | Width | Key Changes |
-|------|-------|-------------|
-| Mobile Small | <400px | Tight single column, minimal padding |
-| Mobile | 400-600px | Standard mobile, stacked layout |
-| Tablet Small | 600-768px | 2-column grids begin |
-| Tablet | 768-1080px | Full card grids, expanded padding |
-| Desktop Small | 1080-1200px | Standard desktop layout |
-| Desktop | 1200-1440px | Full layout, maximum content width |
-| Large Desktop | >1440px | Centered, generous margins |
+### Breakpoints (Tailwind defaults + custom newspaper)
+| Range | Behavior |
+|---|---|
+| `<520px` | Form rows collapse to single column |
+| `<700px` | All `.np-grid-*` collapse to single column, column rules hide, `.np-wrap` padding shrinks to 28px/16px |
+| `<768px` (md) | Hero gradient overlay activates; testimonials/menu columns stop animating; mobile menu opens |
+| `701–960px` | `.np-grid-3` collapses to 2-col (mid-tier optimization) |
+| `≥768px` | Menu scroll columns animate; desktop nav |
 
-### Touch Targets
-- Buttons use comfortable padding (8px-16px vertical)
-- Navigation links at 15px with adequate spacing
-- Pill badges have 8px horizontal padding for tap targets
-- Mobile menu toggle uses standard hamburger button
+### Mobile Build Mode (`body[data-mobile]`)
+Activated when `NEXT_PUBLIC_MOBILE=true`. Full-bleed mobile-only build that overrides:
+- All container max-widths → 100% with 1rem horizontal padding
+- Hero negative margins zeroed out
+- All `md:grid-cols-3` forced to single column
+- Touch targets minimum 44px on all `a` and `button`
+- Base font 16px
 
-### Collapsing Strategy
-- Hero: 64px display -> scales to 40px -> 26px on mobile, maintains proportional letter-spacing
-- Navigation: horizontal links + blue CTA -> hamburger menu
-- Feature cards: 3-column -> 2-column -> single column stacked
-- Product screenshots: maintain aspect ratio with responsive images
-- Trust bar logos: grid -> horizontal scroll on mobile
-- Footer: multi-column -> stacked single column
-- Section spacing: 80px+ -> 48px on mobile
+### Touch & A11y
+- Skip link present (`SkipLink.tsx`)
+- Focus-visible always shown (2px burgundy outline, 2–3px offset)
+- WCAG-relevant contrast: ink-on-cream ~17:1, burgundy-on-cream ~9:1, warm-gray-500-on-cream ~4.6:1
 
-### Image Behavior
-- Workspace screenshots maintain whisper border at all sizes
-- Hero illustrations scale proportionally
-- Product screenshots use responsive images with consistent border radius
-- Full-width warm white sections maintain edge-to-edge treatment
+---
 
-## 8. Accessibility & States
+## 8. Imagery & Iconography
 
-### Focus System
-- All interactive elements receive visible focus indicators
-- Focus outline: `2px solid` with focus color + shadow level 200
-- Tab navigation supported throughout all interactive components
-- High contrast text: near-black on white exceeds WCAG AAA (>14:1 ratio)
+### Photography
+- Hero: full-bleed, food/restaurant interior, `.webp` format, `quality={95}`, unoptimized loading for hero priority
+- Object-fit cover with custom object-position (`70% center` on hero to keep subject right-of-center while text occupies left)
+- Mobile gradient fade overlays for legibility, never permanent overlays on desktop
+- Gallery: lightbox modal with `np-lightbox-image` reveal animation
 
-### Interactive States
-- **Default**: Standard appearance with whisper borders
-- **Hover**: Color shift on text, scale(1.05) on buttons, underline on links
-- **Active/Pressed**: scale(0.9) transform, darker background variant
-- **Focus**: Blue outline ring with shadow reinforcement
-- **Disabled**: Warm gray (`#a39e98`) text, reduced opacity
+### Icons
+- `lucide-react` icon set throughout (ArrowRight, Clock, etc.)
+- Inline SVG used for grain noise overlay (turbulence filter, 300×300 tile)
+- Custom Trattoria Marano logo wordmark in footer
 
-### Color Contrast
-- Primary text (rgba(0,0,0,0.95)) on white: ~18:1 ratio
-- Secondary text (#615d59) on white: ~5.5:1 ratio (WCAG AA)
-- Blue CTA (#0075de) on white: ~4.6:1 ratio (WCAG AA for large text)
-- Badge text (#097fe8) on badge bg (#f2f9ff): ~4.5:1 ratio (WCAG AA for large text)
+### Decorative Elements
+- Pizza tumble animation (decorative spin)
+- Sand-colored hairline column rules in newspaper grids
+- Double 4px Ink rules as editorial section breaks
+- Burgundy 28px × 1px bars flanking pullquotes (top + bottom)
 
-## 9. Agent Prompt Guide
+---
 
-### Quick Color Reference
-- Primary CTA: Notion Blue (`#0075de`)
-- Background: Pure White (`#ffffff`)
-- Alt Background: Warm White (`#f6f5f4`)
-- Heading text: Near-Black (`rgba(0,0,0,0.95)`)
-- Body text: Near-Black (`rgba(0,0,0,0.95)`)
-- Secondary text: Warm Gray 500 (`#615d59`)
-- Muted text: Warm Gray 300 (`#a39e98`)
-- Border: `1px solid rgba(0,0,0,0.1)`
-- Link: Notion Blue (`#0075de`)
-- Focus ring: Focus Blue (`#097fe8`)
+## 9. Iconography Recommendations (for Stitch / future icon work)
 
-### Example Component Prompts
-- "Create a hero section on white background. Headline at 64px NotionInter weight 700, line-height 1.00, letter-spacing -2.125px, color rgba(0,0,0,0.95). Subtitle at 20px weight 600, line-height 1.40, color #615d59. Blue CTA button (#0075de, 4px radius, 8px 16px padding, white text) and ghost button (transparent bg, near-black text, underline on hover)."
-- "Design a card: white background, 1px solid rgba(0,0,0,0.1) border, 12px radius. Use shadow stack: rgba(0,0,0,0.04) 0px 4px 18px, rgba(0,0,0,0.027) 0px 2.025px 7.85px, rgba(0,0,0,0.02) 0px 0.8px 2.93px, rgba(0,0,0,0.01) 0px 0.175px 1.04px. Title at 22px NotionInter weight 700, letter-spacing -0.25px. Body at 16px weight 400, color #615d59."
-- "Build a pill badge: #f2f9ff background, #097fe8 text, 9999px radius, 4px 8px padding, 12px NotionInter weight 600, letter-spacing 0.125px."
-- "Create navigation: white header. NotionInter 15px weight 600 for links, near-black text. Blue pill CTA 'Get Notion free' right-aligned (#0075de bg, white text, 4px radius)."
-- "Design an alternating section layout: white sections alternate with warm white (#f6f5f4) sections. Each section has 64-80px vertical padding, max-width 1200px centered. Section heading at 48px weight 700, line-height 1.00, letter-spacing -1.5px."
+When generating supporting icons, follow the established palette and stroke language:
+- Stroke: 1.75–3px (scales with size), round caps + round joins
+- Default color: Ink `#201515` on Cream `#fffefb`
+- Single-accent variant: Burgundy `#6b1535`
+- Subtle Sand `#c5c0b1` allowed for secondary linework
+- Avoid pure geometric circles — slight ovals (1.05–1.12) match brand tone
+- Avoid Material flat-design uniformity — slight stroke-weight variance feels hand-drawn
+- One asymmetric detail per icon to avoid AI-symmetric tells
 
-### Iteration Guide
-1. Always use warm neutrals -- Notion's grays have yellow-brown undertones (#f6f5f4, #31302e, #615d59, #a39e98), never blue-gray
-2. Letter-spacing scales with font size: -2.125px at 64px, -1.875px at 54px, -0.625px at 26px, normal at 16px
-3. Four weights: 400 (read), 500 (interact), 600 (emphasize), 700 (announce)
-4. Borders are whispers: 1px solid rgba(0,0,0,0.1) -- never heavier
-5. Shadows use 4-5 layers with individual opacity never exceeding 0.05
-6. The warm white (#f6f5f4) section background is essential for visual rhythm
-7. Pill badges (9999px) for status/tags, 4px radius for buttons and inputs
-8. Notion Blue (#0075de) is the only saturated color in core UI -- use it sparingly for CTAs and links
+---
+
+## 10. Anti-Patterns (Banned)
+
+- ❌ Pure `#000000` or `#ffffff` anywhere
+- ❌ `Inter` font (use PointPanther or Georgia)
+- ❌ Cool/blue-leaning grays — must lean warm
+- ❌ Gradient text on display headlines
+- ❌ Multiple accent colors in one section (Burgundy is the only one)
+- ❌ Drop shadows with single hard layer — always multi-layer burgundy-tinted stacks
+- ❌ Square line caps on icons — round only
+- ❌ Animating layout properties (`top`, `left`, `width`, `height`)
+- ❌ Centered hero text (we use left-aligned with negative-margin clamp pattern)
+- ❌ Filler "Scroll to explore" / bouncing chevrons
+- ❌ Generic 3-equal-card feature rows on editorial pages — use `.np-grid-2` asymmetric
+- ❌ Sticky headers (current header is non-sticky by design)
+- ❌ Full-page modals without grain or paper texture context on dark backgrounds
+- ❌ Tourist clichés in imagery: leaning Pisa towers, checkered flags, Vespa silhouettes
+- ❌ Emoji in production copy
+- ❌ Pure-black focus rings — always Burgundy `#6b1535`
+
+---
+
+## 11. Quick Reference Card
+
+| Token | Value |
+|---|---|
+| Page bg (marketing) | Cream `#fffefb` |
+| Page bg (editorial) | Parchment `#f0ebe0` |
+| Primary text | Ink `#201515` |
+| Secondary text | Charcoal `#36342e` (or `#6b1535` in `.np-body`) |
+| Muted text | Warm Gray 500 `#939084` |
+| Brand accent | Burgundy Marano `#6b1535` |
+| Border / divider | Sand `#c5c0b1` |
+| Display font | PointPanther |
+| Editorial font | Georgia |
+| Mono | JetBrains Mono |
+| Primary CTA radius | 6px |
+| Card radius | 12px (16px featured) |
+| Hairline border | 1px solid `#c5c0b1` |
+| Whisper border | 1px solid `rgba(107,21,53,0.1)` |
+| Section break (editorial) | 4px double `#201515` |
+| Card shadow | 4-layer burgundy-tinted, max opacity 0.04 |
+| Active scale | 0.97 |
+| Easing | `cubic-bezier(0.16, 1, 0.3, 1)` |
+| Reveal duration | 0.7s |
+| Focus ring | 2px solid `#6b1535`, 2px offset |
+| Hero headline | `clamp(2.8rem, 7.5vw, 5.5rem)` / lh 0.9 / -0.02em |
+| Locales supported | DE (default), EN, IT |

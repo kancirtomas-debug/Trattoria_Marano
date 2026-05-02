@@ -1,9 +1,9 @@
 "use client"
-import Link from "next/link"
+import Link from "@/components/LocaleLink"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
-import { useLanguage } from "@/context/LanguageContext"
+import { useLanguage, stripLocale } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
 
 const navLinks = [
@@ -16,7 +16,8 @@ const navLinks = [
 
 export default function Header() {
   const { lang, toggle } = useLanguage()
-  const pathname = usePathname()
+  const rawPathname = usePathname() || "/"
+  const pathname = stripLocale(rawPathname)
   const [open, setOpen] = useState(false)
 
   return (

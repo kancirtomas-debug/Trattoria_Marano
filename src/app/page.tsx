@@ -1,17 +1,19 @@
 "use client"
-import Link from "next/link"
+import Link from "@/components/LocaleLink"
 import Image from "next/image"
 import { ArrowRight, Clock } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
-import TestimonialsSection from "@/components/TestimonialsSection"
+import GoogleReviewsLive from "@/components/GoogleReviewsLive"
 import PrintedMenuSection from "@/components/PrintedMenuSection"
+import MenuJsonLd from "@/components/seo/MenuJsonLd"
 
 export default function HomePage() {
   const { lang } = useLanguage()
 
   return (
     <>
+      <MenuJsonLd />
       {/* ── Hero + hours = exactly 100vh ─────────────────────── */}
       <div style={{ height: "calc(100vh - 80px)", display: "flex", flexDirection: "column" }}>
 
@@ -123,8 +125,8 @@ export default function HomePage() {
 
       <div>
 
-          {/* Testimonials */}
-          <TestimonialsSection />
+          {/* Real Google reviews — live via Places API if env vars set, fallback link card otherwise */}
+          <GoogleReviewsLive />
 
           {/* Feature section — asymmetric layout */}
           <section className="py-16">
