@@ -13,6 +13,13 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
   const locale = detectLocale(pathname)
 
+  // Admin is single-language: redirect /en/admin* and /it/admin* → /admin*
+  if (pathname.startsWith("/en/admin") || pathname.startsWith("/it/admin")) {
+    const url = req.nextUrl.clone()
+    url.pathname = pathname.slice(3) // strip "/en" or "/it"
+    return NextResponse.redirect(url)
+  }
+
   const res = NextResponse.next()
   res.headers.set("x-locale", locale)
   res.headers.set("x-pathname", pathname)
