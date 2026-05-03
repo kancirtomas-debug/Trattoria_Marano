@@ -2,12 +2,26 @@ import { google, calendar_v3 } from "googleapis"
 
 const TIMEZONE = "Europe/Berlin"
 
+// Re-escape raw newlines that appear inside JSON string values so JSON.parse
+// can handle env-var values stored with literal newlines (common with multi-line
+// service-account JSON pasted into .env files or Vercel dashboard).
+function fixJsonNewlines(s: string): string {
+  let out = "", inStr = false, prev = ""
+  for (const c of s) {
+    if (c === '"' && prev !== "\\") inStr = !inStr
+    if (c === "\n" && inStr) out += "\\n"
+    else out += c
+    prev = c
+  }
+  return out
+}
+
 function getServiceAuth() {
   const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON
   if (!raw) throw new Error("GOOGLE_SERVICE_ACCOUNT_JSON is not set")
   const trimmed = raw.trim()
   const credentials = trimmed.startsWith("{")
-    ? JSON.parse(trimmed)
+    ? JSON.parse(fixJsonNewlines(trimmed))
     : JSON.parse(Buffer.from(trimmed, "base64").toString("utf-8"))
 
   return new google.auth.GoogleAuth({
