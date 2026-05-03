@@ -1,5 +1,4 @@
 "use client"
-import Image from "next/image"
 import Link from "@/components/LocaleLink"
 import { ArrowRight } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
@@ -33,16 +32,18 @@ const features = {
   ],
 }
 
-function PizzaIcon() {
+function BulletDot() {
   return (
-    <Image
-      src="/images/pizza-icon.webp"
-      alt=""
-      width={192}
-      height={192}
-      sizes="32px"
+    <span
       aria-hidden
-      style={{ width: 32, height: 32, flexShrink: 0, objectFit: "contain" }}
+      style={{
+        display: "inline-block",
+        width: 7,
+        height: 7,
+        borderRadius: "50%",
+        backgroundColor: "#36342e",
+        flexShrink: 0,
+      }}
     />
   )
 }
@@ -124,7 +125,7 @@ export default function AboutPage() {
                     borderBottom: "1px dotted #c5c0b1",
                   }}
                 >
-                  <PizzaIcon />
+                  <BulletDot />
                   {f}
                 </li>
               ))}
