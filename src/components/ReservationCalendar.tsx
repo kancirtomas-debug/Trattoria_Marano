@@ -131,8 +131,22 @@ export default function ReservationCalendar() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const newErrors: Record<string, string> = {}
-    if (!name.trim()) newErrors.name = lang === "de" ? "Name ist erforderlich" : lang === "it" ? "Il nome è obbligatorio" : "Name is required"
-    if (!phone.trim()) newErrors.phone = lang === "de" ? "Telefonnummer ist erforderlich" : lang === "it" ? "Il numero di telefono è obbligatorio" : "Phone number is required"
+    const trimmedName = name.trim()
+    const trimmedPhone = phone.trim()
+    const realName = /^[A-Za-zÀ-ÖØ-öø-ÿĀ-ſ][A-Za-zÀ-ÖØ-öø-ÿĀ-ſ\s'.\-]+$/.test(trimmedName)
+    const phoneDigits = trimmedPhone.replace(/\D/g, "")
+    const validPhone = /^[+]?[\d\s\-().]{6,}$/.test(trimmedPhone) && phoneDigits.length >= 6
+
+    if (!trimmedName) {
+      newErrors.name = lang === "de" ? "Name ist erforderlich" : lang === "it" ? "Il nome è obbligatorio" : "Name is required"
+    } else if (!realName) {
+      newErrors.name = lang === "de" ? "Bitte geben Sie einen echten Namen ein" : lang === "it" ? "Inserisci un nome reale" : "Please enter a real name"
+    }
+    if (!trimmedPhone) {
+      newErrors.phone = lang === "de" ? "Telefonnummer ist erforderlich" : lang === "it" ? "Il numero di telefono è obbligatorio" : "Phone number is required"
+    } else if (!validPhone) {
+      newErrors.phone = lang === "de" ? "Ungültige Telefonnummer" : lang === "it" ? "Numero di telefono non valido" : "Invalid phone number"
+    }
     if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return }
     setErrors({})
     setSubmitting(true)

@@ -48,6 +48,30 @@ export default function EventsPage() {
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
+
+    const trimmedName = form.name.trim()
+    const trimmedPhone = form.phone.trim()
+    const realName = /^[A-Za-zÀ-ÖØ-öø-ÿĀ-ſ][A-Za-zÀ-ÖØ-öø-ÿĀ-ſ\s'.\-]+$/.test(trimmedName)
+    const phoneDigits = trimmedPhone.replace(/\D/g, "")
+    const validPhone = /^[+]?[\d\s\-().]{6,}$/.test(trimmedPhone) && phoneDigits.length >= 6
+
+    if (!trimmedName) {
+      setError(lang === "de" ? "Name ist erforderlich." : lang === "it" ? "Il nome è obbligatorio." : "Name is required.")
+      return
+    }
+    if (!realName) {
+      setError(lang === "de" ? "Bitte geben Sie einen echten Namen ein." : lang === "it" ? "Inserisci un nome reale." : "Please enter a real name.")
+      return
+    }
+    if (!trimmedPhone) {
+      setError(lang === "de" ? "Telefonnummer ist erforderlich." : lang === "it" ? "Il numero di telefono è obbligatorio." : "Phone number is required.")
+      return
+    }
+    if (!validPhone) {
+      setError(lang === "de" ? "Ungültige Telefonnummer." : lang === "it" ? "Numero di telefono non valido." : "Invalid phone number.")
+      return
+    }
+
     setSubmitting(true)
     try {
       const typeToSend = isOther && customType.trim() ? customType.trim() : form.type
@@ -277,7 +301,7 @@ export default function EventsPage() {
                 <div className="np-form-row">
                   <div>
                     <label htmlFor="cf-phone" style={npLabel}>{t.events_page.f_phone[lang]}</label>
-                    <input id="cf-phone" style={npInput} value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
+                    <input id="cf-phone" required style={npInput} value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
                   </div>
                   <div>
                     <label htmlFor="cf-date" style={npLabel}>{t.events_page.f_date[lang]}</label>
