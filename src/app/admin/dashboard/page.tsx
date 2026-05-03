@@ -8,7 +8,7 @@ import timeGridPlugin from "@fullcalendar/timegrid"
 import interactionPlugin from "@fullcalendar/interaction"
 import deLocale from "@fullcalendar/core/locales/de"
 import type { EventClickArg, EventContentArg } from "@fullcalendar/core"
-import { useLanguage } from "@/context/LanguageContext"
+import { useAdminLang } from "../useAdminLang"
 import {
   LogOut, Loader2, X, Calendar, Clock, Users, Phone, Mail, MessageSquare, RefreshCw, Lock, Unlock,
 } from "lucide-react"
@@ -43,9 +43,7 @@ type CalEvent = {
 export default function AdminDashboard() {
   const router = useRouter()
   const { data: session, status } = useSession()
-  const { lang: rawLang, toggle } = useLanguage()
-  // Admin UI is DE/EN only; collapse Italian to English for child components
-  const lang: "de" | "en" = rawLang === "de" ? "de" : "en"
+  const { lang, toggle } = useAdminLang()
   const t = lang === "de"
     ? { signOut: "Abmelden", guests: (n: number) => n === 1 ? "Gast" : "Gäste", submitted: "Eingereicht am", sync: "Synchronisieren", syncing: "Wird sync…" }
     : { signOut: "Sign out",  guests: (n: number) => n === 1 ? "guest" : "guests", submitted: "Submitted", sync: "Sync calendar", syncing: "Syncing…" }

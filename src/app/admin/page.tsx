@@ -2,13 +2,13 @@
 import { signIn, useSession } from "next-auth/react"
 import { useState } from "react"
 import { Eye, EyeOff, ArrowRight, Loader2, ChevronRight } from "lucide-react"
-import { useLanguage } from "@/context/LanguageContext"
+import { useAdminLang } from "./useAdminLang"
 
 const ALLOWED_EMAIL = "maranotrattoria@gmail.com"
 
 export default function AdminLoginPage() {
   const { data: session, status } = useSession()
-  const { lang } = useLanguage()
+  const { lang } = useAdminLang()
   const de = lang === "de"
 
   const [step, setStep]       = useState<"password" | "google">("password")
