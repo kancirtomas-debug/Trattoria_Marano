@@ -4,7 +4,7 @@ import Image from "next/image"
 import { ArrowRight, Clock } from "lucide-react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
-import GoogleReviewsLive from "@/components/GoogleReviewsLive"
+import TestimonialsSection from "@/components/TestimonialsSection"
 import PrintedMenuSection from "@/components/PrintedMenuSection"
 import MenuJsonLd from "@/components/seo/MenuJsonLd"
 
@@ -125,8 +125,8 @@ export default function HomePage() {
 
       <div>
 
-          {/* Real Google reviews — live via Places API if env vars set, fallback link card otherwise */}
-          <GoogleReviewsLive />
+          {/* Testimonials — 3 animated columns of Google reviews */}
+          <TestimonialsSection />
 
           {/* Feature section — asymmetric layout */}
           <section className="py-16">
