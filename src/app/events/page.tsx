@@ -50,10 +50,14 @@ export default function EventsPage() {
     setError(null)
 
     const trimmedName = form.name.trim()
+    const trimmedEmail = form.email.trim()
     const trimmedPhone = form.phone.trim()
+    const trimmedLocation = form.location.trim()
     const realName = /^[A-Za-zÀ-ÖØ-öø-ÿĀ-ſ][A-Za-zÀ-ÖØ-öø-ÿĀ-ſ\s'.\-]+$/.test(trimmedName)
     const phoneDigits = trimmedPhone.replace(/\D/g, "")
     const validPhone = /^[+]?[\d\s\-().]{6,}$/.test(trimmedPhone) && phoneDigits.length >= 6
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)
+    const guestsNum = Number(form.guests)
 
     if (!trimmedName) {
       setError(lang === "de" ? "Name ist erforderlich." : lang === "it" ? "Il nome è obbligatorio." : "Name is required.")
@@ -63,12 +67,36 @@ export default function EventsPage() {
       setError(lang === "de" ? "Bitte geben Sie einen echten Namen ein." : lang === "it" ? "Inserisci un nome reale." : "Please enter a real name.")
       return
     }
+    if (!trimmedEmail) {
+      setError(lang === "de" ? "E-Mail ist erforderlich." : lang === "it" ? "L'e-mail è obbligatoria." : "Email is required.")
+      return
+    }
+    if (!validEmail) {
+      setError(lang === "de" ? "Ungültige E-Mail-Adresse." : lang === "it" ? "Indirizzo e-mail non valido." : "Invalid email address.")
+      return
+    }
     if (!trimmedPhone) {
       setError(lang === "de" ? "Telefonnummer ist erforderlich." : lang === "it" ? "Il numero di telefono è obbligatorio." : "Phone number is required.")
       return
     }
     if (!validPhone) {
       setError(lang === "de" ? "Ungültige Telefonnummer." : lang === "it" ? "Numero di telefono non valido." : "Invalid phone number.")
+      return
+    }
+    if (!form.guests || !Number.isFinite(guestsNum) || guestsNum < 1) {
+      setError(lang === "de" ? "Anzahl der Gäste ist erforderlich." : lang === "it" ? "Il numero di ospiti è obbligatorio." : "Number of guests is required.")
+      return
+    }
+    if (!form.type) {
+      setError(lang === "de" ? "Bitte Veranstaltungsart wählen." : lang === "it" ? "Seleziona il tipo di evento." : "Please select event type.")
+      return
+    }
+    if (isOther && !customType.trim()) {
+      setError(lang === "de" ? "Bitte beschreiben Sie die Veranstaltungsart." : lang === "it" ? "Descrivi il tipo di evento." : "Please describe the event type.")
+      return
+    }
+    if (!trimmedLocation) {
+      setError(lang === "de" ? "Veranstaltungsort / Adresse ist erforderlich." : lang === "it" ? "La sede / l'indirizzo è obbligatorio." : "Venue / address is required.")
       return
     }
 
@@ -315,7 +343,7 @@ export default function EventsPage() {
                   </div>
                   <div>
                     <label htmlFor="cf-type" style={npLabel}>{t.events_page.f_type[lang]}</label>
-                    <select id="cf-type" style={{ ...npInput, paddingRight: 18 }} value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}>
+                    <select id="cf-type" required style={{ ...npInput, paddingRight: 18 }} value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}>
                       <option value="">-</option>
                       {typeOptions.map(o => <option key={o} value={o}>{o}</option>)}
                     </select>
@@ -339,7 +367,7 @@ export default function EventsPage() {
                 )}
                 <div>
                   <label htmlFor="cf-location" style={npLabel}>{t.events_page.f_location[lang]}</label>
-                  <input id="cf-location" style={npInput} value={form.location} onChange={e => setForm(f => ({ ...f, location: e.target.value }))} />
+                  <input id="cf-location" required style={npInput} value={form.location} onChange={e => setForm(f => ({ ...f, location: e.target.value }))} />
                 </div>
                 <div>
                   <label htmlFor="cf-allergies" style={npLabel}>

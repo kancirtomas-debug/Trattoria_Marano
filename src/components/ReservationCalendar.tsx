@@ -133,9 +133,11 @@ export default function ReservationCalendar() {
     const newErrors: Record<string, string> = {}
     const trimmedName = name.trim()
     const trimmedPhone = phone.trim()
+    const trimmedEmail = email.trim()
     const realName = /^[A-Za-zÀ-ÖØ-öø-ÿĀ-ſ][A-Za-zÀ-ÖØ-öø-ÿĀ-ſ\s'.\-]+$/.test(trimmedName)
     const phoneDigits = trimmedPhone.replace(/\D/g, "")
     const validPhone = /^[+]?[\d\s\-().]{6,}$/.test(trimmedPhone) && phoneDigits.length >= 6
+    const validEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)
 
     if (!trimmedName) {
       newErrors.name = lang === "de" ? "Name ist erforderlich" : lang === "it" ? "Il nome è obbligatorio" : "Name is required"
@@ -146,6 +148,11 @@ export default function ReservationCalendar() {
       newErrors.phone = lang === "de" ? "Telefonnummer ist erforderlich" : lang === "it" ? "Il numero di telefono è obbligatorio" : "Phone number is required"
     } else if (!validPhone) {
       newErrors.phone = lang === "de" ? "Ungültige Telefonnummer" : lang === "it" ? "Numero di telefono non valido" : "Invalid phone number"
+    }
+    if (!trimmedEmail) {
+      newErrors.email = lang === "de" ? "E-Mail ist erforderlich" : lang === "it" ? "L'e-mail è obbligatoria" : "Email is required"
+    } else if (!validEmail) {
+      newErrors.email = lang === "de" ? "Ungültige E-Mail-Adresse" : lang === "it" ? "Indirizzo e-mail non valido" : "Invalid email address"
     }
     if (Object.keys(newErrors).length > 0) { setErrors(newErrors); return }
     setErrors({})
@@ -518,14 +525,13 @@ export default function ReservationCalendar() {
           <div>
             <label className="mono-label block mb-2">
               {lang === "de" ? "E-Mail" : lang === "it" ? "E-mail" : "Email"}
-              <span className="ml-1 normal-case font-normal" style={{ color: "#c5c0b1" }}>
-                {lang === "de" ? "(für Bestätigung & Erinnerung)" : lang === "it" ? "(per conferma & promemoria)" : "(for confirmation & reminder)"}
-              </span>
             </label>
             <input
-              type="email" value={email} onChange={e => setEmail(e.target.value)}
+              type="email" value={email}
+              onChange={e => { setEmail(e.target.value); setErrors(er => ({ ...er, email: "" })) }}
               className="input-underline" placeholder="ihre@email.de"
             />
+            {errors.email && <p className="text-xs mt-1.5" style={{ color: "#6b1535", fontFamily: "Georgia, serif" }}>{errors.email}</p>}
           </div>
 
           <div>
