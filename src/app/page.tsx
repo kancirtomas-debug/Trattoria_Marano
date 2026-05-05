@@ -130,7 +130,7 @@ export default function HomePage() {
 
           {/* Feature section — asymmetric layout */}
           <section className="py-16">
-            <div className="container-default">
+            <div className="container-wide">
               {/* Top row: wide left + narrow right */}
               <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mb-5">
                 {/* Events — 3 cols wide */}

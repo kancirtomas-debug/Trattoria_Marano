@@ -464,24 +464,28 @@ export default function ReservationCalendar() {
             <div className="flex items-center gap-4">
               <button
                 type="button"
+                aria-label={lang === "de" ? "Weniger Personen" : lang === "it" ? "Meno ospiti" : "Fewer guests"}
+                disabled={guests <= 1}
                 onClick={() => setGuests(g => Math.max(1, g - 1))}
-                className="w-9 h-9 rounded-full flex items-center justify-center font-medium transition-colors"
-                style={{ border: "1px solid #e5e0d5", color: "#36342e" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#6b1535"; (e.currentTarget as HTMLButtonElement).style.color = "#6b1535" }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#e5e0d5"; (e.currentTarget as HTMLButtonElement).style.color = "#36342e" }}
+                className="w-11 h-11 rounded-full flex items-center justify-center text-xl font-medium transition-colors"
+                style={{ border: "1px solid #e5e0d5", color: guests <= 1 ? "#c5c0b1" : "#36342e", cursor: guests <= 1 ? "not-allowed" : "pointer" }}
+                onMouseEnter={e => { if (guests > 1) { (e.currentTarget as HTMLButtonElement).style.borderColor = "#6b1535"; (e.currentTarget as HTMLButtonElement).style.color = "#6b1535" } }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#e5e0d5"; (e.currentTarget as HTMLButtonElement).style.color = guests <= 1 ? "#c5c0b1" : "#36342e" }}
               >
                 −
               </button>
-              <span className="font-heading text-2xl font-semibold w-8 text-center" style={{ color: "#201515" }}>
+              <span className="font-heading text-2xl font-semibold w-10 text-center" style={{ color: "#201515" }}>
                 {guests}
               </span>
               <button
                 type="button"
+                aria-label={lang === "de" ? "Mehr Personen" : lang === "it" ? "Più ospiti" : "More guests"}
+                disabled={guests >= 10}
                 onClick={() => setGuests(g => Math.min(10, g + 1))}
-                className="w-9 h-9 rounded-full flex items-center justify-center font-medium transition-colors"
-                style={{ border: "1px solid #e5e0d5", color: "#36342e" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#6b1535"; (e.currentTarget as HTMLButtonElement).style.color = "#6b1535" }}
-                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#e5e0d5"; (e.currentTarget as HTMLButtonElement).style.color = "#36342e" }}
+                className="w-11 h-11 rounded-full flex items-center justify-center text-xl font-medium transition-colors"
+                style={{ border: "1px solid #e5e0d5", color: guests >= 10 ? "#c5c0b1" : "#36342e", cursor: guests >= 10 ? "not-allowed" : "pointer" }}
+                onMouseEnter={e => { if (guests < 10) { (e.currentTarget as HTMLButtonElement).style.borderColor = "#6b1535"; (e.currentTarget as HTMLButtonElement).style.color = "#6b1535" } }}
+                onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.borderColor = "#e5e0d5"; (e.currentTarget as HTMLButtonElement).style.color = guests >= 10 ? "#c5c0b1" : "#36342e" }}
               >
                 +
               </button>
@@ -529,7 +533,8 @@ export default function ReservationCalendar() {
             <input
               type="email" value={email}
               onChange={e => { setEmail(e.target.value); setErrors(er => ({ ...er, email: "" })) }}
-              className="input-underline" placeholder="ihre@email.de"
+              className="input-underline"
+              placeholder={lang === "de" ? "ihre@email.de" : lang === "it" ? "tua@email.it" : "you@email.com"}
             />
             {errors.email && <p className="text-xs mt-1.5" style={{ color: "#6b1535", fontFamily: "Georgia, serif" }}>{errors.email}</p>}
           </div>

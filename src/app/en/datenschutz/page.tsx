@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
-export { default } from "@/app/datenschutz/page"
+import DatenschutzPage from "@/app/datenschutz/page"
+export default function Page() { return <DatenschutzPage /> }
 
 export const metadata: Metadata = {
   title: "Privacy Policy - Trattoria Marano Munich",

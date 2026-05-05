@@ -155,7 +155,7 @@ export default function TestimonialsSection() {
 
   return (
     <section className="py-20" style={{ background: "transparent", overflow: "hidden" }}>
-      <div style={{ maxWidth: 1720, margin: "0 auto", padding: "0 1.5rem" }}>
+      <div className="container-wide">
         {/* Header */}
         <Reveal className="text-center mb-10">
           <p

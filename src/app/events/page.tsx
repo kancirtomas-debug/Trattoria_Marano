@@ -1,7 +1,7 @@
 "use client"
 import Link from "@/components/LocaleLink"
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useLanguage } from "@/context/LanguageContext"
 import { t } from "@/lib/translations"
 import BreadcrumbJsonLd from "@/components/seo/BreadcrumbJsonLd"
@@ -45,6 +45,71 @@ export default function EventsPage() {
   const otherLabel  = typeOptions[typeOptions.length - 1]   // "Other" / "Anderes"
   const isOther     = form.type === otherLabel
 
+  // ── Custom date picker ─────────────────────────────────
+  const MONTHS_DE = ["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"]
+  const MONTHS_EN = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+  const MONTHS_IT = ["gennaio","febbraio","marzo","aprile","maggio","giugno","luglio","agosto","settembre","ottobre","novembre","dicembre"]
+  const DAYS_DE   = ["Mo","Di","Mi","Do","Fr","Sa","So"]
+  const DAYS_EN   = ["Mo","Tu","We","Th","Fr","Sa","Su"]
+  const DAYS_IT   = ["Lu","Ma","Me","Gi","Ve","Sa","Do"]
+  const monthsArr = lang === "de" ? MONTHS_DE : lang === "it" ? MONTHS_IT : MONTHS_EN
+  const daysArr   = lang === "de" ? DAYS_DE   : lang === "it" ? DAYS_IT   : DAYS_EN
+
+  const todayMidnight = (() => { const d = new Date(); d.setHours(0,0,0,0); return d })()
+  const initialView = form.date ? new Date(form.date) : todayMidnight
+  const [dateOpen, setDateOpen]   = useState(false)
+  const [viewYear, setViewYear]   = useState(initialView.getFullYear())
+  const [viewMonth, setViewMonth] = useState(initialView.getMonth())
+  const [hoverDay, setHoverDay]   = useState<number | null>(null)
+  const dateWrapRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!dateOpen) return
+    const onMouseDown = (e: MouseEvent) => {
+      if (dateWrapRef.current && !dateWrapRef.current.contains(e.target as Node)) setDateOpen(false)
+    }
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setDateOpen(false) }
+    document.addEventListener("mousedown", onMouseDown)
+    document.addEventListener("keydown", onKey)
+    return () => {
+      document.removeEventListener("mousedown", onMouseDown)
+      document.removeEventListener("keydown", onKey)
+    }
+  }, [dateOpen])
+
+  function fmtDateDisplay(s: string) {
+    if (!s) return ""
+    const d = new Date(s + "T00:00:00")
+    return new Intl.DateTimeFormat(lang === "de" ? "de-DE" : lang === "it" ? "it-IT" : "en-US",
+      { day: "2-digit", month: "long", year: "numeric" }).format(d)
+  }
+  function daysInMonth(y: number, m: number) { return new Date(y, m + 1, 0).getDate() }
+  function firstDayMon(y: number, m: number) { const d = new Date(y, m, 1).getDay(); return d === 0 ? 6 : d - 1 }
+  function prevMonthClick() {
+    if (viewMonth === 0) { setViewMonth(11); setViewYear(y => y - 1) } else setViewMonth(m => m - 1)
+  }
+  function nextMonthClick() {
+    if (viewMonth === 11) { setViewMonth(0); setViewYear(y => y + 1) } else setViewMonth(m => m + 1)
+  }
+  function pickDay(day: number) {
+    const d = new Date(viewYear, viewMonth, day)
+    if (d < todayMidnight) return
+    const iso = `${viewYear}-${String(viewMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+    setForm(f => ({ ...f, date: iso }))
+    setDateOpen(false)
+  }
+  function jumpToToday() {
+    const y = todayMidnight.getFullYear()
+    const m = todayMidnight.getMonth()
+    const d = todayMidnight.getDate()
+    setViewYear(y)
+    setViewMonth(m)
+    const iso = `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`
+    setForm(f => ({ ...f, date: iso }))
+    setDateOpen(false)
+  }
+  // ───────────────────────────────────────────────────────
+
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError(null)
@@ -81,6 +146,10 @@ export default function EventsPage() {
     }
     if (!validPhone) {
       setError(lang === "de" ? "Ungültige Telefonnummer." : lang === "it" ? "Numero di telefono non valido." : "Invalid phone number.")
+      return
+    }
+    if (!form.date) {
+      setError(lang === "de" ? "Datum des Events ist erforderlich." : lang === "it" ? "La data dell'evento è obbligatoria." : "Event date is required.")
       return
     }
     if (!form.guests || !Number.isFinite(guestsNum) || guestsNum < 1) {
@@ -215,7 +284,7 @@ export default function EventsPage() {
         </blockquote>
 
         {/* Catering form */}
-        <div className="np-grid-even-2" style={{ marginBottom: 12 }}>
+        <div className="np-grid-even-2 np-grid-form" style={{ marginBottom: 12 }}>
           <div>
             <p className="np-kicker">{lang === "de" ? "Anfragen" : lang === "it" ? "Richiedi" : "Inquire"}</p>
             <h2 className="np-h2">{t.events_page.form_title[lang]}</h2>
@@ -331,20 +400,201 @@ export default function EventsPage() {
                     <label htmlFor="cf-phone" style={npLabel}>{t.events_page.f_phone[lang]}</label>
                     <input id="cf-phone" required style={npInput} value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} />
                   </div>
-                  <div>
+                  <div ref={dateWrapRef} style={{ position: "relative" }}>
                     <label htmlFor="cf-date" style={npLabel}>{t.events_page.f_date[lang]}</label>
-                    <input id="cf-date" required type="date" style={npInput} value={form.date} onChange={e => setForm(f => ({ ...f, date: e.target.value }))} />
+                    <button
+                      id="cf-date"
+                      type="button"
+                      onClick={() => setDateOpen(o => !o)}
+                      aria-haspopup="dialog"
+                      aria-expanded={dateOpen}
+                      style={{
+                        ...npInput,
+                        textAlign: "left",
+                        cursor: "pointer",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: 8,
+                      }}
+                    >
+                      <span style={{ color: form.date ? "#201515" : "#939084", fontStyle: form.date ? "normal" : "italic" }}>
+                        {form.date
+                          ? fmtDateDisplay(form.date)
+                          : (lang === "de" ? "Datum wählen" : lang === "it" ? "Scegli la data" : "Pick a date")}
+                      </span>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b1535" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                        <rect x="3" y="4" width="18" height="18" rx="2" />
+                        <line x1="16" y1="2" x2="16" y2="6" />
+                        <line x1="8" y1="2" x2="8" y2="6" />
+                        <line x1="3" y1="10" x2="21" y2="10" />
+                      </svg>
+                    </button>
+
+                    {dateOpen && (
+                      <div
+                        role="dialog"
+                        aria-label={lang === "de" ? "Datum wählen" : lang === "it" ? "Scegli la data" : "Pick a date"}
+                        style={{
+                          position: "absolute",
+                          top: "calc(100% + 8px)",
+                          left: 0,
+                          right: 0,
+                          zIndex: 30,
+                          background: "#fffefb",
+                          border: "1px solid #e5e0d5",
+                          borderRadius: 8,
+                          boxShadow: "0 18px 44px rgba(32,21,21,0.14), 0 4px 12px rgba(32,21,21,0.06)",
+                          padding: 12,
+                          fontFamily: "Georgia, serif",
+                          animation: "reveal-up 0.22s cubic-bezier(0.16,1,0.3,1) both",
+                        }}
+                      >
+                        {/* Month nav */}
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "2px 4px 10px", borderBottom: "1px solid #f0ede6" }}>
+                          <button
+                            type="button"
+                            onClick={prevMonthClick}
+                            aria-label={lang === "de" ? "Vorheriger Monat" : lang === "it" ? "Mese precedente" : "Previous month"}
+                            style={{ width: 30, height: 30, border: "none", background: "transparent", color: "#6b1535", fontSize: 18, cursor: "pointer", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "#fdf8f5" }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent" }}
+                          >‹</button>
+                          <span style={{ fontWeight: 700, fontSize: 14, color: "#201515", letterSpacing: "0.01em" }}>
+                            {monthsArr[viewMonth]} {viewYear}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={nextMonthClick}
+                            aria-label={lang === "de" ? "Nächster Monat" : lang === "it" ? "Mese successivo" : "Next month"}
+                            style={{ width: 30, height: 30, border: "none", background: "transparent", color: "#6b1535", fontSize: 18, cursor: "pointer", borderRadius: 6, display: "flex", alignItems: "center", justifyContent: "center" }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "#fdf8f5" }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent" }}
+                          >›</button>
+                        </div>
+
+                        {/* Day labels */}
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", textAlign: "center", padding: "10px 0 4px", color: "#939084", fontSize: 10, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700 }}>
+                          {daysArr.map(d => <span key={d}>{d}</span>)}
+                        </div>
+
+                        {/* Day grid */}
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 2, padding: "4px 0 6px" }}>
+                          {Array.from({ length: firstDayMon(viewYear, viewMonth) }).map((_, i) => <span key={`e-${i}`} />)}
+                          {Array.from({ length: daysInMonth(viewYear, viewMonth) }).map((_, i) => {
+                            const day = i + 1
+                            const d = new Date(viewYear, viewMonth, day)
+                            const past = d < todayMidnight
+                            const iso = `${viewYear}-${String(viewMonth + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`
+                            const selected = form.date === iso
+                            const isTd = d.getTime() === todayMidnight.getTime()
+                            const hovered = hoverDay === day && !past && !selected
+                            return (
+                              <button
+                                type="button"
+                                key={day}
+                                disabled={past}
+                                onClick={() => pickDay(day)}
+                                onMouseEnter={() => setHoverDay(day)}
+                                onMouseLeave={() => setHoverDay(null)}
+                                style={{
+                                  aspectRatio: "1 / 1",
+                                  border: "none",
+                                  borderRadius: "50%",
+                                  background: selected ? "#6b1535" : hovered ? "#fdf8f5" : "transparent",
+                                  color: past ? "#d8d3c9" : selected ? "#fffefb" : isTd ? "#6b1535" : "#201515",
+                                  fontFamily: "Georgia, serif",
+                                  fontSize: 13,
+                                  fontWeight: (selected || isTd) ? 700 : 500,
+                                  cursor: past ? "not-allowed" : "pointer",
+                                  transition: "background 180ms ease, color 180ms ease",
+                                  outline: isTd && !selected ? "1px solid #6b1535" : "none",
+                                  outlineOffset: -3,
+                                }}
+                              >{day}</button>
+                            )
+                          })}
+                        </div>
+
+                        {/* Footer actions */}
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", borderTop: "1px solid #f0ede6", padding: "8px 4px 2px" }}>
+                          <button
+                            type="button"
+                            onClick={() => { setForm(f => ({ ...f, date: "" })); setDateOpen(false) }}
+                            style={{ background: "transparent", border: "none", color: "#939084", fontFamily: "Georgia, serif", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700, cursor: "pointer", padding: "4px 6px" }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#6b1535" }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "#939084" }}
+                          >
+                            {lang === "de" ? "Löschen" : lang === "it" ? "Cancella" : "Clear"}
+                          </button>
+                          <button
+                            type="button"
+                            onClick={jumpToToday}
+                            style={{ background: "transparent", border: "none", color: "#6b1535", fontFamily: "Georgia, serif", fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 700, cursor: "pointer", padding: "4px 6px" }}
+                            onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.color = "#201515" }}
+                            onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.color = "#6b1535" }}
+                          >
+                            {lang === "de" ? "Heute" : lang === "it" ? "Oggi" : "Today"}
+                          </button>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
                 <div className="np-form-row">
                   <div>
                     <label htmlFor="cf-guests" style={npLabel}>{t.events_page.f_guests[lang]}</label>
-                    <input id="cf-guests" required type="number" min={1} max={400} style={npInput} value={form.guests} onChange={e => setForm(f => ({ ...f, guests: e.target.value }))} />
+                    <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "4px 0", borderBottom: "1px solid #201515" }}>
+                      <button
+                        type="button"
+                        aria-label={lang === "de" ? "Weniger Gäste" : lang === "it" ? "Meno ospiti" : "Fewer guests"}
+                        onClick={() => setForm(f => ({ ...f, guests: String(Math.max(1, (Number(f.guests) || 1) - 1)) }))}
+                        style={{
+                          width: 34, height: 34, borderRadius: "50%",
+                          border: "1px solid #201515", background: "transparent",
+                          color: "#201515", fontSize: 20, fontWeight: 700, lineHeight: 1,
+                          cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                          fontFamily: "Georgia, serif", transition: "background 200ms ease, color 200ms ease",
+                        }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "#201515"; (e.currentTarget as HTMLButtonElement).style.color = "#f0ebe0" }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; (e.currentTarget as HTMLButtonElement).style.color = "#201515" }}
+                      >−</button>
+                      <input
+                        id="cf-guests"
+                        required
+                        type="number"
+                        min={1}
+                        max={400}
+                        className="np-stepper-input"
+                        style={{
+                          fontFamily: "Georgia, serif", fontSize: 16, fontWeight: 700,
+                          color: "#201515", background: "transparent", border: "none",
+                          outline: "none", padding: "6px 0", flex: 1, textAlign: "center", minWidth: 0,
+                        }}
+                        value={form.guests}
+                        onChange={e => setForm(f => ({ ...f, guests: e.target.value }))}
+                        placeholder="2"
+                      />
+                      <button
+                        type="button"
+                        aria-label={lang === "de" ? "Mehr Gäste" : lang === "it" ? "Più ospiti" : "More guests"}
+                        onClick={() => setForm(f => ({ ...f, guests: String(Math.min(400, (Number(f.guests) || 0) + 1)) }))}
+                        style={{
+                          width: 34, height: 34, borderRadius: "50%",
+                          border: "1px solid #201515", background: "transparent",
+                          color: "#201515", fontSize: 20, fontWeight: 700, lineHeight: 1,
+                          cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+                          fontFamily: "Georgia, serif", transition: "background 200ms ease, color 200ms ease",
+                        }}
+                        onMouseEnter={e => { (e.currentTarget as HTMLButtonElement).style.background = "#201515"; (e.currentTarget as HTMLButtonElement).style.color = "#f0ebe0" }}
+                        onMouseLeave={e => { (e.currentTarget as HTMLButtonElement).style.background = "transparent"; (e.currentTarget as HTMLButtonElement).style.color = "#201515" }}
+                      >+</button>
+                    </div>
                   </div>
                   <div>
                     <label htmlFor="cf-type" style={npLabel}>{t.events_page.f_type[lang]}</label>
                     <select id="cf-type" required style={{ ...npInput, paddingRight: 18 }} value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}>
-                      <option value="">-</option>
+                      <option value="">{lang === "de" ? "Bitte wählen" : lang === "it" ? "Seleziona" : "Choose one"}</option>
                       {typeOptions.map(o => <option key={o} value={o}>{o}</option>)}
                     </select>
                   </div>

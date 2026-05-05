@@ -104,6 +104,7 @@
 @media (prefers-reduced-motion: reduce) { .np-event-photo:hover .np-event-photo-img { transform: none; } }
 .np-grid-2 { display: grid; grid-template-columns: 3fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
 .np-grid-even-2 { display: grid; grid-template-columns: 1fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
+.np-grid-even-2.np-grid-form { grid-template-columns: minmax(0, 1fr) 1px minmax(360px, 1.55fr); }
 .np-grid-3 { display: grid; grid-template-columns: 1fr 1px 1fr 1px 1fr; gap: 0 24px; margin-bottom: 24px; }
 .np-catering-asym { display: grid; grid-template-columns: minmax(0, 1.4fr) 1px minmax(0, 1fr); gap: 0 28px; }
 .np-box { border: 1px solid #201515; padding: 14px; background: rgba(255,253,245,0.55); }
@@ -178,6 +179,14 @@
 .np-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 @media (max-width: 520px) { .np-form-row { grid-template-columns: 1fr; } }
 
+/* Hide native number spinners on the catering guests stepper */
+.np-stepper-input::-webkit-outer-spin-button,
+.np-stepper-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.np-stepper-input { -moz-appearance: textfield; appearance: textfield; }
+
 /* Focus for newspaper interactives */
 .np-page a:focus-visible,
 .np-page button:focus-visible,
@@ -199,6 +208,20 @@
   padding-bottom: 2px;
 }
 .np-link:hover { background-size: 100% 1.5px; color: #6b1535; }
+
+/* Strong inline link — terracotta, bold, underline always visible (privacy policy, legal text) */
+.np-link-strong, .np-page a.np-link-strong {
+  color: #6b1535;
+  font-weight: 700;
+  text-decoration: none;
+  background-image: linear-gradient(#6b1535, #6b1535);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1.5px;
+  padding-bottom: 2px;
+  transition: color 200ms ease, background-size 200ms ease;
+}
+.np-link-strong:hover, .np-page a.np-link-strong:hover { color: #201515; background-image: linear-gradient(#201515, #201515); }
 
 /* Button press feedback (newspaper CTA) */
 .np-page a[href], .np-page button { transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1), background-color 200ms ease, color 200ms ease, border-color 200ms ease, opacity 200ms ease; }
