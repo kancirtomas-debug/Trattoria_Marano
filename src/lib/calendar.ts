@@ -80,6 +80,56 @@ export async function createCalendarEvent(
   }
 }
 
+export type CateringForCalendar = {
+  name: string
+  email: string
+  phone?: string | null
+  date: string
+  guests: number
+  type?: string | null
+  location?: string | null
+  message?: string | null
+  allergies?: string | null
+}
+
+export async function createCateringCalendarEvent(
+  calendarId: string,
+  entry: CateringForCalendar,
+): Promise<string | null> {
+  try {
+    const description = [
+      `Type: ${entry.type || "—"}`,
+      `Guests: ${entry.guests}`,
+      `Email: ${entry.email}`,
+      entry.phone && `Phone: ${entry.phone}`,
+      entry.location && `Venue: ${entry.location}`,
+      entry.message && `Message: ${entry.message}`,
+      entry.allergies && `Allergies: ${entry.allergies}`,
+    ].filter(Boolean).join("\n")
+
+    // Google Calendar all-day events: end.date is exclusive (must be day after start)
+    const next = new Date(entry.date + "T00:00:00Z")
+    next.setUTCDate(next.getUTCDate() + 1)
+    const endDate = next.toISOString().slice(0, 10)
+
+    const { data } = await calendarClient().events.insert({
+      calendarId,
+      requestBody: {
+        summary: `CATERING INQUIRY: ${entry.name} (${entry.guests} guests${entry.type ? `, ${entry.type}` : ""})`,
+        description,
+        location: entry.location || "Trattoria Marano, Ohlmüllerstr. 22, 81541 München",
+        start: { date: entry.date },
+        end:   { date: endDate },
+        colorId: "5",
+      },
+    })
+    return data.id ?? null
+  } catch (err) {
+    console.error("[calendar] createCateringEvent failed:", err)
+    return null
+  }
+}
+
 export async function deleteCalendarEvent(
   calendarId: string,
   eventId: string,

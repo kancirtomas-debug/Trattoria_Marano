@@ -3,6 +3,8 @@ import {
   sendRestaurantCateringInquiry,
   sendGuestCateringThankYou,
 } from "@/lib/emails"
+import { getConfig } from "@/lib/config-store"
+import { createCateringCalendarEvent } from "@/lib/calendar"
 
 export async function POST(req: NextRequest) {
   try {
@@ -31,6 +33,12 @@ export async function POST(req: NextRequest) {
     }
 
     console.log("[catering]", entry)
+
+    const config = await getConfig().catch(() => null)
+    if (config?.calendarId) {
+      createCateringCalendarEvent(config.calendarId, entry).catch(err =>
+        console.error("[catering] calendar push failed:", err))
+    }
 
     if (process.env.RESEND_API_KEY) {
       await Promise.allSettled([
