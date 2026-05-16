@@ -249,15 +249,12 @@ export default function Footer() {
           >
             <Image
               src="/images/webzatyzden-icon.png"
-              alt=""
+              alt="Web za týždeň"
               width={56}
               height={56}
               style={{ height: 31, width: 31, objectFit: "contain" }}
               unoptimized
             />
-            <span style={{ color: "#e0d8ce", fontFamily: "var(--font-heading), sans-serif", fontWeight: 700, fontSize: "0.875rem", letterSpacing: "-0.01em", whiteSpace: "nowrap" }}>
-              Web za týždeň
-            </span>
           </a>
         </div>
       </div>
