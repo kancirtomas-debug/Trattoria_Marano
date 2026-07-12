@@ -1,0 +1,30 @@
+name: Reservation reminders
+
+# Replaces a sub-daily Vercel cron (requires Pro) with a free GitHub Actions
+# schedule. Hits the reminders endpoint, which sends the 3h-before
+# confirmation emails. Idempotent server-side via remindersSent, so overlap
+# with the daily Vercel cron is harmless.
+#
+# Schedule covers 06:00-20:59 UTC — reminder window is 150-210 min before the
+# reservation, so this reaches every reservation time from late morning
+# through the last dinner seating, while keeping Actions minutes low.
+
+on:
+  schedule:
+    - cron: "*/30 6-20 * * *"
+  workflow_dispatch:
+
+jobs:
+  send-reminders:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Call reminders endpoint
+        run: |
+          response=$(curl -s -w "\n%{http_code}" \
+            -H "Authorization: Bearer ${{ secrets.CRON_SECRET }}" \
+            https://trattoria-marano.de/api/cron/reminders)
+          body=$(echo "$response" | head -n -1)
+          code=$(echo "$response" | tail -n 1)
+          echo "HTTP $code — $body"
+          [ "$code" = "200" ] || exit 1
