@@ -44,7 +44,9 @@ export async function POST(req: NextRequest) {
     }
   }
 
-  sendReservationEmails({
+  // Must complete before the response returns — Vercel freezes the invocation
+  // after the response is sent, killing any in-flight fire-and-forget sends.
+  await sendReservationEmails({
     id: reservation.id,
     name, phone, email, date, time,
     guests: Number(guests),
