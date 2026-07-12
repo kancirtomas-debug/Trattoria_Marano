@@ -62,6 +62,9 @@ function appUrl(): string {
 function fromAddr(): string {
   return process.env.RESEND_FROM ?? "onboarding@resend.dev"
 }
+function replyToAddr(): string | undefined {
+  return process.env.RESEND_REPLY_TO || undefined
+}
 function restaurantEmail(): string {
   return process.env.RESTAURANT_EMAIL ?? "maranotrattoria@gmail.com"
 }
@@ -251,6 +254,7 @@ export async function sendGuestReservationConfirmation(data: ReservationData): P
 
   await send({
     from:    fromAddr(),
+    replyTo: replyToAddr(),
     to:      data.email,
     subject: tr(lang,
       "Reservierungsbestätigung - Trattoria Marano",
@@ -310,6 +314,7 @@ export async function sendGuest3hConfirmation(data: ReservationData): Promise<vo
 
   await send({
     from:    fromAddr(),
+    replyTo: replyToAddr(),
     to:      data.email,
     subject: tr(lang,
       "Bitte bestätigen - Ihre Reservierung in 3 Stunden",
@@ -357,6 +362,7 @@ export async function sendGuestCateringThankYou(data: CateringData): Promise<voi
 
   await send({
     from:    fromAddr(),
+    replyTo: replyToAddr(),
     to:      data.email,
     subject: tr(lang,
       "Anfrage erhalten - Trattoria Marano",
